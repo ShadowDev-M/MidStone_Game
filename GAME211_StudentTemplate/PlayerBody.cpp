@@ -55,6 +55,31 @@ void PlayerBody::Render( float scale )
 
 void PlayerBody::HandleEvents( const SDL_Event& event )
 {
+    switch (event.type) {
+
+    case SDL_KEYDOWN:
+
+        switch (event.key.keysym.scancode) {
+
+        case SDL_SCANCODE_W:
+            pos.y += 0.1f;
+            break;
+
+        case SDL_SCANCODE_S:
+            pos.y += -0.1f;
+            break;
+
+        case SDL_SCANCODE_D:
+            pos.x += 0.1f;
+            break;
+
+        case SDL_SCANCODE_A:
+            pos.x += -0.1f;
+            break;
+        }
+
+        break;
+    }
 }
 
 void PlayerBody::Update( float deltaTime )
