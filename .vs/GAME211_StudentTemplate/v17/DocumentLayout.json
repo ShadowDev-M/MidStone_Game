@@ -1,14 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\",
+  "WorkspaceRootPath": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\GAME211_StudentTemplate\\Scene1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Scene1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Inventory.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Inventory.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\GAME211_StudentTemplate\\Body.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Inventory.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Inventory.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Body.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Body.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Body.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Body.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Scene1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Scene1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,28 +30,67 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Inventory.cpp",
+              "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Inventory.cpp",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Inventory.cpp",
+              "ToolTip": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Inventory.cpp",
+              "RelativeToolTip": "GAME211_StudentTemplate\\Inventory.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-11T19:57:58.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Inventory.h",
+              "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Inventory.h",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Inventory.h",
+              "ToolTip": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Inventory.h",
+              "RelativeToolTip": "GAME211_StudentTemplate\\Inventory.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-09-11T19:50:35.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Body.h",
+              "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Body.h",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Body.h",
+              "ToolTip": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Body.h",
+              "RelativeToolTip": "GAME211_StudentTemplate\\Body.h",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-09-11T19:48:14.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Scene1.cpp",
-              "DocumentMoniker": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\GAME211_StudentTemplate\\Scene1.cpp",
+              "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Scene1.cpp",
               "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Scene1.cpp",
-              "ToolTip": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\GAME211_StudentTemplate\\Scene1.cpp",
+              "ToolTip": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Scene1.cpp",
               "RelativeToolTip": "GAME211_StudentTemplate\\Scene1.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAATAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAB8AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-09T18:08:45.652Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Body.cpp",
-              "DocumentMoniker": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\GAME211_StudentTemplate\\Body.cpp",
+              "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Body.cpp",
               "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Body.cpp",
-              "ToolTip": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\GAME211_StudentTemplate\\Body.cpp",
+              "ToolTip": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Body.cpp",
               "RelativeToolTip": "GAME211_StudentTemplate\\Body.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
