@@ -12,12 +12,9 @@ class Inventory
 	const char* extraInventory[15];
 
 public:
-	void InventorySelector();
-
+	
 	Inventory()
 	{
-		int playerCurrentItem = 0;
-
 		mainInventory[0] = &hotkey1;
 		mainInventory[1] = &hotkey2;
 		mainInventory[2] = &hotkey3;
