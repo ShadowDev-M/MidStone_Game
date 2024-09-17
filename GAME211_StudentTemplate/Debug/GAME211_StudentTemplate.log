@@ -1,4 +1,9 @@
 ﻿  Scene1.cpp
-  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
-  This questionable: Vec4 inverse(const Vec4& v)
-  GAME211_StudentTemplate.vcxproj -> C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\Debug\GAME211_StudentTemplate.exe
+C:\Users\joel\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\ChunkHandler.h(22,20): warning C4101: 'chunkIndexY': unreferenced local variable
+  (compiling source file 'Scene1.cpp')
+  
+C:\Users\joel\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\ChunkHandler.h(22,7): warning C4101: 'chunkIndexX': unreferenced local variable
+  (compiling source file 'Scene1.cpp')
+  
+C:\Users\joel\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp(40,15): warning C4930: 'ChunkHandler RegionOne(void)': prototyped function not called (was a variable definition intended?)
+  GAME211_StudentTemplate.vcxproj -> C:\Users\joel\Documents\GitHub\MidStone_Game\Debug\GAME211_StudentTemplate.exe
