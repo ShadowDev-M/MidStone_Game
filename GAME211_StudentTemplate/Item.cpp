@@ -1,6 +1,11 @@
 #include "Item.h"
 #include <cmath>
 
+//
+// THIS SECTION HAS PLACEHOLDERS, THE CHECKINRANGE FUNCTION CURRENTLY CHECKS THE MOUSE POSITION AND COMPARES IT TO THE CENTRE OF THE SCREEN
+// cont'd. WHAT IT WILL COMPARE IN THE FUTURE, IS PLAYERS POSITION TO ENEMY POSITION
+//
+
 void Item::CheckInRange(SDL_Window* window) {
     // Get the window's size
     int windowWidth, windowHeight;
@@ -16,7 +21,7 @@ void Item::CheckInRange(SDL_Window* window) {
     // Calculate the distance between the mouse position and the center of the screen
     float distX = mouseX - center.x;
     float distY = mouseY - center.y;
-    float MouseDistance = std::sqrt(distX * distX + distY * distY);
+    float MouseDistance = sqrt(distX * distX + distY * distY);
 
     // Check if the distance is within the radius (range)
     inRange = (MouseDistance <= range);

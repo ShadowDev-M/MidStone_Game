@@ -1,9 +1,5 @@
 #pragma once
-#include <VMath.h>
-#include <Vector.h>
 #include <SDL.h>
-
-using namespace MATH;
 
 class Item
 {
