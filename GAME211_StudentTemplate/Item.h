@@ -1,15 +1,16 @@
 #pragma once
 #include <VMath.h>
 #include <Vector.h>
+#include <SDL.h>
 
 using namespace MATH;
 
 class Item
 {
-	bool weapon;
-	bool utility;
-	bool tile; //if the item is a type of tyle
-	bool consumable; //you never know, maybe it will hurt you :)
+	bool weapon = false;
+	bool utility = false;
+	bool tile = false; //if the item is a type of tyle
+	bool consumable = false; //you never know, maybe it will hurt you :)
 	bool inRange;
 
 	float chargeTime; //for ranged weapons, maybe reload times as well
@@ -19,9 +20,9 @@ class Item
 	float heal; //positive value per item use
 	float selfHurt; //negative value per item use
 	float range;
-	
-	float actualRange = range * 2 * 3.14159265357989323;
-	float rangeArea = 3.14159265357989323 * (range * range);
+
+public:
+	void CheckInRange(SDL_Window* window);
 
 };
 

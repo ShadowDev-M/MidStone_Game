@@ -11,6 +11,14 @@
       "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Item.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Item.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Item.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\PlayerBody.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\PlayerBody.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Body.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Body.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -34,8 +42,33 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Item.cpp",
+              "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Item.cpp",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Item.cpp",
+              "ToolTip": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Item.cpp",
+              "RelativeToolTip": "GAME211_StudentTemplate\\Item.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-17T04:01:29.272Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PlayerBody.h",
+              "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\PlayerBody.h",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\PlayerBody.h",
+              "ToolTip": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\PlayerBody.h",
+              "RelativeToolTip": "GAME211_StudentTemplate\\PlayerBody.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-09-12T20:20:37.022Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -44,14 +77,14 @@
               "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Item.h",
               "ToolTip": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Item.h",
               "RelativeToolTip": "GAME211_StudentTemplate\\Item.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA9AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-09-13T19:17:18.502Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Inventory.cpp",
               "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Inventory.cpp",
               "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Inventory.cpp",
@@ -76,7 +109,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Body.h",
               "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Body.h",
               "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Body.h",
@@ -88,7 +121,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Scene1.cpp",
               "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Scene1.cpp",
               "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Scene1.cpp",
@@ -100,7 +133,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "Body.cpp",
               "DocumentMoniker": "C:\\Users\\danru\\OneDrive\\Documents\\GitHub\\MidStone_Game\\GAME211_StudentTemplate\\Body.cpp",
               "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Body.cpp",
