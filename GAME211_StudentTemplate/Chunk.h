@@ -6,7 +6,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <vector>
-
+#include "TileInfo.h"
 using namespace MATH;
 
 
@@ -38,7 +38,7 @@ public:
 
     ~Chunk();
 
-	Chunk(std::vector<Vec2> indexVector_, std::vector<int> savedIDVector_);
+	Chunk(std::vector<TileInfo> indexVector_);
 	//constructor for chunk, parametres are a vector for saved tiles and its index, assume both vectors share an index for each information
 	  
     /// <returns>id of specific index</returns>
@@ -49,7 +49,7 @@ public:
     /// </summary>
     /// <param name="indexVector_"> The list for each tile's index to be changed</param>
     /// <param name="savedIDVector_">The list for each tile's id to be changed</param>
-    void setTile(std::vector<Vec2> indexVector_, std::vector<int> savedIDVector_);
+    void setTile(std::vector<TileInfo> indexVector_);
 
     void printChunk() {
        
@@ -65,6 +65,6 @@ public:
         std::cout << std::endl;
 
 
-    }
+        }
     };
 #endif

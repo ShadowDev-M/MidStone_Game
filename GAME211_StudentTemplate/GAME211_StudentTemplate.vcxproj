@@ -34,6 +34,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Chunk.h" />
     <ClInclude Include="ChunkHandler.h" />
+    <ClInclude Include="TileInfo.h" />
     <ClInclude Include="PlayerBody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />

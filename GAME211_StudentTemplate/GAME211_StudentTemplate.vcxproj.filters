@@ -77,5 +77,8 @@
     <ClInclude Include="ChunkHandler.h">
       <Filter>Header Files\JDim</Filter>
     </ClInclude>
+    <ClInclude Include="TileInfo.h">
+      <Filter>Header Files\JDim</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

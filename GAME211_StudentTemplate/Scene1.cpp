@@ -39,16 +39,16 @@ bool Scene1::OnCreate() {
 
 	ChunkHandler RegionOne();
 
-	std::vector<Vec2> changesIndex = { 
-		{0,0}, {0,1}, {0,2}, {0,3}, {0,4}, {0,5}, {0,6}, {0,7}, {0,8}, {0,9}, {0,10}, {0,11}, {0,12}, {0,13}, {0,14}, {0,15},
-        {1,0}, {1,1}, {1,2}, {1,3}, {1,4}, {1,5}, {1,6}, {1,7}, {1,8}, {1,9}, {1,10}, {1,11}, {1,12}, {1,13}, {1,14}, {1,-10} };
-	std::vector<int> changesValues = { 1, 1, 6, 7, 4, 5, 8, 4, 6, 8, 4, 3, 7, 8, 5, 3, 1, 1, 6, 7, 4, 5, 8, 4, 6, 8, 4, 3, 7, 8, 5, 3};
+	std::vector<TileInfo> changesIndex = { 
+		{0,0,1}, {0,1,1}, {0,2,1}, {0,3,1}, {0,4,1}, {0,5,1}, {0,6,1}, {0,7,1}, {0,8,1}, {0,9,1}, {0,10,1}, {0,11,1}, {0,12,1}, {0,13,1}, {0,14,1}, {0,15,1},
+        {1,0,1}, {1,1,1}, {1,2,1}, {1,3,1}, {1,4,1}, {1,5,1}, {1,6,1}, {1,7,1}, {1,8,1}, {1,9,1}, {1,10,1}, {1,11,1}, {1,12,1}, {1,13,1}, {1,14,1}, {1,-10,1} };
 	
-	Chunk testChunk(changesIndex, changesValues);
+	
+	Chunk testChunk(changesIndex);
 
 	testChunk.printChunk();
 
-	testChunk.setTile(changesIndex, changesValues);
+	testChunk.setTile(changesIndex);
 
 	testChunk.printChunk();
 
