@@ -1,7 +1,9 @@
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Body.cpp;C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Debug\Body.obj
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\GameManager.cpp;C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Debug\GameManager.obj
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Main.cpp;C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Debug\Main.obj
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\PlayerBody.cpp;C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Debug\PlayerBody.obj
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Scene1.cpp;C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Debug\Scene1.obj
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Timer.cpp;C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Debug\Timer.obj
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Window.cpp;C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\GAME211_StudentTemplate\Debug\Window.obj
+D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Body.cpp;D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Debug\Body.obj
+D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Collision.cpp;D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Debug\Collision.obj
+D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\GameManager.cpp;D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Debug\GameManager.obj
+D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Main.cpp;D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Debug\Main.obj
+D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\PlayerBody.cpp;D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Debug\PlayerBody.obj
+D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp;D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Debug\Scene1.obj
+D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\TestBlock.cpp;D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Debug\TestBlock.obj
+D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Timer.cpp;D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Debug\Timer.obj
+D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Window.cpp;D:\_Humber\Sem 3\MidStone\MidStone_Game\GAME211_StudentTemplate\Debug\Window.obj
