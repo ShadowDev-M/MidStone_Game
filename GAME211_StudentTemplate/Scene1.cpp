@@ -26,13 +26,13 @@ bool Scene1::OnCreate() {
 
 	// Set player image to PacMan
 
-	SDL_Surface* image;
-	SDL_Texture* texture;
+	SDL_Surface* playerImage;
+	SDL_Texture* playerTexture;
 
-	image = IMG_Load("pacman.png");
-	texture = SDL_CreateTextureFromSurface(renderer, image);
-	game->getPlayer()->setImage(image);
-	game->getPlayer()->setTexture(texture);
+	playerImage = IMG_Load("pacman.png");
+	playerTexture = SDL_CreateTextureFromSurface(renderer, playerImage);
+	//game->getPlayer()->setImage(playerImage);
+	//game->getPlayer()->setTexture(playerTexture);
 
 	return true;
 }
@@ -50,7 +50,7 @@ void Scene1::Render() {
 	SDL_RenderClear(renderer);
 
 	// render the player
-	game->RenderPlayer(0.10f);
+	game->getPlayer()->Render(0.10f);
 
 	SDL_RenderPresent(renderer);
 }
