@@ -10,20 +10,11 @@ SceneM::SceneM(SDL_Window* sdlWindow_, GameManager* game_) {
 	yAxis = 15.0f;
 
 
-	// Default way to create a new surface/texture for this engine
-	// going to rework it cause its not efficient
-	/*
-	test = new Body();
-	SDL_Texture* texture;
-	texture = IMG_LoadTexture(renderer, "pinky.png");
 
-	test->setTexture(texture);
-	*/
+	playGameButton = new Body(Vec3(10.0f, 8.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	playGameButton->SetTextureFile("textures/MenuBar1.png");
 
-	test = new Body(Vec3(10.0f, 10.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
-	test->SetTextureFile("textures/pinky.png");
-
-	testTexture = nullptr;
+	playGameBTexture = nullptr;
 
 }
 
@@ -47,7 +38,7 @@ bool SceneM::OnCreate() {
 		return false;
 	}
 
-	testTexture = loadImage(test->GetTextureFile());
+	playGameBTexture = loadImage(playGameButton->GetTextureFile());
 	
 	return true;
 }
@@ -68,10 +59,10 @@ void SceneM::Render() {
 	SDL_RenderClear(renderer);
 
 	// It works
-	Vec3 testScreenCoords = screenCoords(test->getPos());
-	SDL_Rect dest = scale(testTexture, testScreenCoords.x, testScreenCoords.y, 0.5f);
+	Vec3 playButtonScreenCoords = screenCoords(playGameButton->getPos());
+	SDL_Rect dest = scale(playGameBTexture, playButtonScreenCoords.x, playButtonScreenCoords.y, 0.5f);
 	// test
-	SDL_RenderCopy(renderer, testTexture, nullptr, &dest);
+	SDL_RenderCopy(renderer, playGameBTexture, nullptr, &dest);
 
 	
 
@@ -83,11 +74,29 @@ void SceneM::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
+
+	switch (event.type) {
+	case SDL_MOUSEMOTION:
+		
+		break;
+	case SDL_MOUSEBUTTONDOWN:
+		
+		break;
+	case SDL_MOUSEBUTTONUP:
+		
+		break;
+
+	}
 }
 
 Vec3 SceneM::screenCoords(Vec3 gameCoords)
 {	
 	return projectionMatrix * gameCoords;
+}
+
+Vec3 SceneM::worldCoords(Vec3 physicsCoords)
+{
+	return inverseProjection * physicsCoords;
 }
 
 
@@ -139,13 +148,13 @@ SDL_Rect SceneM::scale(SDL_Texture* objectTexture, int start_x, int start_y, flo
 
 void SceneM::OnDestroy() {
 	// Free loaded images
-	SDL_DestroyTexture(testTexture);
-	testTexture = nullptr;
+	SDL_DestroyTexture(playGameBTexture);
+	playGameBTexture = nullptr;
 }
 
 
 SceneM::~SceneM() {
 	std::cout << "deleting child class: SceneM." << std::endl;
 	// delete
-	delete test;
+	delete playGameButton;
 }

@@ -1,6 +1,8 @@
 #ifndef SCENEM_H
 #define SCENEM_H
 
+#include <SDL.h>
+#include <SDL_image.h>
 #include <MMath.h>
 #include "Scene.h"
 
@@ -15,8 +17,8 @@ private:
 	Matrix4     inverseProjection;	// set in OnCreate()
 
 
-	Body* test;
-	SDL_Texture* testTexture;
+	Body* playGameButton;
+	SDL_Texture* playGameBTexture;
 
 	//Setting up new stuff, important some from old framework
 	// will put in a better place after to use everywhere
@@ -56,10 +58,12 @@ public:
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
 
-
+	//.pos
 	// Takes game/physics coords of an object 
 	// and multiples it by the projection matrix to get screen coords
 	Vec3 screenCoords(Vec3 gameCoords);
+
+	Vec3 worldCoords(Vec3 physicsCoords);
 
 };
 
