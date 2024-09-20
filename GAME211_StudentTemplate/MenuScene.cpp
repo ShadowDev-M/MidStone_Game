@@ -20,13 +20,15 @@ SceneM::SceneM(SDL_Window* sdlWindow_, GameManager* game_) {
 	test->setTexture(texture);
 	*/
 
-	test = new Body();
+	test = new Body(Vec3(10.0f, 10.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	test->SetTextureFile("textures/pinky.png");
 
 	testTexture = nullptr;
 
 }
 
+// Interactable Mouse stuff after, once I get something displayed
+// Shouldn't take long to do
 bool SceneM::OnCreate() {
 	// Check to make sure loading new scene works
 	std::cout << "Entering MainMenu" << std::endl;
@@ -65,8 +67,13 @@ void SceneM::Render() {
 	// Clear the screen
 	SDL_RenderClear(renderer);
 
+	// It works
+	Vec3 testScreenCoords = screenCoords(test->getPos());
+	SDL_Rect dest = scale(testTexture, testScreenCoords.x, testScreenCoords.y, 0.5f);
 	// test
-	SDL_RenderCopy(renderer, testTexture, nullptr, nullptr);
+	SDL_RenderCopy(renderer, testTexture, nullptr, &dest);
+
+	
 
 	// update screen
 	SDL_RenderPresent(renderer);
