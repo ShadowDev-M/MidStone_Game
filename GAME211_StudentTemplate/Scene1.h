@@ -14,6 +14,20 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
     Matrix4     inverseProjection;	// set in OnCreate()
 
+	/// Load an image into a texture object.
+	/// <param name="textureFile">image file</param>
+	/// <returns>The SDL texture of this image</returns>
+	SDL_Texture* loadImage(const char* textureFile);
+
+	/// Generate a rectangle that will encompass a scaled version of the texture.	
+	/// <param name="objectTexture">The texture object of the image</param>
+	/// <param name="start_x">The new x location of the image's upper left corner</param>
+	/// <param name="start_y">The new y location of the image's upper left corner</param>
+	/// <param name="scale">The scale of the image </param>
+	/// <returns>A rectangle that the texture will be rendered inside</returns>
+	SDL_Rect scale(SDL_Texture* objectTexture,
+		int start_x = 0, int start_y = 0, float scale = 1.0f);
+
 public:
 	// This constructor may be different from what you've seen before
 	// Notice the second parameter, and look in GameManager.cpp
@@ -30,6 +44,10 @@ public:
 	SDL_Window* getWindow() { return window; }
     Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
+
+	// Takes game/physics coords of an object 
+	// and multiples it by the projection matrix to get screen coords
+	Vec3 screenCoords(Vec3 gameCoords);
 };
 
 #endif

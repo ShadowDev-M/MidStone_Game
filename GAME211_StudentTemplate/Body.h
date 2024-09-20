@@ -23,6 +23,8 @@ protected:
 	Vec3 imageSizeWorldCoords;
     SDL_Surface* image;
     SDL_Texture* texture;
+    // For new texture rendering
+    const char* textureFile = "";
 
 public:
     Body();
@@ -55,6 +57,21 @@ public:
 
     virtual void setTexture( SDL_Texture* texture_ ) { texture = texture_; }
     virtual SDL_Texture* getTexture() { return texture; }
+
+
+    // Not setting to virtual for now
+    // will set later depending on playerbody
+
+     /// Set a new texture file for this body	
+    /// <param name="textureFile_">The new texture file</param>
+    virtual void SetTextureFile(const char* textureFile_) {
+        textureFile = textureFile_;
+    }
+
+    /// <returns>The texture of this body</returns>
+    virtual const char* GetTextureFile() {
+        return textureFile;
+    }
 
     virtual void HandleEvents( const SDL_Event& event );
 
