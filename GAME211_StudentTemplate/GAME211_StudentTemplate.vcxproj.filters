@@ -45,6 +45,7 @@
     <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Chunk.cpp">
       <Filter>Source Files\JDim</Filter>
     </ClCompile>
@@ -56,6 +57,16 @@
     </ClCompile>
     <ClCompile Include="MenuScene.cpp">
       <Filter>Source Files\Scenes</Filter>
+=======
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enhancement.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> origin/inventory-branch
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +85,7 @@
     <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Chunk.h">
       <Filter>Header Files\JDim</Filter>
     </ClInclude>
@@ -96,6 +108,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
+=======
+    <ClInclude Include="Inventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enhancement.h">
+>>>>>>> origin/inventory-branch
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
