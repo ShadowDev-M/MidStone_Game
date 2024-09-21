@@ -1,5 +1,8 @@
 #include "Scene1.h"
 #include <VMath.h>
+#include "Chunk.h"
+#include "ChunkHandler.h"
+
 
 // See notes about this constructor in Scene1.h.
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
@@ -10,10 +13,15 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
 	yAxis = 15.0f;
 }
 
-Scene1::~Scene1(){
-}
+// To render chunks and set id to tiles need to setup camera first
+// Once camera is set, use it to only render tiles inside the camera (good for optimizaion)
+
+// Once that is done, setup attaching tile ids to specific images to load in. 
 
 bool Scene1::OnCreate() {
+	// Check to make sure loading scene works
+	std::cout << "Entering Scene1" << std::endl;
+	
 	int w, h;
 	SDL_GetWindowSize(window,&w,&h);
 
@@ -21,11 +29,17 @@ bool Scene1::OnCreate() {
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
 
-	/// Turn on the SDL imaging subsystem
-	IMG_Init(IMG_INIT_PNG);
+	// Initialize PNG image loading
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags)) {
+		std::cout << "SDL_image Error: " << IMG_GetError() << std::endl;
+		return false;
+	}
 
 	// Set player image to PacMan
 
+	// Old way of rendering player, but since most player info is stored in playerbody
+	// use it for now
 	SDL_Surface* image;
 	SDL_Texture* texture;
 
@@ -34,15 +48,30 @@ bool Scene1::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	ChunkHandler RegionOne();
+
+	std::vector<TileInfo> changesIndex = { 
+		{0,0,1}, {0,1,1}, {0,2,1}, {0,3,1}, {0,4,1}, {0,5,1}, {0,6,1}, {0,7,1}, {0,8,1}, {0,9,1}, {0,10,1}, {0,11,1}, {0,12,1}, {0,13,1}, {0,14,1}, {0,15,1},
+        {1,0,1}, {1,1,1}, {1,2,1}, {1,3,1}, {1,4,1}, {1,5,1}, {1,6,1}, {1,7,1}, {1,8,1}, {1,9,1}, {1,10,1}, {1,11,1}, {1,12,1}, {1,13,1}, {1,14,1}, {1,15,1} };
+	
+	
+	Chunk testChunk(changesIndex);
+
+	testChunk.printChunk();
+
+	testChunk.setTile(changesIndex);
+
+	testChunk.printChunk();
+
 	return true;
 }
-
-void Scene1::OnDestroy() {}
 
 void Scene1::Update(const float deltaTime) {
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
+
+	
 }
 
 void Scene1::Render() {
@@ -59,4 +88,62 @@ void Scene1::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
+}
+
+Vec3 Scene1::screenCoords(Vec3 gameCoords)
+{
+	return projectionMatrix * gameCoords;
+}
+
+// Creates a surface (cpu) and converts it to a texture (gpu)
+// Surface is better for rendering single objects like the player
+// However the gpu is most of the time always better in all cases
+// mostly because its faster and can handle more (use for tiling and chunks)
+SDL_Texture* Scene1::loadImage(const char* textureFile)
+{
+	// The following is a typical chunk of code for creating 
+	// a texture in SDL
+
+	// The final texture
+	SDL_Texture* newTexture = nullptr;
+
+	// Load image at specified path
+	SDL_Surface* loadedSurface = IMG_Load(textureFile);
+	if (!loadedSurface)
+	{
+		std::cout << "Unable to load image " << textureFile <<
+			"! SDL_image Error: " << IMG_GetError() << std::endl;
+	}
+	else
+	{
+		// Create texture from surface pixels
+		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		if (!newTexture)
+		{
+			std::cout << "Unable to create texture " << textureFile <<
+				"! SDL Error: " << SDL_GetError() << std::endl;
+		}
+
+		// Get rid of old loaded surface
+		SDL_FreeSurface(loadedSurface);
+	}
+
+	return newTexture;
+}
+
+//
+SDL_Rect Scene1::scale(SDL_Texture* objectTexture, int start_x, int start_y, float scale)
+{
+	// Get size of the input texture in pixels
+	SDL_Point size{};
+	SDL_QueryTexture(objectTexture, nullptr, nullptr, &size.x, &size.y);
+	SDL_Rect dest = { start_x, start_y, size.x * scale, size.y * scale };
+	return dest;
+}
+
+void Scene1::OnDestroy() {
+
+}
+
+Scene1::~Scene1() {
 }

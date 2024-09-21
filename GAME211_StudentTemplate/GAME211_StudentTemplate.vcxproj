@@ -22,14 +22,21 @@
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
     <ClCompile Include="Scene1.cpp" />
+    <ClCompile Include="Chunk.cpp" />
+    <ClCompile Include="ChunkHandler.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Chunk.h" />
+    <ClInclude Include="ChunkHandler.h" />
+    <ClInclude Include="MenuScene.h" />
+    <ClInclude Include="TileInfo.h" />
     <ClInclude Include="PlayerBody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
