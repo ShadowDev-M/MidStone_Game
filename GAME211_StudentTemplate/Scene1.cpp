@@ -38,7 +38,7 @@ bool Scene1::OnCreate() {
 
 	// This way of rendering the player is fine since most of the information for the player is stored in its own class
 	// However any new rendering should be done with the new methods
-	
+
 	// Set player image to PacMan
 	SDL_Surface* image;
 	SDL_Texture* texture;
