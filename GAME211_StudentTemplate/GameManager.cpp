@@ -7,7 +7,7 @@ GameManager::GameManager() {
 	timer = nullptr;
 	isRunning = true;
 	currentScene = nullptr;
-    player = nullptr;
+    player = nullptr; 
 }
 
 bool GameManager::OnCreate() {
@@ -39,38 +39,39 @@ bool GameManager::OnCreate() {
 
     currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
     
-    // create player
-    float mass = 1.0f;
-    float radius = 0.5f;
-    float orientation = 0.0f;
-    float rotation = 0.0f;
-    float angular = 0.0f;
-    Vec3 position(0.5f * currentScene->getxAxis(), 0.5f * currentScene->getyAxis(), 0.0f);
-    Vec3 velocity(0.0f, 0.0f, 0.0f);
-    Vec3 acceleration(0.0f, 0.0f, 0.0f);
+    //
+    // create player (Yoni note - commenting all of this out because I think we want to create the player in the scene)
+    //
+    //float mass = 1.0f;
+    //float radius = 0.5f;
+    //float orientation = 0.0f;
+    //float rotation = 0.0f;
+    //float angular = 0.0f;
+    //Vec3 position(0.5f * currentScene->getxAxis(), 0.5f * currentScene->getyAxis(), 0.0f);
+    //Vec3 velocity(0.0f, 0.0f, 0.0f);
+    //Vec3 acceleration(0.0f, 0.0f, 0.0f);
 
-    player = new PlayerBody
-    (
-        position,
-        velocity,
-        acceleration,
-        mass,
-        radius,
-        orientation,
-        rotation,
-        angular,
-        this
-    );
-    if ( player->OnCreate() == false ) {
-        OnDestroy();
-        return false;
-    }
+    //player = new Player(
+        //position,
+        //velocity,
+        //acceleration,
+        //mass,
+        //radius,
+        //orientation,
+        //rotation,
+        //angular,
+        //this
+    //);
+    //if ( player->OnCreate() == false ) {
+    //    OnDestroy();
+    //    return false;
+    //}
 
     // need to create Player before validating scene
-    if (!ValidateCurrentScene()) {
-        OnDestroy();
-        return false;
-    }
+    //if (!ValidateCurrentScene()) {
+    //    OnDestroy();
+    //    return false;
+    //}
            
 	return true;
 }
@@ -166,10 +167,10 @@ SDL_Renderer* GameManager::getRenderer()
 }
 
 // This might be unfamiliar
-void GameManager::RenderPlayer(float scale)
-{
-    player->Render(scale);
-}
+//void GameManager::RenderPlayer(float scale)
+//{
+//    player->Render(scale);
+//}
 
 void GameManager::LoadScene( int i )
 {

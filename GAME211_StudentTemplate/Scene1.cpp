@@ -37,16 +37,21 @@ bool Scene1::OnCreate() {
 	}
 
 	// Set player image to PacMan
+	// This is fine for rendering the player but anything else should use the new renderer
 
-	// Old way of rendering player, but since most player info is stored in playerbody
-	// use it for now
+<<<<<<< HEAD
+	
 	SDL_Surface* image;
 	SDL_Texture* texture;
+=======
+	SDL_Surface* playerImage;
+	SDL_Texture* playerTexture;
+>>>>>>> Yoni/Gameplay-EntityClass
 
-	image = IMG_Load("pacman.png");
-	texture = SDL_CreateTextureFromSurface(renderer, image);
-	game->getPlayer()->setImage(image);
-	game->getPlayer()->setTexture(texture);
+	playerImage = IMG_Load("pacman.png");
+	playerTexture = SDL_CreateTextureFromSurface(renderer, playerImage);
+	//game->getPlayer()->setImage(playerImage);
+	//game->getPlayer()->setTexture(playerTexture);
 
 	ChunkHandler RegionOne();
 
@@ -79,7 +84,7 @@ void Scene1::Render() {
 	SDL_RenderClear(renderer);
 
 	// render the player
-	game->RenderPlayer(0.10f);
+	game->getPlayer()->Render(0.10f);
 
 	SDL_RenderPresent(renderer);
 }

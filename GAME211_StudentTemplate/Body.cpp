@@ -10,8 +10,6 @@ Body::Body()
     orientation = 0.0f;
     rotation = 0.0f;
     angular = 0.0f;
-
-	image = nullptr;
 }
 
 Body::Body(
@@ -32,7 +30,7 @@ Body::Body(
     rotation = rotation_;
     angular = angular_;
 
-    image = nullptr;
+    //image = nullptr;
 }
 
 
@@ -52,21 +50,21 @@ void Body::Update( float deltaTime ){
 
 }
 
-void Body::HandleEvents( const SDL_Event& event )
-{
-    if ( event.type == SDL_MOUSEBUTTONDOWN )
-    {
-        printf("Mousedown\n");
-    }
-    else if ( event.type == SDL_KEYDOWN )
-    {
-        if ( event.key.keysym.scancode == SDL_SCANCODE_SPACE)
-        {
-            printf("Space\n");
-        }
-    }
+//void Body::HandleEvents( const SDL_Event& event )
+//{
+    //if ( event.type == SDL_MOUSEBUTTONDOWN )
+    //{
+       //printf("Mousedown\n");
+    //}
+    //else if ( event.type == SDL_KEYDOWN )
+    //{
+        //if ( event.key.keysym.scancode == SDL_SCANCODE_SPACE)
+       //{
+            //printf("Space\n");
+        //}
+    //}
     // etc
-}
+//}
 
 void Body::setPos( Vec3 pos_ )
 {
