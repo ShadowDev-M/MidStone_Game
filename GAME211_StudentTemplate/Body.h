@@ -58,6 +58,10 @@ public:
     virtual void setTexture( SDL_Texture* texture_ ) { texture = texture_; }
     virtual SDL_Texture* getTexture() { return texture; }
 
+
+    // Not setting to virtual for now
+    // will set later depending on playerbody
+
      /// Set a new texture file for this body	
     /// <param name="textureFile_">The new texture file</param>
     virtual void SetTextureFile(const char* textureFile_) {

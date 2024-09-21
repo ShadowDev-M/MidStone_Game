@@ -3,8 +3,37 @@
   "WorkspaceRootPath": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\",
   "Documents": [
     {
+<<<<<<< HEAD
       "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Scene1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Scene1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+=======
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\MenuScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\MenuScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\MenuScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\MenuScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\GameManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\GameManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Scene1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Scene1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Scene1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Scene1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Body.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Body.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Body.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{175479CC-1CED-4F93-A605-F0B2298AEB01}|GAME211_StudentTemplate\\GAME211_StudentTemplate.vcxproj|solutionrelative:GAME211_StudentTemplate\\Body.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+>>>>>>> parent of 0edabab (Cleaning)
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +43,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
           "SelectedChildIndex": 1,
+=======
+          "SelectedChildIndex": 2,
+>>>>>>> parent of 0edabab (Cleaning)
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,7 +55,50 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 0,
+=======
+              "DocumentIndex": 1,
+              "Title": "MenuScene.h",
+              "DocumentMoniker": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\MenuScene.h",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\MenuScene.h",
+              "ToolTip": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\MenuScene.h",
+              "RelativeToolTip": "GAME211_StudentTemplate\\MenuScene.h",
+              "ViewState": "AgIAABcAAAAAAAAAAAAowDIAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-09-20T01:06:04.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MenuScene.cpp",
+              "DocumentMoniker": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\MenuScene.cpp",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\MenuScene.cpp",
+              "ToolTip": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\MenuScene.cpp",
+              "RelativeToolTip": "GAME211_StudentTemplate\\MenuScene.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-20T01:09:48.38Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Scene1.h",
+              "DocumentMoniker": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Scene1.h",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Scene1.h",
+              "ToolTip": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Scene1.h",
+              "RelativeToolTip": "GAME211_StudentTemplate\\Scene1.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-09-20T01:05:24.781Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+>>>>>>> parent of 0edabab (Cleaning)
               "Title": "Scene1.cpp",
               "DocumentMoniker": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Scene1.cpp",
               "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Scene1.cpp",
@@ -30,8 +106,50 @@
               "RelativeToolTip": "GAME211_StudentTemplate\\Scene1.cpp",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+<<<<<<< HEAD
               "WhenOpened": "2024-09-21T21:45:31.071Z",
               "EditorCaption": ""
+=======
+              "WhenOpened": "2024-09-09T18:08:45.652Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameManager.cpp",
+              "DocumentMoniker": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\GameManager.cpp",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\GameManager.cpp",
+              "ToolTip": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\GameManager.cpp",
+              "RelativeToolTip": "GAME211_StudentTemplate\\GameManager.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIIAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-20T01:05:10.313Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Body.h",
+              "DocumentMoniker": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Body.h",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Body.h",
+              "ToolTip": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Body.h",
+              "RelativeToolTip": "GAME211_StudentTemplate\\Body.h",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAEkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-09-20T12:06:36.145Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Body.cpp",
+              "DocumentMoniker": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Body.cpp",
+              "RelativeDocumentMoniker": "GAME211_StudentTemplate\\Body.cpp",
+              "ToolTip": "C:\\Users\\joshu\\Downloads\\GAME211_StudentTemplate_main_2\\MidStone_Game\\GAME211_StudentTemplate\\Body.cpp",
+              "RelativeToolTip": "GAME211_StudentTemplate\\Body.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-09T18:08:43.645Z"
+>>>>>>> parent of 0edabab (Cleaning)
             }
           ]
         }
