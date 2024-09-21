@@ -1,5 +1,4 @@
 ﻿  Body.cpp
-<<<<<<< HEAD
   This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
   This questionable: Vec4 inverse(const Vec4& v)
   GameManager.cpp
@@ -38,40 +37,3 @@ C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\MidStone_Game\GAME211_St
   Window.cpp
   Generating Code...
   GAME211_StudentTemplate.vcxproj -> C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\MidStone_Game\Debug\GAME211_StudentTemplate.exe
-=======
-  GameManager.cpp
-C:\GameDev\MathLibrary\include\MMath.h(18,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'GameManager.cpp')
-  
-C:\GameDev\MathLibrary\include\MMath.h(19,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'GameManager.cpp')
-  
-C:\GameDev\MathLibrary\include\MMath.h(49,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'GameManager.cpp')
-  
-  Main.cpp
-C:\GameDev\MathLibrary\include\MMath.h(18,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'Main.cpp')
-  
-C:\GameDev\MathLibrary\include\MMath.h(19,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'Main.cpp')
-  
-C:\GameDev\MathLibrary\include\MMath.h(49,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'Main.cpp')
-  
-  Player.cpp
-C:\GameDev\MathLibrary\include\MMath.h(18,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'Player.cpp')
-  
-C:\GameDev\MathLibrary\include\MMath.h(19,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'Player.cpp')
-  
-C:\GameDev\MathLibrary\include\MMath.h(49,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'Player.cpp')
-  
-C:\Users\bybjb\OneDrive\Desktop\MidStone_Game\GAME211_StudentTemplate\Player.cpp(50,30): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Scene1.cpp
-  Generating Code...
-Body.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall Body::HandleEvents(union SDL_Event const &)" (?HandleEvents@Body@@UAEXABTSDL_Event@@@Z)
-C:\Users\bybjb\OneDrive\Desktop\MidStone_Game\Debug\GAME211_StudentTemplate.exe : fatal error LNK1120: 1 unresolved externals
->>>>>>> Yoni/Gameplay-EntityClass

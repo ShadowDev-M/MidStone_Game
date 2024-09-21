@@ -5,7 +5,7 @@
 #include "Window.h"
 #include "Timer.h"
 #include "Scene.h"
-#include "Player.h"
+#include "PlayerBody.h"
 
 
 class GameManager {
@@ -25,7 +25,7 @@ private:
 	class Scene *currentScene;
 
 	// This might be unfamiliar
-    class Player *player;
+    class PlayerBody *player;
 
 	void handleEvents();
 	void LoadScene(int i);
@@ -43,7 +43,8 @@ public:
 	float getSceneHeight();
 	float getSceneWidth();
 	Matrix4 getProjectionMatrix();
-    Player* getPlayer(){ return player; }
+    PlayerBody* getPlayer(){ return player; }
+	void RenderPlayer(float scale = 1.0f);
 	SDL_Renderer* getRenderer();
 
 	void Run();
