@@ -1,14 +1,33 @@
 ﻿  GameManager.cpp
   This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
   This questionable: Vec4 inverse(const Vec4& v)
+  Main.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
   MenuScene.cpp
   This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
   This questionable: Vec4 inverse(const Vec4& v)
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(63,90): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(63,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(145,45): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(145,45): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(145,61): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(145,61): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\MenuScene.cpp(63,90): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\MenuScene.cpp(63,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\MenuScene.cpp(145,45): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\MenuScene.cpp(145,45): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\MenuScene.cpp(145,61): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\MenuScene.cpp(145,61): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Player.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\Player.cpp(50,30): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Scene1.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\Scene1.cpp(53,15): warning C4930: 'ChunkHandler RegionOne(void)': prototyped function not called (was a variable definition intended?)
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\Scene1.cpp(142,45): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\Scene1.cpp(142,45): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\Scene1.cpp(142,61): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\Scene1.cpp(142,61): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  TestBlock.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\GAME211_StudentTemplate\TestBlock.cpp(44,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Generating Code...
-  GAME211_StudentTemplate.vcxproj -> C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\MidStone_Game\Debug\GAME211_StudentTemplate.exe
+  GAME211_StudentTemplate.vcxproj -> C:\Users\joshu\School\Mid-Stone Stuff\MidStone_Game-main\Debug\GAME211_StudentTemplate.exe

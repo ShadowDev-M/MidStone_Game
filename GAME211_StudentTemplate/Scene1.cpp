@@ -36,17 +36,19 @@ bool Scene1::OnCreate() {
 		return false;
 	}
 
+	// This way of rendering the player is fine since most of the information for the player is stored in its own class
+	// However any new rendering should be done with the new methods
+
 	// Set player image to PacMan
+	SDL_Surface* playerImage;
+	SDL_Texture* playerTexture;
 
-	// Old way of rendering player, but since most player info is stored in playerbody
-	// use it for now
-	SDL_Surface* image;
-	SDL_Texture* texture;
-
-	image = IMG_Load("pacman.png");
-	texture = SDL_CreateTextureFromSurface(renderer, image);
-	game->getPlayer()->setImage(image);
-	game->getPlayer()->setTexture(texture);
+	playerImage = IMG_Load("pacman.png");
+	playerTexture = SDL_CreateTextureFromSurface(renderer, playerImage);
+	
+	// Keeping this in for now to fix merge conflict
+	game->getPlayer()->setImage(playerImage);
+	game->getPlayer()->setTexture(playerTexture);
 
 	ChunkHandler RegionOne();
 

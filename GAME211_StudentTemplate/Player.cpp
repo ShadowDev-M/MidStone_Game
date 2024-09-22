@@ -1,13 +1,13 @@
 //
-//  PlayerBody.cpp
+//  Player.cpp
 //  DemoAI
 //
 //  Created by Gail Harris on 2021-Dec-23.
 //
 
-#include "PlayerBody.h"
+#include "Player.h"
 
-bool PlayerBody::OnCreate()
+bool Player::OnCreate()
 {
     image = IMG_Load( "Pacman.png" );
     SDL_Renderer *renderer = game->getRenderer();
@@ -19,7 +19,7 @@ bool PlayerBody::OnCreate()
     return true;
 }
 
-void PlayerBody::Render( float scale )
+void Player::Render( float scale )
 {
     // This is why we need game in the constructor, to get the renderer, etc.
     SDL_Renderer *renderer = game->getRenderer();
@@ -53,11 +53,36 @@ void PlayerBody::Render( float scale )
         orientationDegrees, nullptr, SDL_FLIP_NONE );
 }
 
-void PlayerBody::HandleEvents( const SDL_Event& event )
+void Player::HandleEvents( const SDL_Event& event )
 {
+    switch (event.type) {
+
+    case SDL_KEYDOWN:
+
+        switch (event.key.keysym.scancode) {
+
+        case SDL_SCANCODE_W:
+            pos.y += 0.1f;
+            break;
+
+        case SDL_SCANCODE_S:
+            pos.y += -0.1f;
+            break;
+
+        case SDL_SCANCODE_D:
+            pos.x += 0.1f;
+            break;
+
+        case SDL_SCANCODE_A:
+            pos.x += -0.1f;
+            break;
+        }
+
+        break;
+    }
 }
 
-void PlayerBody::Update( float deltaTime )
+void Player::Update( float deltaTime )
 {
     // Update position, call Update from base class
     // Note that would update velocity too, and rotation motion

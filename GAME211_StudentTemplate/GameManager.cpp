@@ -39,7 +39,10 @@ bool GameManager::OnCreate() {
 
     currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
     
-    // create player
+    // create player (Yoni note - commenting all of this out because I think we want to create the player in the scene)
+    
+    // Uncommenting it for now to fix merge conflict
+    
     float mass = 1.0f;
     float radius = 0.5f;
     float orientation = 0.0f;
@@ -49,7 +52,7 @@ bool GameManager::OnCreate() {
     Vec3 velocity(0.0f, 0.0f, 0.0f);
     Vec3 acceleration(0.0f, 0.0f, 0.0f);
 
-    player = new PlayerBody
+    player = new Player
     (
         position,
         velocity,
