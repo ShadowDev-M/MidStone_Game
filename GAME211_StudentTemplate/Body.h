@@ -11,6 +11,8 @@ using namespace MATH;
 class Body {
 protected:
 	// inherited classes can access this
+    class GameManager* game;
+
 	Vec3 pos;
 	Vec3 vel;
 	Vec3 accel;
