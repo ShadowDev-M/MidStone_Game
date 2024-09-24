@@ -62,21 +62,6 @@ void Player::HandleEvents( const SDL_Event& event )
         switch (event.key.keysym.scancode) {
 
         case SDL_SCANCODE_W:
-<<<<<<< HEAD
-            pos.y += 0.1f;
-            break;
-
-        case SDL_SCANCODE_S:
-            pos.y += -0.1f;
-            break;
-
-        case SDL_SCANCODE_D:
-            pos.x += 0.1f;
-            break;
-
-        case SDL_SCANCODE_A:
-            pos.x += -0.1f;
-=======
             vel.y = walkSpeedMax;
             break;
 
@@ -90,13 +75,10 @@ void Player::HandleEvents( const SDL_Event& event )
 
         case SDL_SCANCODE_A:
             vel.x = -walkSpeedMax;
->>>>>>> main
             break;
         }
 
         break;
-<<<<<<< HEAD
-=======
 
         case SDL_KEYUP:
 
@@ -112,7 +94,6 @@ void Player::HandleEvents( const SDL_Event& event )
                 vel.x = 0.0f;
                 break;
             }
->>>>>>> main
     }
 }
 

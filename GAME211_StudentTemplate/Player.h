@@ -21,10 +21,7 @@ protected:
     class GameManager* game;
 
 public:
-<<<<<<< HEAD
-=======
 
->>>>>>> main
     Player() : Body{}
     {
         game = nullptr;
@@ -66,11 +63,7 @@ public:
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
     void setTexture(SDL_Texture* texture_) {texture = texture_;}
-<<<<<<< HEAD
-    
-=======
     void takeDamage(float damage);
->>>>>>> main
 };
 
 #endif /* PLAYER_H */
