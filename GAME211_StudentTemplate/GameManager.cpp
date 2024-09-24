@@ -126,11 +126,11 @@ void GameManager::handleEvents()
             case SDL_SCANCODE_DELETE:
                 isRunning = false;
                 break;
-            case SDL_SCANCODE_1:
+            case SDL_SCANCODE_F1:
                 LoadScene(1);
                 break;
             //Menu Scene
-            case SDL_SCANCODE_2:
+            case SDL_SCANCODE_F2:
                 LoadScene(2);
                 break;
             default:
