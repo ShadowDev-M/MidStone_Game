@@ -11,6 +11,7 @@ class Item
 	bool inRange;
 	bool enhancement; //if a weapon is enhanced, like an enchantment in minecraft
 
+	const char* itemName;
 	float resistance; //this is for when the player may equip armor, and may reduce incoming damage
 	float bonusMoveSpeed;//one is just a flat bonus
 	float moveSpeedMultiplier;// the other is an adaptive bonus that will change based on the base number
