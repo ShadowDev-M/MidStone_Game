@@ -62,6 +62,7 @@ void Player::HandleEvents( const SDL_Event& event )
         switch (event.key.keysym.scancode) {
 
         case SDL_SCANCODE_W:
+<<<<<<< HEAD
             pos.y += 0.1f;
             break;
 
@@ -75,10 +76,43 @@ void Player::HandleEvents( const SDL_Event& event )
 
         case SDL_SCANCODE_A:
             pos.x += -0.1f;
+=======
+            vel.y = walkSpeedMax;
+            break;
+
+        case SDL_SCANCODE_S:
+            vel.y = -walkSpeedMax;
+            break;
+
+        case SDL_SCANCODE_D:
+            vel.x = walkSpeedMax;
+            break;
+
+        case SDL_SCANCODE_A:
+            vel.x = -walkSpeedMax;
+>>>>>>> main
             break;
         }
 
         break;
+<<<<<<< HEAD
+=======
+
+        case SDL_KEYUP:
+
+            switch (event.key.keysym.scancode) {
+
+            case SDL_SCANCODE_W:
+            case SDL_SCANCODE_S:
+                vel.y = 0.0f;
+                break;
+
+            case SDL_SCANCODE_D:
+            case SDL_SCANCODE_A:
+                vel.x = 0.0f;
+                break;
+            }
+>>>>>>> main
     }
 }
 
@@ -91,3 +125,8 @@ void Player::Update( float deltaTime )
 
 }
 
+void Player::takeDamage(float damage)
+{
+    //The player takes damage
+    healthpoints -= damage;
+}

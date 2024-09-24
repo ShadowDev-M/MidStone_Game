@@ -21,6 +21,10 @@ protected:
     class GameManager* game;
 
 public:
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
     Player() : Body{}
     {
         game = nullptr;
@@ -36,28 +40,37 @@ public:
         float orientation_,
         float rotation_,
         float angular_,
-        GameManager *game_
+        GameManager* game_
     ) : Body{
-          pos_
-        , vel_
-        , accel_
-        , mass_
-        , radius_
-        , orientation_
-        , rotation_
-        , angular_
+          pos_,
+          vel_,
+          accel_,
+          mass_,
+          radius_,
+          orientation_,
+          rotation_,
+          angular_
     }
         , game{ game_ }
     {}
     
-    // use the base class versions of getters
+    //Health
+    float healthpoints = 10.0f;
 
+    //Speed
+    float walkSpeedMax = 3.0f;
+
+    // use the base class versions of getters
     bool OnCreate();
     void Render(float scale = 1.0f);
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
     void setTexture(SDL_Texture* texture_) {texture = texture_;}
+<<<<<<< HEAD
     
+=======
+    void takeDamage(float damage);
+>>>>>>> main
 };
 
 #endif /* PLAYER_H */
