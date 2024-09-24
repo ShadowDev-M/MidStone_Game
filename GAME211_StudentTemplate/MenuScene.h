@@ -16,7 +16,6 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
 	Matrix4     inverseProjection;	// set in OnCreate()
 
-
 	Body* playGameButton;
 	SDL_Texture* playGameBTexture;
 
@@ -58,12 +57,21 @@ public:
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
 
+	
+	// Need body to have a width and height + get & set methods
+	//bool mouseInside(const Vec3& mouseCoords, Body* body);
+
+
+
 	//.pos
 	// Takes game/physics coords of an object 
 	// and multiples it by the projection matrix to get screen coords
-	Vec3 screenCoords(Vec3 gameCoords);
 
-	Vec3 worldCoords(Vec3 physicsCoords);
+	// use when rendering
+	Vec3 toScreenCoords(Vec3 gameCoords) const;
+
+	// use for mouse movements
+	Vec3 toWorldCoords(Vec3 physicsCoords) const;
 
 };
 

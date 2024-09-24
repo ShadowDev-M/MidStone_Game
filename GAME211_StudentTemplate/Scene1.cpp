@@ -97,6 +97,11 @@ Vec3 Scene1::screenCoords(Vec3 gameCoords)
 	return projectionMatrix * gameCoords;
 }
 
+Vec3 Scene1::worldCoords(Vec3 physicsCoords)
+{
+	return inverseProjection * physicsCoords;
+}
+
 // Creates a surface (cpu) and converts it to a texture (gpu)
 // Surface is better for rendering single objects like the player
 // However the gpu is most of the time always better in all cases
