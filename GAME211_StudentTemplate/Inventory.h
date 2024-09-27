@@ -2,14 +2,25 @@
 #include "Item.h"
 class Inventory
 {
-	static const int rows = 4;
-	static const int cols = 5;
-	Item* mainInventory[rows][cols];
+	char hotkey1;
+	char hotkey2;
+	char hotkey3;
+	char hotkey4;
+	char hotkey5;
 
+	int maxLoad = 20;
+	const char* mainInventory[5];
+	const char* extraInventory[15];
 
 public:
-	Inventory();
-	bool addItem(Item* item);
-	bool removeItem(int row, int col);	
+	
+	Inventory()
+	{
+		mainInventory[0] = &hotkey1;
+		mainInventory[1] = &hotkey2;
+		mainInventory[2] = &hotkey3;
+		mainInventory[3] = &hotkey4;
+		mainInventory[4] = &hotkey5;
+	}
 };
 

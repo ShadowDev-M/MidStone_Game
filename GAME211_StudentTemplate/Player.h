@@ -10,7 +10,6 @@
 
 #include <stdio.h>
 #include "Body.h"
-#include "Item.h"
 #include "GameManager.h"
 #include <SDL.h>
 #include <SDL_image.h>
@@ -57,9 +56,6 @@ public:
 
     //Speed
     float walkSpeedMax = 3.0f;
-
-    //Item
-    Item currentItem;
 
     // use the base class versions of getters
     bool OnCreate();

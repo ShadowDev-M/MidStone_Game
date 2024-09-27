@@ -19,15 +19,12 @@
     <Filter Include="Header Files\JDim">
       <UniqueIdentifier>{8058bc44-f19b-4d34-bf5f-93911d0e166f}</UniqueIdentifier>
     </Filter>
-<<<<<<< HEAD
     <Filter Include="Header Files\Scenes">
       <UniqueIdentifier>{0305e65c-d69f-4a7c-a2dc-db2664a1fb4d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{ea5702ce-552d-4dd4-a545-911d16ac8fcd}</UniqueIdentifier>
     </Filter>
-=======
->>>>>>> ProcGen-Joel
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp">
@@ -54,7 +51,6 @@
     <ClCompile Include="ChunkHandler.cpp">
       <Filter>Source Files\JDim</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Scene1.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -76,8 +72,6 @@
     <ClCompile Include="Enhancement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-=======
->>>>>>> ProcGen-Joel
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -104,7 +98,6 @@
     <ClInclude Include="TileInfo.h">
       <Filter>Header Files\JDim</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
@@ -129,7 +122,5 @@
     <ClInclude Include="Enhancement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-=======
->>>>>>> ProcGen-Joel
   </ItemGroup>
 </Project>
