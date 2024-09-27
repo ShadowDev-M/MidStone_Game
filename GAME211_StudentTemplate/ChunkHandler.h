@@ -40,12 +40,16 @@ public:
 	/// <returns>Region index of the chunk</returns>
 	Vec2 getChunkLocation(Vec2 pos_);
 
+	void setTile(std::vector<TileInfo> indexVector_);
+
+	bool isSolid(Vec2 pos_);
+
 	/// <summary>
 	/// gets a list of exposed faces that the vector would encounter based on location
 	/// </summary>
 	/// <param name="entityPos_">position of the entity</param>
 	/// <param name="velVector_">the farthest location the entity would move in the current frame</param>
 	/// <returns>list of lines for collision</returns>
-	std::vector<Vec2> getFaces(Vec2 entityPos_, Vec2 velVector_);
+	TileFaces getFaces(Vec2 entityPos_, Vec2 velVector_);
 	
 };

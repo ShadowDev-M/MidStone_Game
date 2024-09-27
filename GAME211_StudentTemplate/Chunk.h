@@ -49,7 +49,7 @@ public:
     /// </summary>
     /// <param name="indexVector_"> The list for each tile's index to be changed</param>
     /// <param name="savedIDVector_">The list for each tile's id to be changed</param>
-    void setTile(std::vector<TileInfo> indexVector_);
+    void setTile(TileInfo tileInfo_);
 
     void printChunk() {
        

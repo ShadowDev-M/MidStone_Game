@@ -1,3 +1,2 @@
 ﻿  Scene1.cpp
-C:\Users\joel\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp(40,15): warning C4930: 'ChunkHandler RegionOne(void)': prototyped function not called (was a variable definition intended?)
   GAME211_StudentTemplate.vcxproj -> C:\Users\joel\Documents\GitHub\MidStone_Game\Debug\GAME211_StudentTemplate.exe
