@@ -31,7 +31,10 @@
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="ChunkHandler.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="TestBlock.cpp" />
+=======
+>>>>>>> ProcGen-Joel
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -42,12 +45,17 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Chunk.h" />
     <ClInclude Include="ChunkHandler.h" />
+<<<<<<< HEAD
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="TestBlock.h" />
     <ClInclude Include="TileInfo.h" />
     <ClInclude Include="Player.h" />
+=======
+    <ClInclude Include="TileInfo.h" />
+    <ClInclude Include="PlayerBody.h" />
+>>>>>>> ProcGen-Joel
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
     <ClInclude Include="Timer.h" />
