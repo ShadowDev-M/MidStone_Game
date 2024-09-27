@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include "Body.h"
 #include "Item.h"
+#include "Inventory.h"
 #include "GameManager.h"
 #include <SDL.h>
 #include <SDL_image.h>
@@ -51,14 +52,11 @@ public:
     }
         , game{ game_ }
     {}
-    
-    //Health
-    float healthpoints = 10.0f;
 
-    //Speed
+    float healthpointsMax = 10.0f;
+    float healthpoints = healthpointsMax;
     float walkSpeedMax = 3.0f;
-
-    //Item
+    Inventory playerInventory;
     Item currentItem;
 
     // use the base class versions of getters
@@ -68,6 +66,7 @@ public:
     void Update(float deltaTime);
     void setTexture(SDL_Texture* texture_) {texture = texture_;}
     void takeDamage(float damage);
+    void setItem(Item newItem);
 };
 
 #endif /* PLAYER_H */

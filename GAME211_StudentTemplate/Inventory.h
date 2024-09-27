@@ -11,5 +11,6 @@ public:
 	Inventory();
 	bool addItem(Item* item);
 	bool removeItem(int row, int col);	
+	Item* getItem(int row, int col) { return mainInventory[row][col]; }
 };
 
