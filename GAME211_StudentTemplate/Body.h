@@ -30,7 +30,7 @@ protected:
 
 public:
     Body();
-	Body(
+    Body(
         Vec3 pos_, Vec3 vel_, Vec3 accel_,
         float mass_,
         float radius_,
@@ -38,6 +38,12 @@ public:
         float rotation_,
         float angular_
     );
+    Body(int hp, Vec3 pos_);
+    
+
+    float healthpointsMax;
+    float healthpoints = healthpointsMax;
+
 	virtual ~Body();
     virtual void Update(float deltaTime);
     virtual void ApplyForce(Vec3 force_);

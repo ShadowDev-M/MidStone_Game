@@ -1,3 +1,4 @@
+#pragma once
 //
 //  Player.h
 //  DemoAI
@@ -5,26 +6,24 @@
 //  Created by Gail Harris on 2021-Dec-23.
 //
 
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef ENEMY_H
+#define ENEMY_H
 
 #include <stdio.h>
 #include "Body.h"
-#include "Item.h"
-#include "Inventory.h"
 #include "GameManager.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <Vector.h>
 
-class Player : public Body
+class Enemy : public Body
 {
 protected:
     class GameManager* game;
 
 public:
 
-    Player() : Body{}
+    Enemy() : Body{}
     {
         game = nullptr;
     }
@@ -32,7 +31,7 @@ public:
     // Note the last parameter in this constructor!
     // Look in GameManager.cpp to see how this is called.
     // Look in .cpp file, at Render(), to see why game_ is a parameter.
-    Player(
+    Enemy(
         Vec3 pos_, Vec3 vel_, Vec3 accel_,
         float mass_,
         float radius_,
@@ -54,19 +53,15 @@ public:
     {}
 
     float healthpointsMax = 10.0f;
-    float healthpoints = healthpointsMax;
-    float walkSpeedMax = 3.0f;
-    Inventory playerInventory;
-    Item currentItem;
+    float healthpoints = 10.0f;
 
     // use the base class versions of getters
     bool OnCreate();
     void Render(float scale = 1.0f);
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
-    void setTexture(SDL_Texture* texture_) {texture = texture_;}
+    void setTexture(SDL_Texture* texture_) { texture = texture_; }
     void takeDamage(float damage);
-    void setItem(Item newItem);
 };
 
 #endif /* PLAYER_H */
