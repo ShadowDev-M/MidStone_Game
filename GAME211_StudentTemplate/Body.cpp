@@ -35,6 +35,11 @@ Body::Body(
     image = nullptr;
 }
 
+Body::Body(int hp, Vec3 pos_)
+{
+    healthpointsMax = hp;
+    healthpoints = hp;
+}
 
 Body::~Body(){
 }

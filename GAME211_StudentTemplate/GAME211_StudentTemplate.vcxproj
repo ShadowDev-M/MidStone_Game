@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enhancement.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Inventory.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Chunk.h" />
     <ClInclude Include="ChunkHandler.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MenuScene.h" />
