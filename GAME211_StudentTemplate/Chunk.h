@@ -43,13 +43,13 @@ public:
 	  
     /// <returns>id of specific index</returns>
     int getTile(int x, int y) { return tileSet[x][y]; }
-
+    
     /// <summary>
     /// Overwrites a tile in the tileSet with a new ID.
     /// </summary>
     /// <param name="indexVector_"> The list for each tile's index to be changed</param>
     /// <param name="savedIDVector_">The list for each tile's id to be changed</param>
-    void setTile(std::vector<TileInfo> indexVector_);
+    void setTile(TileInfo tileInfo_);
 
     void printChunk() {
        

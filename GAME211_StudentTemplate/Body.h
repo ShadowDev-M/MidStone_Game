@@ -38,7 +38,8 @@ public:
         float rotation_,
         float angular_
     );
-    Body(float hp, Vec3 pos_);
+    Body(int hp, Vec3 pos_);
+    
 
     float healthpointsMax;
     float healthpoints = healthpointsMax;
