@@ -1,6 +1,6 @@
 #include "BoxCollider.h"
 
-void BoxCollider::CheckCollision(Vec3 pos)
+void BoxCollider::CheckCollision(Vec3 pos, Vec3& vel)
 {
 	//Find the worldCoords of the top left corner
 	Vec2 topLCorner = Vec2(pos.x - width / 2, pos.y - height / 2);

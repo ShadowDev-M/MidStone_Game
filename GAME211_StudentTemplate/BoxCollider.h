@@ -51,7 +51,7 @@ public:
 	}
 
 	//This method gets called by the owner of the collider in the update funtion
-	void CheckCollision(Vec3 pos);
+	void CheckCollision(Vec3 pos, Vec3& vel);
 
 };
 

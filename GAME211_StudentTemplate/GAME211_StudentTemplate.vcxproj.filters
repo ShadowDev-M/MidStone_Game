@@ -131,5 +131,8 @@
     <ClInclude Include="BoxCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ImageToArrayTool.h">
+      <Filter>Header Files\JDim</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

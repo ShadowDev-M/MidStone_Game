@@ -45,6 +45,7 @@
     <ClInclude Include="Chunk.h" />
     <ClInclude Include="ChunkHandler.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="ImageToArrayTool.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MenuScene.h" />
