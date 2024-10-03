@@ -85,10 +85,6 @@ void Scene1::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
-	// 
-
-	
-
 	// render the player
 	game->RenderPlayer(0.10f);
 
@@ -104,11 +100,6 @@ void Scene1::HandleEvents(const SDL_Event& event)
 Vec3 Scene1::screenCoords(Vec3 gameCoords)
 {
 	return projectionMatrix * gameCoords;
-}
-
-Vec3 Scene1::worldCoords(Vec3 physicsCoords)
-{
-	return inverseProjection * physicsCoords;
 }
 
 // Creates a surface (cpu) and converts it to a texture (gpu)

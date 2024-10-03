@@ -20,6 +20,7 @@ SceneM::SceneM(SDL_Window* sdlWindow_, GameManager* game_) {
 
 // Interactable Mouse stuff after, once I get something displayed
 // Shouldn't take long to do
+// Camera Class
 bool SceneM::OnCreate() {
 	// Check to make sure loading new scene works
 	std::cout << "Entering MainMenu" << std::endl;
@@ -59,7 +60,7 @@ void SceneM::Render() {
 	SDL_RenderClear(renderer);
 
 	// It works
-	Vec3 playButtonScreenCoords = toScreenCoords(playGameButton->getPos());
+	Vec3 playButtonScreenCoords = screenCoords(playGameButton->getPos());
 	SDL_Rect dest = scale(playGameBTexture, playButtonScreenCoords.x, playButtonScreenCoords.y, 0.5f);
 	// test
 	SDL_RenderCopy(renderer, playGameBTexture, nullptr, &dest);
@@ -75,23 +76,12 @@ void SceneM::HandleEvents(const SDL_Event& event)
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
 
-	if (event.type == SDL_MOUSEMOTION) {
-		int mouseX;
-		int mouseY;
-
-		SDL_GetMouseState(&mouseX, &mouseY);
-
-		Vec3 mouseScreen = toWorldCoords(Vec3(mouseX, mouseY, 0.0f));
-		
-		std::cout << mouseScreen.x << ", " << mouseScreen.y << std::endl;
-	}
-
 	switch (event.type) {
 	case SDL_MOUSEMOTION:
 		
 		break;
 	case SDL_MOUSEBUTTONDOWN:
-
+		
 		break;
 	case SDL_MOUSEBUTTONUP:
 		
@@ -100,12 +90,12 @@ void SceneM::HandleEvents(const SDL_Event& event)
 	}
 }
 
-Vec3 SceneM::toScreenCoords(Vec3 gameCoords) const
+Vec3 SceneM::screenCoords(Vec3 gameCoords)
 {	
 	return projectionMatrix * gameCoords;
 }
 
-Vec3 SceneM::toWorldCoords(Vec3 physicsCoords) const
+Vec3 SceneM::worldCoords(Vec3 physicsCoords)
 {
 	return inverseProjection * physicsCoords;
 }

@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "Scene1.h"
 #include "MenuScene.h"
+#include "ChunkTestScene.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;
@@ -133,6 +134,10 @@ void GameManager::handleEvents()
             case SDL_SCANCODE_F2:
                 LoadScene(2);
                 break;
+            // Chunk Test
+            case SDL_SCANCODE_F3:
+                LoadScene(3);
+                break;
             default:
                 break;
             }
@@ -188,6 +193,9 @@ void GameManager::LoadScene( int i )
         //Menu Scene
         case 2:
             currentScene = new SceneM(windowPtr->GetSDL_Window(), this);
+            break;
+        case 3:
+            currentScene = new SceneC(windowPtr->GetSDL_Window(), this);
             break;
         default:
             currentScene = new Scene1( windowPtr->GetSDL_Window(), this );
