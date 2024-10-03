@@ -35,24 +35,3 @@ void readPixelsInGrayscale(SDL_Surface* surface) {
     }
 }
 
-int main() {
-    // Initialize SDL and create a surface (example surface)
-    SDL_Init(SDL_INIT_VIDEO);
-
-    // Load a BMP image into a surface (example)
-    SDL_Surface* image = SDL_LoadBMP("image.bmp");
-
-    if (image == NULL) {
-        printf("Unable to load image: %s\n", SDL_GetError());
-        return 1;
-    }
-
-    // Read pixels in grayscale
-    readPixelsInGrayscale(image);
-
-    // Cleanup
-    SDL_FreeSurface(image);
-    SDL_Quit();
-
-    return 0;
-}
