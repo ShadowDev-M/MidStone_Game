@@ -35,10 +35,12 @@ Body::Body(
     image = nullptr;
 }
 
-Body::Body(int hp, Vec3 pos_)
+Body::Body(Vec3 pos_, int hp = 3.0f, float speed = 1.0f)
 {
     healthpointsMax = hp;
     healthpoints = hp;
+    pos = pos_;
+    walkSpeedMax = speed;
 }
 
 Body::~Body(){
@@ -46,6 +48,16 @@ Body::~Body(){
 
 void Body::ApplyForce( Vec3 force_ ) {
     accel = force_ / mass;
+}
+
+bool Body::OnCreate()
+{
+    return false;
+}
+
+void Body::Render(float scale)
+{
+
 }
 
 void Body::Update( float deltaTime ){
@@ -56,7 +68,6 @@ void Body::Update( float deltaTime ){
     rotation += angular * deltaTime;
 
 }
-
 
 // Remove later if not needed
 void Body::HandleEvents( const SDL_Event& event )
@@ -73,9 +84,4 @@ void Body::HandleEvents( const SDL_Event& event )
         }
     }
     // etc
-}
-
-void Body::setPos( Vec3 pos_ )
-{
-    pos = pos_;
 }

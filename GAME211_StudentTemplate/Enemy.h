@@ -52,16 +52,10 @@ public:
         , game{ game_ }
     {}
 
-    float healthpointsMax = 10.0f;
-    float healthpoints = 10.0f;
-
     // use the base class versions of getters
-    bool OnCreate();
-    void Render(float scale = 1.0f);
-    void HandleEvents(const SDL_Event& event);
-    void Update(float deltaTime);
-    void setTexture(SDL_Texture* texture_) { texture = texture_; }
-    void takeDamage(float damage);
+    bool OnCreate() override;
+    void HandleEvents(const SDL_Event& event) override;
+    void Update(float deltaTime) override;
 };
 
 #endif /* PLAYER_H */
