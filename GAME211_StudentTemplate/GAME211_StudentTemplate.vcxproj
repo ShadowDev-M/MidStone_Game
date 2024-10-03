@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp" />
-    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enhancement.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h" />
+    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Enhancement.h" />
     <ClInclude Include="GameManager.h" />
