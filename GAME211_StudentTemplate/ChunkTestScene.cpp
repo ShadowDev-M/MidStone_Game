@@ -126,7 +126,7 @@ void SceneC::Render() {
 
 
 
-	Vec3 stoneTileCoords = screenCoords(stoneTile->getPos());
+	//Vec3 stoneTileCoords = screenCoords(stoneTile->getPos());
 	SDL_Rect dest = scale(stoneTileTexture, stoneTileCoords.x, stoneTileCoords.y, 3.0f);
 
 	SDL_RenderCopy(renderer, stoneTileTexture, nullptr, &dest);
