@@ -47,7 +47,7 @@ bool Scene1::OnCreate() {
 
 	playerImage = IMG_Load("pacman.png");
 
-	debugChunk = IMG_Load("TestDebugChunk.png");
+	debugChunk = IMG_Load("debugChunk.png");
 	readPixelsInGrayscale(debugChunk);
 	playerTexture = SDL_CreateTextureFromSurface(renderer, playerImage);
 	

@@ -12,19 +12,19 @@ void readPixelsInGrayscale(SDL_Surface* surface) {
 
     // Get surface pixel format
     Uint8 r, g, b;
-    Uint32* pixels = (Uint32*)surface->pixels;
+    Uint8* pixels = (Uint8*)surface->pixels; // Cast to Uint8* for 24-bit access    
 
     for (int y = 0; y < surface->h; ++y) {
         for (int x = 0; x < surface->w; ++x) {
-            Uint32 pixel = pixels[(y * surface->w) + x];
 
-            // Get RGB values using the format of the surface
-            SDL_GetRGB(pixel, surface->format, &r, &g, &b);
+            Uint8* pixel = &pixels[(y * surface->pitch) + (x * 3)];            // Get RGB values using the format of the surface
+            SDL_GetRGB(*pixel, surface->format, &r, &g, &b);
+          //  printf("{colour %d, colour %d, colour %d}, ", r, g, b);
 
             // Convert to grayscale
-            Uint8 grayscale = (Uint8)abs((0.299 * r + 0.587 * g + 0.114 * b)/255-1);
+            Uint8 grayscale = (Uint8)abs((0.299 * r + 0.587 * g + 0.114 * b));
 
-            printf("{%d, %d, %d}, ", x, y, grayscale);
+            printf("{%d, %d, %d}, ", x, y, abs(r-255)/255);
         }
         printf("\n");
     }
