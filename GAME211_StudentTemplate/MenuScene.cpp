@@ -20,6 +20,7 @@ SceneM::SceneM(SDL_Window* sdlWindow_, GameManager* game_) {
 
 // Interactable Mouse stuff after, once I get something displayed
 // Shouldn't take long to do
+// Camera Class
 bool SceneM::OnCreate() {
 	// Check to make sure loading new scene works
 	std::cout << "Entering MainMenu" << std::endl;

@@ -1,6 +1,0 @@
-﻿  Scene1.cpp
-C:\Users\joel\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp(165,45): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-C:\Users\joel\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp(165,45): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\joel\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp(165,61): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-C:\Users\joel\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp(165,61): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  GAME211_StudentTemplate.vcxproj -> C:\Users\joel\Documents\GitHub\MidStone_Game\Debug\GAME211_StudentTemplate.exe
