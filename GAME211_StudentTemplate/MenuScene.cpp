@@ -64,6 +64,22 @@ void SceneM::Render() {
 	SDL_Rect dest = scale(playGameBTexture, playButtonScreenCoords.x, playButtonScreenCoords.y, 0.5f);
 	// test
 	SDL_RenderCopy(renderer, playGameBTexture, nullptr, &dest);
+	
+
+
+	// 
+	for (int j = game->getPlayer()->getPos().y - 10; j < game->getPlayer()->getPos().y + 10; j++) {
+
+		for (int i = game->getPlayer()->getPos().x - 10; i < game->getPlayer()->getPos().x + 10; i++) {
+			int id = RegionOne.getTileIDFromCoord(Vec2(i, j));
+
+			SDL_RenderCopy(renderer, playGameBTexture, nullptr, &dest);
+
+		}
+	}
+
+	playGameBTexture.pos = Vec3(x, y, 0.0f);
+	SDL_RenderCopy(renderer, playGameBTexture, nullptr, &dest);
 
 	
 

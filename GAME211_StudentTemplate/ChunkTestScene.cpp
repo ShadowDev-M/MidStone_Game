@@ -1,8 +1,6 @@
 #include "ChunkTestScene.h"
 #include <VMath.h>
 
-
-
 // See notes about this constructor in Scene1.h.
 SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
