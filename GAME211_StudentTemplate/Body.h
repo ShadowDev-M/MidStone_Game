@@ -71,11 +71,23 @@ public:
         return textureFile;
     }
 
+
     virtual void HandleEvents( const SDL_Event& event );
 
 	// Added this as public to deal with my demo
 	// so that mouse position can be copied into a Body.
     virtual void setPos( Vec3 pos );
+
+    //CUSTOM FUNCTIONS
+    virtual void takeDamage(float damage) { healthpoints -= damage; }
+    virtual void setItem(Item newItem) { currentItem = newItem; }
+
+    //VARIABLES
+    float healthpointsMax; //The max HP of the entity
+    float healthpoints = healthpointsMax; 
+    float walkSpeedMax; //The default speed of the entity
+    Item currentItem; //Currently equipped item the entity is using
+
 };
 
 #endif /* BODY_H */
