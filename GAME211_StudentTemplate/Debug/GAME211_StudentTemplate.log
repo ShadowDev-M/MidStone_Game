@@ -1,0 +1,42 @@
+<<<<<<< Updated upstream
+﻿  GameManager.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+  GAME211_StudentTemplate.vcxproj -> C:\Users\joshu\Downloads\GAME211_StudentTemplate_main_2\MidStone_Game\Debug\GAME211_StudentTemplate.exe
+=======
+﻿  Enemy.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+  GameManager.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+  Inventory.cpp
+  Main.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+  MenuScene.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(63,90): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(63,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(145,45): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(145,45): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(145,61): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\MenuScene.cpp(145,61): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Player.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+  Scene1.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp(153,45): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp(153,45): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp(153,61): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\Scene1.cpp(153,61): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  TestBlock.cpp
+  This is wrong: Vec4 cross(const Vec4& a, const Vec4& b)
+  This questionable: Vec4 inverse(const Vec4& v)
+C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\GAME211_StudentTemplate\TestBlock.cpp(44,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  GAME211_StudentTemplate.vcxproj -> C:\Users\danru\OneDrive\Documents\GitHub\MidStone_Game\Debug\GAME211_StudentTemplate.exe
+>>>>>>> Stashed changes
