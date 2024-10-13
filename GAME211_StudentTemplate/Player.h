@@ -1,16 +1,8 @@
-//
-//  Player.h
-//  DemoAI
-//
-//  Created by Gail Harris on 2021-Dec-23.
-//
-
 #ifndef PLAYER_H
 #define PLAYER_H
 
 #include <stdio.h>
 #include "Body.h"
-#include "Item.h"
 #include "Inventory.h"
 #include "GameManager.h"
 #include <SDL.h>
@@ -53,12 +45,32 @@ public:
         , game{ game_ }
     {}
 
+    // Temp constructer
+    Player(Vec3 pos_, Vec3 vel_, Vec3 accel_, float mass_, float radius_, float orientation_, float rotation_, float angular_);
+
+    // Variables
+    float healthpointsMax = 10.0f;
+    float healthpoints = healthpointsMax;
+    float walkSpeedMax = 3.0f;
     Inventory playerInventory;
+    const char* playerImage;
+    SDL_Texture* playerTexture;
 
     // use the base class versions of getters
-    bool OnCreate() override;
-    void HandleEvents(const SDL_Event& event) override;
-    void Update(float deltaTime) override;
+    bool OnCreate();
+    void OnDestroy();
+    void Render(float scale = 1.0f);
+    void HandleEvents(const SDL_Event& event);
+    void Update(float deltaTime);
+    void setTexture(SDL_Texture* texture_) {texture = texture_;}
+    void takeDamage(float damage);
+    void setItem(Item newItem);
+
+    // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
+    void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; }
+    void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; }
+
+
 };
 
 #endif /* PLAYER_H */

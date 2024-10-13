@@ -47,7 +47,7 @@ bool SceneM::OnCreate() {
 void SceneM::Update(const float deltaTime) {
 
 	// Update player
-	game->getPlayer()->Update(deltaTime);
+	//game->getPlayer()->Update(deltaTime);
 
 
 }
@@ -74,7 +74,7 @@ void SceneM::Render() {
 void SceneM::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
-	game->getPlayer()->HandleEvents(event);
+	//game->getPlayer()->HandleEvents(event);
 
 	switch (event.type) {
 	case SDL_MOUSEMOTION:
