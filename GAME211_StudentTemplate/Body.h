@@ -23,15 +23,16 @@ protected:
     float angular;          // angular acceleration
     float radius;           // for getting near walls
 
+    // Mostly rendering stuff
 	Vec3 imageSizeWorldCoords;
     SDL_Surface* image;
     SDL_Texture* texture;
+    SDL_Renderer* renderer;
+    Matrix4 projectionMatrix;
     // For new texture rendering
     const char* textureFile = "";
 
 public:
-
-    //Constructors
     Body();
     Body(
         Vec3 pos_, Vec3 vel_, Vec3 accel_,
@@ -41,14 +42,16 @@ public:
         float rotation_,
         float angular_
     );
-    Body(Vec3 pos_, int hp, float speed);
+    Body(int hp, Vec3 pos_);
+    
 
     //DESTRUCTOR
-	virtual ~Body();
+    virtual ~Body();
 
     //ESSENTIAL FUNCTIONS
     virtual bool OnCreate();
-    virtual void Render(float scale);
+    virtual void OnDestroy();
+    virtual void RenderEntity(float scale, SDL_Texture* entityTexture);
     virtual void Update(float deltaTime);
     virtual void HandleEvents(const SDL_Event& event);
 
@@ -61,7 +64,7 @@ public:
     virtual float getOrientation() { return orientation; }
     virtual float getRotation() { return rotation; }
     virtual float getAngular() { return angular; }
-    
+
     //Other
     virtual void ApplyForce(Vec3 force_);
     virtual void setPos(Vec3 pos_) { pos = pos_; }
@@ -70,11 +73,13 @@ public:
     virtual void setImage(SDL_Surface* image_) { image = image_; }
     virtual SDL_Surface* getImage() { return image; }
     virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_) { imageSizeWorldCoords = imageSizeWorldCoords_; }
-    virtual void setTexture( SDL_Texture* texture_ ) { texture = texture_; }
+    virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
     virtual SDL_Texture* getTexture() { return texture; }
 
-     /// Set a new texture file for this body	
-    /// <param name="textureFile_">The new texture file</param>
+    virtual SDL_Texture* loadImage(const char* textureFile);
+
+    /// Set a new texture file for this body	
+   /// <param name="textureFile_">The new texture file</param>
     virtual void SetTextureFile(const char* textureFile_) {
         textureFile = textureFile_;
     }
@@ -90,7 +95,7 @@ public:
 
     //VARIABLES
     float healthpointsMax; //The max HP of the entity
-    float healthpoints = healthpointsMax; 
+    float healthpoints = healthpointsMax;
     float walkSpeedMax; //The default speed of the entity
     Item currentItem; //Currently equipped item the entity is using
 };

@@ -47,7 +47,7 @@ bool SceneM::OnCreate() {
 void SceneM::Update(const float deltaTime) {
 
 	// Update player
-	game->getPlayer()->Update(deltaTime);
+	//game->getPlayer()->Update(deltaTime);
 
 
 }
@@ -64,22 +64,6 @@ void SceneM::Render() {
 	SDL_Rect dest = scale(playGameBTexture, playButtonScreenCoords.x, playButtonScreenCoords.y, 0.5f);
 	// test
 	SDL_RenderCopy(renderer, playGameBTexture, nullptr, &dest);
-	
-
-
-	// 
-	for (int j = game->getPlayer()->getPos().y - 10; j < game->getPlayer()->getPos().y + 10; j++) {
-
-		for (int i = game->getPlayer()->getPos().x - 10; i < game->getPlayer()->getPos().x + 10; i++) {
-			int id = RegionOne.getTileIDFromCoord(Vec2(i, j));
-
-			SDL_RenderCopy(renderer, playGameBTexture, nullptr, &dest);
-
-		}
-	}
-
-	playGameBTexture.pos = Vec3(x, y, 0.0f);
-	SDL_RenderCopy(renderer, playGameBTexture, nullptr, &dest);
 
 	
 
@@ -90,7 +74,7 @@ void SceneM::Render() {
 void SceneM::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
-	game->getPlayer()->HandleEvents(event);
+	//game->getPlayer()->HandleEvents(event);
 
 	switch (event.type) {
 	case SDL_MOUSEMOTION:

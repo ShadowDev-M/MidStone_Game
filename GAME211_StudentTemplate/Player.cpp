@@ -1,22 +1,41 @@
-//
-//  Player.cpp
-//  DemoAI
-//
-//  Created by Gail Harris on 2021-Dec-23.
-//
-
 #include "Player.h"
+
+Player::Player(
+    Vec3 pos_, Vec3 vel_, Vec3 accel_,
+    float mass_,
+    float radius_ = 0.0f,
+    float orientation_ = 0.0f,
+    float rotation_ = 0.0f,
+    float angular_ = 0.0f
+)
+{
+    pos = pos_;
+    vel = vel_;
+    accel = accel_;
+    mass = mass_;
+    radius = radius_;
+    orientation = orientation_;
+    rotation = rotation_;
+    angular = angular_;
+
+    image = nullptr;
+}
+
 
 bool Player::OnCreate()
 {
-    image = IMG_Load( "Pacman.png" ); //Placeholder image
-    SDL_Renderer *renderer = game->getRenderer();
-    texture = SDL_CreateTextureFromSurface( renderer, image );
-    if (image == nullptr) {
-        std::cerr << "Can't open the image" << std::endl;
-        return false;
-    }
+   
+    // sets up player image and texture
+    playerImage = "Pacman.png";
+    playerTexture = loadImage(playerImage);
+
     return true;
+}
+
+void Player::Render( float scale )
+{   
+    // Calls body entity render
+    RenderEntity(scale, playerTexture);
 }
 
 void Player::HandleEvents( const SDL_Event& event )
@@ -67,4 +86,24 @@ void Player::Update( float deltaTime )
     // Note that would update velocity too, and rotation motion
 
     Body::Update( deltaTime );
+
+}
+
+void Player::OnDestroy()
+{
+    // Change to Debug::Info after
+    std::cout << ("Deleting player assets: ", __FILE__, __LINE__);
+    delete playerTexture;
+}
+
+void Player::takeDamage(float damage)
+{
+    //The player takes damage
+    healthpoints -= damage;
+}
+
+void Player::setItem(Item newItem)
+{
+    //Set the player's current item to the new item
+    currentItem = newItem;
 }

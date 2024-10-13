@@ -5,6 +5,7 @@
 #include <SDL_image.h>
 #include <MMath.h>
 #include "Scene.h"
+#include "Player.h"
 
 #include "Chunk.h"
 #include "ChunkHandler.h"
@@ -19,16 +20,22 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
 	Matrix4     inverseProjection;	// set in OnCreate()
 
+	Player* player;
+	ChunkHandler RegionOne;
 
 	// Testing the loading of tiles
 	// Starting off with a single tile and assigning it an ID
 
 	Body* stoneTile;
 	SDL_Texture* stoneTileTexture;
+	Body* grassTile;
+	SDL_Texture* grassTileTexture;
 
+
+	std::vector<TileInfo> changesIndex;
 	std::vector<Body*> tiles;
 
-	int tileOffset = 1;
+	int tileOffset = 8;
 
 	// One tile is 16x16 pixels * 3
 	// Each object should follow 48 pixels
