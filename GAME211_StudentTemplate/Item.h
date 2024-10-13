@@ -7,11 +7,10 @@ class Item
 	bool utility = false;
 	bool tile = false; //if the item is a type of tyle
 	bool consumable = false; //you never know, maybe it will hurt you :)
-	
+
 	bool inRange;
 	bool enhancement; //if a weapon is enhanced, like an enchantment in minecraft
 
-	const char* itemName;
 	float resistance; //this is for when the player may equip armor, and may reduce incoming damage
 	float bonusMoveSpeed;//one is just a flat bonus
 	float moveSpeedMultiplier;// the other is an adaptive bonus that will change based on the base number
@@ -26,7 +25,9 @@ class Item
 	float range;
 
 public:
+	Item();
 	void CheckInRange(SDL_Window* window);
-
+	Item(const char* itemName);
+	const char* itemName;
 };
 

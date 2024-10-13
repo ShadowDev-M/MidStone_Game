@@ -26,6 +26,12 @@ bool Scene1::OnCreate() {
 	// Check to make sure loading scene works
 	std::cout << "Entering Scene1" << std::endl;
 	
+	Item* sword = new Item("Sword");
+	Item* shield = new Item("Shield");
+	Inventory inventory;
+	inventory.addItem(sword);
+	inventory.printInventory();
+
 	int w, h;
 	SDL_GetWindowSize(window,&w,&h);
 
