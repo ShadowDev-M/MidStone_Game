@@ -30,7 +30,7 @@ private:
 	float worldW, worldH;
 	Vec3& bodyVel;
 	Vec3& bodyPos;
-	
+
 	float DetectPenetration(TileFaces wall, Vec3 pos, Vec3 vel);
 	ChunkHandler* chunkHandler;
 
@@ -46,6 +46,7 @@ public:
 		wallFaces = _wallFaces;
 	}
 
+	//Call this when the object's image is initilized 
 	//Set the body's width and height to calculate the collision
 	void OnCreate(int imageWidth, int imageHeight, float scale)
 	{
@@ -58,6 +59,7 @@ public:
 		worldW = dimensions.x * (25.0f / 1000.0f);
 	}
 
+	//Call this in the object's Update function
 	//This method gets called by the owner of the collider in the update funtion
 	void CheckCollision();
 

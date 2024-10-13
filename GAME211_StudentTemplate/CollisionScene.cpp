@@ -35,7 +35,7 @@ bool CollisionScene::OnCreate() {
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
-	game->getPlayer()->setCollider();
+	
 
 	Vec3 pos = game->getPlayer()->getPos();
 
