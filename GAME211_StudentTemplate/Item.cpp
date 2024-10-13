@@ -26,7 +26,3 @@ void Item::CheckInRange(SDL_Window* window) {
     // Check if the distance is within the radius (range)
     inRange = (MouseDistance <= range);
 }
-
-Item::Item(const char* name_) {
-    itemName = name_;
-}

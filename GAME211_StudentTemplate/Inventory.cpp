@@ -1,5 +1,5 @@
 #include "Inventory.h"
-#include "iostream"
+
 //IVENTORY MAKER
 Inventory::Inventory() {//creates inventory array with... nothing... boo!
     for (int i = 0; i < rows; ++i) {
@@ -13,7 +13,7 @@ Inventory::Inventory() {//creates inventory array with... nothing... boo!
 bool Inventory::addItem(Item* item) {//uses a for loop to look for the first empty slot, and returns a value when it finds and also places the item
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (mainInventory[i][j] == nullptr) {//if that slot is empty
+            if (mainInventory[i][j] = nullptr) {//if that slot is empty
                 mainInventory[i][j] = item; //use that slot for the item
                 return true; //set to true to satisfy the function and end it
             }
@@ -32,15 +32,5 @@ bool Inventory::removeItem(int row, int col) {
     return false; // is the space is already empty
 }
 
-void Inventory::printInventory() {
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            if (mainInventory[i][j] != nullptr) {
-                std::cout << "Slot [" << i << "][" << j << "]: " << mainInventory[i][j]->itemName << std::endl;
-            }
-            else {
-                std::cout << "Slot [" << i << "][" << j << "]: Empty" << std::endl;
-            }
-        }
-    }
-}
+
+   
