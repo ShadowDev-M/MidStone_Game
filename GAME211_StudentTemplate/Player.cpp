@@ -24,7 +24,6 @@ Player::Player(
 
 bool Player::OnCreate()
 {
-   
     // sets up player image and texture
     playerImage = "Pacman.png";
     playerTexture = loadImage(playerImage);
@@ -74,10 +73,11 @@ void Player::HandleEvents( const SDL_Event& event )
     }
 
     //Don't exceed our max speed when moving diagonally
-    if (VMath::mag(vel) > walkSpeedMax)
-    {
-        vel = VMath::normalize(vel) * walkSpeedMax; //normalize our speed to prevent this, multiply by our max speed to make it more natural
-    }
+    //if (VMath::mag(vel) > walkSpeedMax)
+    //{
+    //    vel = VMath::normalize(vel) * walkSpeedMax; //normalize our speed to prevent this, multiply by our max speed to make it more natural
+    //}
+
 }
 
 void Player::Update( float deltaTime )
