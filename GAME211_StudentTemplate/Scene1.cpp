@@ -11,6 +11,10 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
+
+	// player spawns in middle of screen
+	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	player->setRenderer(renderer);
 }
 
 // To render chunks and set id to tiles need to setup camera first
@@ -22,12 +26,20 @@ bool Scene1::OnCreate() {
 	// Check to make sure loading scene works
 	std::cout << "Entering Scene1" << std::endl;
 	
+	Item* sword = new Item("Sword");
+	Item* shield = new Item("Shield");
+	Inventory inventory;
+	inventory.addItem(sword);
+	inventory.printInventory();
+
 	int w, h;
 	SDL_GetWindowSize(window,&w,&h);
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
+
+	player->setProjection(projectionMatrix);
 
 	// Initialize PNG image loading
 	int imgFlags = IMG_INIT_PNG;
@@ -36,20 +48,10 @@ bool Scene1::OnCreate() {
 		return false;
 	}
 
-	// This way of rendering the player is fine since most of the information for the player is stored in its own class
-	// However any new rendering should be done with the new methods
+	player->OnCreate();
 
-	// Set player image to PacMan
-	SDL_Surface* playerImage;
-	SDL_Texture* playerTexture;
 
-	playerImage = IMG_Load("pacman.png");
-	playerTexture = SDL_CreateTextureFromSurface(renderer, playerImage);
-	
-	// Keeping this in for now to fix merge conflict
-	game->getPlayer()->setImage(playerImage);
-	game->getPlayer()->setTexture(playerTexture);
-
+	// Chunk rendering and testing in ChunkTestScene
 	ChunkHandler RegionOne;
 
 	std::vector<TileInfo> changesIndex = {
@@ -76,7 +78,31 @@ bool Scene1::OnCreate() {
 void Scene1::Update(const float deltaTime) {
 
 	// Update player
-	game->getPlayer()->Update(deltaTime);
+	// Will make this its own extracted function after (will put in camera class too)
+	int w, h;
+	SDL_GetWindowSize(window, &w, &h);
+
+	Matrix4 ndc = MMath::viewportNDC(w, h);
+	float left, right, bottom, top;
+
+	left = 0.0f;
+	right = xAxis;
+	bottom = 0.0f;
+	top = yAxis;
+
+	left = player->getPos().x - xAxis / 2.0f;
+	right = player->getPos().x + xAxis / 2.0f;
+	bottom = player->getPos().y - yAxis / 2.0f;
+	top = player->getPos().y + yAxis / 2.0f;
+
+
+	Matrix4 ortho = MMath::orthographic(left, right, bottom, top, 0.0f, 1.0f);
+	projectionMatrix = ndc * ortho;
+
+	// Update players projection matrix
+	player->setProjection(projectionMatrix);
+
+	player->Update(deltaTime);
 
 	
 }
@@ -86,7 +112,7 @@ void Scene1::Render() {
 	SDL_RenderClear(renderer);
 
 	// render the player
-	game->RenderPlayer(0.10f);
+	player->Render(0.1f);
 
 	SDL_RenderPresent(renderer);
 }
@@ -94,7 +120,7 @@ void Scene1::Render() {
 void Scene1::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
-	game->getPlayer()->HandleEvents(event);
+	player->HandleEvents(event);
 }
 
 Vec3 Scene1::screenCoords(Vec3 gameCoords)
@@ -149,7 +175,7 @@ SDL_Rect Scene1::scale(SDL_Texture* objectTexture, int start_x, int start_y, flo
 }
 
 void Scene1::OnDestroy() {
-
+	//player->OnDestroy();
 }
 
 Scene1::~Scene1() {

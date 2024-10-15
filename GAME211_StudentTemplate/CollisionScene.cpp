@@ -10,7 +10,11 @@ CollisionScene::CollisionScene(SDL_Window* sdlWindow_, GameManager* game_) {
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
+
+	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	player->setRenderer(renderer);
 }
+
 
 CollisionScene::~CollisionScene() {
 }
@@ -33,18 +37,21 @@ bool CollisionScene::OnCreate() {
 
 	image = IMG_Load("pacman.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
-	game->getPlayer()->setImage(image);
-	game->getPlayer()->setTexture(texture);
+	player->setProjection(projectionMatrix);
+
 	
 
-	Vec3 pos = game->getPlayer()->getPos();
+	player->setImage(image);
+	player->setTexture(texture);
+	player->OnCreate();
+	//Vec3 pos = game->getPlayer()->getPos();
 
 	float mass = 1.0f;
 	float radius = 0.5f;
 	float orientation = 0.0f;
 	float rotation = 0.0f;
 	float angular = 0.0f;
-	Vec3 position(0.5f * getxAxis() + 5, 0.5f * getyAxis(), 0.0f + 5);
+	Vec3 position(0.5f * xAxis + 5, 0.5f * yAxis, 0.0f + 5);
 	Vec3 velocity(0.0f, 0.0f, 0.0f);
 	Vec3 acceleration(0.0f, 0.0f, 0.0f);
 
@@ -80,7 +87,7 @@ bool CollisionScene::OnCreate() {
 	faces.push_back(wall1);
 
 	//Pass the vector to the player
-	game->getPlayer()->SetObstacles(faces);
+	player->collider->setObstacles(faces);
 
 
 
@@ -94,7 +101,7 @@ void CollisionScene::OnDestroy() {}
 void CollisionScene::Update(const float deltaTime) {
 
 	// Update player
-	game->getPlayer()->Update(deltaTime);
+	player->Update(deltaTime);
 }
 
 void CollisionScene::Render() {
@@ -117,10 +124,20 @@ void CollisionScene::Render() {
 	SDL_RenderDrawLine(renderer, screenCoords1.x, screenCoords1.y, screenCoords2.x, screenCoords2.y);
 
 
-
+	//Box Collider Debug Tool (Don't delete)
+	/*Vec3 screenCoord = projectionMatrix * player->getPos();
+	Vec2 imageSize = Vec2(player->getImage()->w * 0.1f, player->getImage()->h * 0.1f);
+	Vec3 one = Vec3(screenCoord.x , screenCoord.y , 0);
+	Vec3 two = Vec3(screenCoord.x + imageSize.x , screenCoord.y , 0);
+	Vec3 three = Vec3(screenCoord.x, screenCoord.y + imageSize.y , 0);
+	Vec3 four = Vec3(screenCoord.x + imageSize.x , screenCoord.y + imageSize.y , 0);*/
+	//SDL_RenderDrawLine(renderer, one.x, one.y, two.x, two.y);
+	//SDL_RenderDrawLine(renderer, one.x, one.y, three.x, three.y);
+	//SDL_RenderDrawLine(renderer, three.x, three.y, four.x, four.y);
+	//SDL_RenderDrawLine(renderer, two.x, two.y, four.x, four.y);
 
 	// render the player
-	game->RenderPlayer(0.10f);
+	player->Render(0.1f);
 	block1->Render(0.10f);
 
 	SDL_RenderPresent(renderer);
@@ -129,5 +146,6 @@ void CollisionScene::Render() {
 void CollisionScene::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
-	game->getPlayer()->HandleEvents(event);
+	player->HandleEvents(event);
+	
 }

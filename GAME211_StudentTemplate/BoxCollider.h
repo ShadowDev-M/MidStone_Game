@@ -35,10 +35,14 @@ private:
 	ChunkHandler* chunkHandler;
 
 public:
+	
+	
 	BoxCollider(Vec3& _bodyVel, Vec3& _bodyPos) : bodyVel(_bodyVel), bodyPos(_bodyPos)
 	{
 
 	}
+
+	BoxCollider& operator=(const BoxCollider& other);
 
 	//We load the solid faces here 
 	void setObstacles(std::vector<TileFaces> _wallFaces)

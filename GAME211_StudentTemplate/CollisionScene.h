@@ -3,6 +3,7 @@
 
 #include <MMath.h>
 #include "TestBlock.h"
+#include "Player.h"
 
 using namespace MATH;
 class CollisionScene : public Scene {
@@ -15,6 +16,7 @@ private:
 	Matrix4     inverseProjection;	// set in OnCreate()
 	TestBlock* block1;
 	TestBlock* block2;
+	Player* player;
 
 	Vec2 p1;
 	Vec2 p2;

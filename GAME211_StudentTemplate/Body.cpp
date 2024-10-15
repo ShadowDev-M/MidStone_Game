@@ -44,6 +44,71 @@ Body::Body(int hp, Vec3 pos_)
 Body::~Body(){
 }
 
+bool Body::OnCreate()
+{
+
+
+    return true;
+}
+
+void Body::OnDestroy()
+{
+
+}
+
+
+// Both loading and rendering can now be accessed through body and scenes using the same functions
+SDL_Texture* Body::loadImage(const char* textureFile)
+{
+    // The following is a typical chunk of code for creating 
+    // a texture in SDL
+
+    // The final texture
+    SDL_Texture* newTexture = nullptr;
+
+    // Load image at specified path
+    SDL_Surface* loadedSurface = IMG_Load(textureFile);
+    if (!loadedSurface)
+    {
+        std::cout << "Unable to load image " << textureFile <<
+            "! SDL_image Error: " << IMG_GetError() << std::endl;
+    }
+    else
+    {
+        // Create texture from surface pixels
+        newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+        if (!newTexture)
+        {
+            std::cout << "Unable to create texture " << textureFile <<
+                "! SDL Error: " << SDL_GetError() << std::endl;
+        }
+
+        // Get rid of old loaded surface
+        SDL_FreeSurface(loadedSurface);
+    }
+
+    return newTexture;
+}
+
+void Body::RenderEntity(float scale, SDL_Texture* entityTexture)
+{
+    Vec3 screenCoords;
+    
+    // convert the position from game coords to screen coords.
+    screenCoords = projectionMatrix * pos;
+
+    // Get size of the input texture in pixels
+    SDL_Point size{};
+    SDL_QueryTexture(entityTexture, nullptr, nullptr, &size.x, &size.y);
+    SDL_Rect dest = { screenCoords.x, screenCoords.y, size.x * scale, size.y * scale };
+
+    // Convert character orientation from radians to degrees.
+    float orientationDegrees = orientation * 180.0f / M_PI;
+
+    SDL_RenderCopyEx(renderer, entityTexture, nullptr, &dest,
+        orientationDegrees, nullptr, SDL_FLIP_NONE);
+}
+
 void Body::ApplyForce( Vec3 force_ ) {
     accel = force_ / mass;
 }
@@ -73,9 +138,4 @@ void Body::HandleEvents( const SDL_Event& event )
         }
     }
     // etc
-}
-
-void Body::setPos( Vec3 pos_ )
-{
-    pos = pos_;
 }

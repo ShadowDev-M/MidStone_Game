@@ -5,6 +5,7 @@
 #include <VMath.h>
 #include <SDL.h>
 #include <SDL_image.h>
+#include "Item.h"
 
 using namespace MATH;
 
@@ -22,9 +23,12 @@ protected:
     float angular;          // angular acceleration
     float radius;           // for getting near walls
 
+    // Mostly rendering stuff
 	Vec3 imageSizeWorldCoords;
     SDL_Surface* image;
     SDL_Texture* texture;
+    SDL_Renderer* renderer;
+    Matrix4 projectionMatrix;
     // For new texture rendering
     const char* textureFile = "";
 
@@ -41,12 +45,18 @@ public:
     Body(int hp, Vec3 pos_);
     
 
-    float healthpointsMax;
-    float healthpoints = healthpointsMax;
+    //DESTRUCTOR
+    virtual ~Body();
 
-	virtual ~Body();
+    //ESSENTIAL FUNCTIONS
+    virtual bool OnCreate();
+    virtual void OnDestroy();
+    virtual void RenderEntity(float scale, SDL_Texture* entityTexture);
     virtual void Update(float deltaTime);
-    virtual void ApplyForce(Vec3 force_);
+    virtual void HandleEvents(const SDL_Event& event);
+
+    //PHYSICS FUNCTIONS
+    //Getters
     virtual Vec3 getPos() { return pos; }
     virtual Vec3 getVel() { return vel; }
     virtual Vec3 getAccel() { return accel; }
@@ -55,19 +65,21 @@ public:
     virtual float getRotation() { return rotation; }
     virtual float getAngular() { return angular; }
 
+    //Other
+    virtual void ApplyForce(Vec3 force_);
+    virtual void setPos(Vec3 pos_) { pos = pos_; }
+
+    //TEXTURES AND IMAGES
     virtual void setImage(SDL_Surface* image_) { image = image_; }
     virtual SDL_Surface* getImage() { return image; }
-
-    virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_)
-    {
-        imageSizeWorldCoords = imageSizeWorldCoords_;
-	}
-
-    virtual void setTexture( SDL_Texture* texture_ ) { texture = texture_; }
+    virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_) { imageSizeWorldCoords = imageSizeWorldCoords_; }
+    virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
     virtual SDL_Texture* getTexture() { return texture; }
 
-     /// Set a new texture file for this body	
-    /// <param name="textureFile_">The new texture file</param>
+    virtual SDL_Texture* loadImage(const char* textureFile);
+
+    /// Set a new texture file for this body	
+   /// <param name="textureFile_">The new texture file</param>
     virtual void SetTextureFile(const char* textureFile_) {
         textureFile = textureFile_;
     }
@@ -77,11 +89,15 @@ public:
         return textureFile;
     }
 
-    virtual void HandleEvents( const SDL_Event& event );
+    //CUSTOM FUNCTIONS
+    virtual void takeDamage(float damage) { healthpoints -= damage; }
+    virtual void setItem(Item newItem) { currentItem = newItem; }
 
-	// Added this as public to deal with my demo
-	// so that mouse position can be copied into a Body.
-    virtual void setPos( Vec3 pos );
+    //VARIABLES
+    float healthpointsMax; //The max HP of the entity
+    float healthpoints = healthpointsMax;
+    float walkSpeedMax; //The default speed of the entity
+    Item currentItem; //Currently equipped item the entity is using
 };
 
 #endif /* BODY_H */

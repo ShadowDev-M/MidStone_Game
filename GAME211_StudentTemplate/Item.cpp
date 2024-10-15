@@ -6,6 +6,10 @@
 // cont'd. WHAT IT WILL COMPARE IN THE FUTURE, IS PLAYERS POSITION TO ENEMY POSITION
 //
 
+Item::Item()
+{
+}
+
 void Item::CheckInRange(SDL_Window* window) {
     // Get the window's size
     int windowWidth, windowHeight;
@@ -25,4 +29,8 @@ void Item::CheckInRange(SDL_Window* window) {
 
     // Check if the distance is within the radius (range)
     inRange = (MouseDistance <= range);
+}
+
+Item::Item(const char* name_) {
+    itemName = name_;
 }

@@ -1,9 +1,11 @@
 #include "BoxCollider.h"
 
+
+
 void BoxCollider::CheckCollision()
 {
 	//Find the worldCoords of the top left corner
-	Vec2 topLCorner = Vec2(bodyPos.x - worldW / 2, bodyPos.y - worldH / 2);
+	Vec2 topLCorner = Vec2(bodyPos.x, bodyPos.y);
 
 
 	for (int i = 0; i < wallFaces.capacity(); i++)
@@ -25,11 +27,12 @@ void BoxCollider::CheckCollision()
 
 
 			//AABB Collision Detection (Search on google to undrestand the concept)
-			if (topLCorner.y < wallY && topLCorner.y + worldH > wallY)
+			if (topLCorner.y > wallY && topLCorner.y - worldH < wallY)
 			{
 				//Reverse the velocity to create a bouncing effect (This caused a problem, we're not using it now)
 				float penetration = DetectPenetration(temp, bodyPos, bodyVel);
 				std::cout << "\nPen Amount: " << penetration;
+				temp.PointTwo.print();
 				//Return player by the penetration amount
 				bodyPos.y -= penetration;
 				Vec3 newVel = Vec3(bodyVel.x, 0, bodyVel.z);
@@ -77,19 +80,19 @@ float BoxCollider::DetectPenetration(TileFaces wall, Vec3 pos, Vec3 vel)
 	//If the wall is horizontal
 	if (wall.PointOne.y == wall.PointTwo.y)
 	{
-		bool movingDown = vel.y >= 0;
+		bool movingDown = vel.y <= 0;
 
 		if (movingDown)
 		{
 			//Compare bottom face of the player with the colliding wall
-			float ColliderBottomFaceY = pos.y + worldH / 2;
-			penetration = ColliderBottomFaceY - wall.PointOne.y;
+			float ColliderBottomFaceY = pos.y - worldH ;
+			penetration =  ColliderBottomFaceY - wall.PointOne.y;
 			return penetration;
 		}
 
 		//Compare top face of the player with the colliding wall
-		float ColliderTopFaceY = pos.y - worldH / 2;
-		penetration = ColliderTopFaceY - wall.PointOne.y;
+		float ColliderTopFaceY = pos.y ;
+		penetration =  ColliderTopFaceY - wall.PointOne.y;
 		return penetration;
 	}
 	else
@@ -99,14 +102,14 @@ float BoxCollider::DetectPenetration(TileFaces wall, Vec3 pos, Vec3 vel)
 		if (movingRight)
 		{
 			//Compare right face of the player with the colliding wall
-			float ColliderRightFaceX = pos.x + worldW / 2;
+			float ColliderRightFaceX = pos.x + worldW ;
 			penetration = ColliderRightFaceX - wall.PointOne.x;
 
 			return penetration;
 		}
 
 		//Compare left face of the player with the colliding wall
-		float ColliderLeftFaceX = pos.x - worldW / 2;
+		float ColliderLeftFaceX = pos.x ;
 		penetration = ColliderLeftFaceX - wall.PointOne.x;
 		return penetration;
 
