@@ -14,7 +14,7 @@ private:
 	SDL_Window* window;		// an SDL window with a SDL renderer
 	SDL_Renderer* renderer;	// the renderer associated with SDL window
 	Matrix4 projectionMatrix;	// set in OnCreate()
-	Matrix4     inverseProjection;	// set in OnCreate()
+	Matrix4 inverseProjection;	// set in OnCreate()
 
 
 	Body* playGameButton;

@@ -24,9 +24,6 @@ private:
 	bool isRunning;
 	class Scene *currentScene;
 
-	// This might be unfamiliar
-    class Player *player;
-
 	void handleEvents();
 	void LoadScene(int i);
 	bool ValidateCurrentScene();
@@ -43,8 +40,6 @@ public:
 	float getSceneHeight();
 	float getSceneWidth();
 	Matrix4 getProjectionMatrix();
-    Player* getPlayer(){ return player; }
-	void RenderPlayer(float scale = 1.0f);
 	SDL_Renderer* getRenderer();
 
 	void Run();

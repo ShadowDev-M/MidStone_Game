@@ -6,8 +6,6 @@
 // See notes about this constructor in Scene1.h.
 SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
-
-	
 	game = game_;
 	renderer = SDL_GetRenderer(window);
 	xAxis = 16.0f;
@@ -34,7 +32,6 @@ bool SceneC::OnCreate() {
 
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
-
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
@@ -86,27 +83,11 @@ bool SceneC::OnCreate() {
 }
 
 void SceneC::Update(const float deltaTime) {
-	player->Update(deltaTime);
-
 	// Will make this its own extracted function after (will put in camera class too)
 	int w, h;
-
 	SDL_GetWindowSize(window, &w, &h);
-	
-	 multW = (float)1000/w;
-	 multH = (float)1000/h;
-	//std::cout << multH, " ";
 
-	
-	//std::cout << multH, " ";
-
-
-
-	//h *= multH;
-	 xAxis = 16;
-	 yAxis = 16;
-
-	Matrix4 ndc = MMath::viewportNDC(w * multW, h *multH) ;
+	Matrix4 ndc = MMath::viewportNDC(w, h);
 	float left, right, bottom, top;
 
 	left = 0.0f;
@@ -116,8 +97,8 @@ void SceneC::Update(const float deltaTime) {
 
 	left = player->getPos().x - xAxis / 2.0f;
 	right = player->getPos().x + xAxis / 2.0f;
-	bottom = (player->getPos().y - yAxis / 4) - yAxis / 2.0f;
-	top = (player->getPos().y - yAxis / 4) + yAxis / 2.0f;
+	bottom = player->getPos().y - yAxis / 2.0f;
+	top = player->getPos().y + yAxis / 2.0f;
 
 
 	Matrix4 ortho = MMath::orthographic(left, right, bottom, top, 0.0f, 1.0f);
@@ -126,6 +107,7 @@ void SceneC::Update(const float deltaTime) {
 	// Update players projection matrix
 	player->setProjection(projectionMatrix);
 
+	player->Update(deltaTime);
 }
 
 void SceneC::Render() {
@@ -149,7 +131,7 @@ void SceneC::Render() {
 
 			Vec3 grassTileCoords = screenCoords(grassTile->getPos());
 
-			SDL_Rect grassDest = scale(grassTileTexture, grassTileCoords.x, grassTileCoords.y, 4.0f);
+			SDL_Rect grassDest = scale(grassTileTexture, grassTileCoords.x, grassTileCoords.y, 2.0f);
 			SDL_RenderCopy(renderer, grassTileTexture, nullptr, &grassDest);
 
 		}
@@ -158,7 +140,7 @@ void SceneC::Render() {
 
 			Vec3 stoneTileCoords = screenCoords(stoneTile->getPos());
 
-			SDL_Rect stoneDest = scale(stoneTileTexture, stoneTileCoords.x, stoneTileCoords.y, 4.0f);
+			SDL_Rect stoneDest = scale(stoneTileTexture, stoneTileCoords.x, stoneTileCoords.y, 2.0f);
 			SDL_RenderCopy(renderer, stoneTileTexture, nullptr, &stoneDest);
 		}
 

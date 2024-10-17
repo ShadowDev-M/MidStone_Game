@@ -21,11 +21,14 @@
   <ItemGroup>
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="ChunkTestScene.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enhancement.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemContexts.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -39,6 +42,7 @@
   <ItemGroup>
     <ClInclude Include="Body.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="ChunkTestScene.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Enhancement.h" />
     <ClInclude Include="GameManager.h" />

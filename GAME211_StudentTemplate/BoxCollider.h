@@ -3,21 +3,22 @@
 #include <iostream>;
 #include "Vector.h";
 #include "Body.h";
+#include "ChunkHandler.h"
 using namespace MATH;
 
-struct ColliderFace
-{
-	//This may change depended on Joel's code
-	Vec2 point1;
-	Vec2 point2;
-
-	ColliderFace() {};
-	ColliderFace(Vec2 p1, Vec2 p2)
-	{
-		point1 = p1;
-		point2 = p2;
-	};
-};
+//struct ColliderFace
+//{
+//	//This may change depended on Joel's code
+//	Vec2 point1;
+//	Vec2 point2;
+//
+//	ColliderFace() {};
+//	ColliderFace(Vec2 p1, Vec2 p2)
+//	{
+//		point1 = p1;
+//		point2 = p2;
+//	};
+//};
 
 
 class BoxCollider
@@ -25,33 +26,46 @@ class BoxCollider
 
 private:
 	//List of the solid faces coming from Joel's code
-	std::vector<ColliderFace> wallFaces;
-	float width, height;
-	void SortWallFaces();
+	std::vector<TileFaces> wallFaces;
+	float worldW, worldH;
+	Vec3& bodyVel;
+	Vec3& bodyPos;
+
+	float DetectPenetration(TileFaces wall, Vec3 pos, Vec3 vel);
+	ChunkHandler* chunkHandler;
 
 public:
-	BoxCollider() {};
-	BoxCollider(Body* _body)
+	
+	
+	BoxCollider(Vec3& _bodyVel, Vec3& _bodyPos) : bodyVel(_bodyVel), bodyPos(_bodyPos)
 	{
-		float w = 1000;
-		float h = 600;
+
 	}
 
+	BoxCollider& operator=(const BoxCollider& other);
+
 	//We load the solid faces here 
-	void setObstacles(std::vector<ColliderFace> _wallFaces)
+	void setObstacles(std::vector<TileFaces> _wallFaces)
 	{
 		wallFaces = _wallFaces;
 	}
 
+	//Call this when the object's image is initilized 
 	//Set the body's width and height to calculate the collision
-	void SetCollider(float w, float h)
+	void OnCreate(int imageWidth, int imageHeight, float scale)
 	{
-		width = w;
-		height = h;
+		//Setting colldier faces
+		Vec3 dimensions = Vec3(imageWidth * scale, imageHeight * scale, 0);
+
+		//TODO: Replace these two lines by the function that Massimo is gonna write for 
+		//converting screenCoords to worldCoord
+		worldH = dimensions.y * (15.0f / 600.0f);
+		worldW = dimensions.x * (25.0f / 1000.0f);
 	}
 
+	//Call this in the object's Update function
 	//This method gets called by the owner of the collider in the update funtion
-	void CheckCollision(Vec3 pos, Vec3& vel);
+	void CheckCollision();
 
 };
 

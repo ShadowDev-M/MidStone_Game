@@ -1,5 +1,7 @@
 #pragma once
 #include "Item.h"
+#include "iostream"
+using namespace std;
 class Inventory
 {
 	static const int rows = 4;
@@ -10,7 +12,9 @@ class Inventory
 public:
 	Inventory();
 	bool addItem(Item* item);
-	bool removeItem(int row, int col);	
+	bool removeItem(int row, int col);
 	Item* getItem(int row, int col) { return mainInventory[row][col]; }
+	void printInventory() /* { cout << mainInventory << endl*/;
+
 };
 
