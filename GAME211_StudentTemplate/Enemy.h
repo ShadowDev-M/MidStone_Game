@@ -52,16 +52,24 @@ public:
         , game{ game_ }
     {}
 
-    float healthpointsMax = 10.0f;
-    float healthpoints = 10.0f;
+    // Temp constructer
+    Enemy(Vec3 pos_, Vec3 vel_, Vec3 accel_, float mass_, float radius_, float orientation_, float rotation_, float angular_);
+
+    const char* enemyImage;
+    SDL_Texture* enemyTexture;
 
     // use the base class versions of getters
     bool OnCreate();
+    void OnDestroy();
     void Render(float scale = 1.0f);
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
     void setTexture(SDL_Texture* texture_) { texture = texture_; }
-    void takeDamage(float damage);
+    void takeDamage(float damage) { healthpoints -= damage; }
+
+    // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
+    void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body
+    void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; } //projection matrix is defined in body
 };
 
 #endif /* PLAYER_H */

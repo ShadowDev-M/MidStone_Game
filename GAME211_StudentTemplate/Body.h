@@ -92,6 +92,7 @@ public:
     //CUSTOM FUNCTIONS
     virtual void takeDamage(float damage) { healthpoints -= damage; }
     virtual void setItem(Item newItem) { currentItem = newItem; }
+    virtual void setHealthPoints(float entityHealth) { healthpointsMax = entityHealth; healthpoints = entityHealth; }
 
     //VARIABLES
     float healthpointsMax; //The max HP of the entity

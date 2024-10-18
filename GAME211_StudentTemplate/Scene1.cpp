@@ -15,6 +15,9 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
 	// player spawns in middle of screen
 	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	player->setRenderer(renderer);
+
+	enemy = new Enemy(Vec3(xAxis / 3.0f, yAxis / 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	enemy->setRenderer(renderer);
 }
 
 // To render chunks and set id to tiles need to setup camera first
@@ -40,6 +43,7 @@ bool Scene1::OnCreate() {
 	projectionMatrix = ndc * ortho;
 
 	player->setProjection(projectionMatrix);
+	enemy->setProjection(projectionMatrix);
 
 	// Initialize PNG image loading
 	int imgFlags = IMG_INIT_PNG;
@@ -49,7 +53,7 @@ bool Scene1::OnCreate() {
 	}
 
 	player->OnCreate();
-
+	enemy->OnCreate();
 
 	// Chunk rendering and testing in ChunkTestScene
 	ChunkHandler RegionOne;
@@ -58,8 +62,6 @@ bool Scene1::OnCreate() {
 		{0,0,0}, {0,1,1}, {0,2,1}, {0,3,1}, {0,4,1}, {0,5,1}, {0,6,1}, {0,7,1}, {0,8,1}, {0,9,1}, {0,10,1}, {0,11,1}, {0,12,1}, {0,13,1}, {0,14,1}, {0,15,1},
 		{1,0,0}, {1,1,1}, {1,2,1}, {1,3,1}, {1,4,1}, {1,5,1}, {1,6,1}, {1,7,1}, {1,8,1}, {1,9,1}, {1,10,1}, {1,11,1}, {1,12,1}, {1,13,1}, {1,14,1}, {1,15,1},
 		{2,0,1}, {2,1,1}, {2,2,1}, {2,3,1}, {2,4,1}, {2,5,1}, {2,6,1}, {2,7,1}, {2,8,1}, {2,9,1}, {2,10,1}, {2,11,1}, {2,12,1}, {2,13,1}, {2,14,1}, {2,15,1} };
-
-
 
 	RegionOne.setTile(changesIndex);
 
@@ -70,7 +72,6 @@ bool Scene1::OnCreate() {
 
 
 	//RegionOne.getFaces(Vec2(0.5, 0.7), Vec2(20.3, 30.4));
-
 
 	return true;
 }
@@ -104,7 +105,9 @@ void Scene1::Update(const float deltaTime) {
 
 	player->Update(deltaTime);
 
-	
+	enemy->setProjection(projectionMatrix);
+
+	enemy->Update(deltaTime);
 }
 
 void Scene1::Render() {
@@ -113,6 +116,7 @@ void Scene1::Render() {
 
 	// render the player
 	player->Render(0.1f);
+	enemy->Render(0.1f);
 
 	SDL_RenderPresent(renderer);
 }

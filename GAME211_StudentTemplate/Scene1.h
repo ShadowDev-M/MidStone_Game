@@ -4,6 +4,7 @@
 #include <MMath.h>
 #include "Scene.h"
 #include "Player.h"
+#include "Enemy.h"
 
 using namespace MATH;
 class Scene1 : public Scene {
@@ -13,9 +14,10 @@ private:
 	SDL_Window* window;		// an SDL window with a SDL renderer
 	SDL_Renderer* renderer;	// the renderer associated with SDL window
 	Matrix4 projectionMatrix;	// set in OnCreate()
-    Matrix4     inverseProjection;	// set in OnCreate()
+    Matrix4 inverseProjection;	// set in OnCreate()
 
 	Player* player;
+	Enemy* enemy;
 
 	/// Load an image into a texture object.
 	/// <param name="textureFile">image file</param>

@@ -67,10 +67,8 @@ public:
     void setItem(Item newItem);
 
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
-    void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; }
-    void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; }
-
-
+    void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body
+    void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; } //projection matrix is defined in body
 };
 
 #endif /* PLAYER_H */
