@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Enemy.h"
 
 Player::Player(
     Vec3 pos_, Vec3 vel_, Vec3 accel_,
@@ -89,21 +90,21 @@ void Player::Update( float deltaTime )
 
 }
 
+bool Player::enemyCollision(Body* other)
+{
+    if (pos.x > other->getPos().x && pos.x < other->getPos().x + other->width
+        && pos.y < other->getPos().y && pos.y > other->getPos().y - other->height) 
+    {
+        return true;
+        std::cout << "COLLISION DETECTED" << std::endl;
+    }
+
+    return false;
+}
+
 void Player::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting player assets: ", __FILE__, __LINE__);
     delete playerTexture;
-}
-
-void Player::takeDamage(float damage)
-{
-    //The player takes damage
-    healthpoints -= damage;
-}
-
-void Player::setItem(Item newItem)
-{
-    //Set the player's current item to the new item
-    currentItem = newItem;
 }

@@ -65,7 +65,6 @@ public:
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
     void setTexture(SDL_Texture* texture_) { texture = texture_; }
-    void takeDamage(float damage) { healthpoints -= damage; }
 
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
     void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body

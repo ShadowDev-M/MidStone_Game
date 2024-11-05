@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "Player.h"
 #include "Enemy.h"
+#include <queue>
 
 using namespace MATH;
 class Scene1 : public Scene {
@@ -18,6 +19,7 @@ private:
 
 	Player* player;
 	Enemy* enemy;
+	std::queue<Enemy*> enemyQueue;
 
 	/// Load an image into a texture object.
 	/// <param name="textureFile">image file</param>

@@ -119,7 +119,6 @@ void Body::Update( float deltaTime ){
     // Update orientation
     orientation += rotation * deltaTime;
     rotation += angular * deltaTime;
-
 }
 
 

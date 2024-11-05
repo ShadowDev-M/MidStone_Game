@@ -25,7 +25,6 @@ bool Enemy::OnCreate()
 {
     enemyImage = "Blinky.png"; //Placeholder image
     enemyTexture = loadImage(enemyImage);
-
     return true;
 }
 
