@@ -104,7 +104,7 @@ float BoxCollider::DetectPenetration(TileFaces wall, Vec3 pos, Vec3 vel)
 			//Compare right face of the player with the colliding wall
 			float ColliderRightFaceX = pos.x + worldW ;
 			penetration = ColliderRightFaceX - wall.PointOne.x;
-
+			//test
 			return penetration;
 		}
 
