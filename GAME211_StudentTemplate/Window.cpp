@@ -1,7 +1,7 @@
 #include "Window.h"
 #include <SDL.h>
 #include <iostream> /// Umer likes this over printf() - too bad
-
+#include <SDL_ttf.h>
 
 Window::Window(int width_, int height_){
 	screenSurface = nullptr;
@@ -15,6 +15,10 @@ bool Window::OnCreate(){
 		std::cout << "SDL_Error: " << SDL_GetError() << std::endl;
 		return false;
 	}
+	
+	if (TTF_Init() < 0)
+		std::cout << "Error: " << TTF_GetError << std::endl;
+
 
 	window = SDL_CreateWindow("GAME307 Template", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
     
@@ -40,7 +44,7 @@ bool Window::OnCreate(){
             
 	return true;
 }
-
+ 
 void Window::OnDestroy(){
 	/// Kill the surface first
 	if (screenSurface) {

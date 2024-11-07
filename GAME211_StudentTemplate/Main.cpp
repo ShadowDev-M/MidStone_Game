@@ -1,6 +1,7 @@
 #include <iostream>
 #include "GameManager.h"
 
+
 int main(int argc, char* args[]) { /// Standard C-style entry point, you need to use it
 
 	GameManager *ptr = new GameManager();

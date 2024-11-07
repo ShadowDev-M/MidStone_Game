@@ -84,6 +84,12 @@
     <ClCompile Include="ItemContexts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UiElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UiText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -145,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="ImageToArrayTool.h">
       <Filter>Header Files\JDim</Filter>
+    </ClInclude>
+    <ClInclude Include="UiText.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
