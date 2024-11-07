@@ -28,12 +28,13 @@ bool Player::OnCreate()
     // sets up player image and texture
     playerImage = "Pacman.png";
     playerTexture = loadImage(playerImage);
-
+    
     return true;
 }
 
 void Player::Render( float scale )
 {   
+    float width = size.x; //Use this for the width of the image
     // Calls body entity render
     RenderEntity(scale, playerTexture);
 }

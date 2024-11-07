@@ -43,7 +43,7 @@ public:
         float angular_
     );
     Body(int hp, Vec3 pos_);
-    
+    SDL_Point size{};
 
     //DESTRUCTOR
     virtual ~Body();

@@ -98,7 +98,7 @@ void Body::RenderEntity(float scale, SDL_Texture* entityTexture)
     screenCoords = projectionMatrix * pos;
 
     // Get size of the input texture in pixels
-    SDL_Point size{};
+    
     SDL_QueryTexture(entityTexture, nullptr, nullptr, &size.x, &size.y);
     SDL_Rect dest = { screenCoords.x, screenCoords.y, size.x * scale, size.y * scale };
 
