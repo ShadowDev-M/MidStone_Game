@@ -1,9 +1,13 @@
 #include "UiText.h"
 
+UiText::UiText()
+{
+}
+
 void UiText::Render()
 {
 	SDL_Surface* surfaceMessage =
-		TTF_RenderText_Solid(font, "put your text here", fontColor);
+		TTF_RenderText_Solid(font, message, fontColor);
 
 	// convert it into a texture
 	SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);

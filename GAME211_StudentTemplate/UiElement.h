@@ -7,16 +7,9 @@ using namespace MATH;
 class  UiElement
 {
 public:
-	UiElement(SDL_Renderer* _renderer, Vec2 _screenCoords): 
-		renderer(_renderer),
-		screenCoords(_screenCoords)
-		//scale(_scale), 
-		//texture(_texture)
-	{
-				
-	}
+	
 
-	virtual void Render(SDL_Texture* texture);
+	virtual void Render() = 0;
 
 
 protected:

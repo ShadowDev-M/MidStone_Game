@@ -7,18 +7,21 @@
 
 using namespace MATH;
 
-class UiText: public UiElement
+class UiText : public UiElement
 {
 public:
-	UiText(SDL_Renderer* renderer, Vec2 _screenCoord, const char* _fontPath , SDL_Color _color, float _fontSize, float _width ,float _height ,const char* _message): 
-		UiElement(renderer,_screenCoord) ,
-		fontColor(_color), 
-		message(_message),
-		fontSize(_fontSize), 
-		fontPath(_fontPath),
-		width(_width),
-		height(_height)
+	UiText();
+
+	void OnCreate(SDL_Renderer* _renderer, Vec2 _screenCoord, const char* _fontPath , SDL_Color _color, float _fontSize, float _height ,float _width ,const char* _message)
 	{
+		renderer = _renderer;
+		screenCoords = _screenCoord;
+		fontColor=_color;
+		message = _message;
+		fontSize=_fontSize;
+		fontPath = _fontPath;
+		width=_width;
+		height = _height;
 		OpenFont();
 		
 	}
@@ -49,9 +52,7 @@ public:
 		return *this;
 	}
 
-	void Render();
-
-protected:
+	void Render() override;
 
 private:
 
@@ -72,6 +73,11 @@ private:
 		}
 		
 		font = TTF_OpenFont(fontPath, fontSize);
+
+		if (font == nullptr) {
+			std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+			return;
+		}
 	}
 
 };

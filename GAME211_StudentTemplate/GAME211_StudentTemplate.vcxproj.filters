@@ -90,6 +90,9 @@
     <ClCompile Include="UiText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UiScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="UiText.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UiScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
