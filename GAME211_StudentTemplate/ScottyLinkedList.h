@@ -68,14 +68,19 @@ namespace  MATH {
 				print();
 
 			}else {
+				
+
+				ScottLinkedNode tempNode = *getNodePointer(position);
 				remove(position);
 
+				
+
 				if (first == nullptr) {
-					first = new ScottLinkedNode(position);
+					first = new ScottLinkedNode(tempNode);
 					last = first;
 				}
 				else {
-					first->previous = new ScottLinkedNode(position);
+					first->previous = new ScottLinkedNode(tempNode);
 					first->previous->next = first;
 					first = first->previous;
 				}
@@ -149,6 +154,20 @@ namespace  MATH {
 
 				if (tempNode->position.x == position_.x && tempNode->position.y == position_.y)
 					return &tempNode->chunk;
+
+				tempNode = tempNode->next; // Move to the next node
+			}
+			return nullptr;
+		}
+		
+		ScottLinkedNode* getNodePointer(Vec2 position_) {
+			ScottLinkedNode* tempNode = first;
+
+			for (int i = 0; i < listSize; i++) {
+				if (tempNode == nullptr) break;
+
+				if (tempNode->position.x == position_.x && tempNode->position.y == position_.y)
+					return tempNode;
 
 				tempNode = tempNode->next; // Move to the next node
 			}

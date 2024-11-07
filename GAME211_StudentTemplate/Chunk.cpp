@@ -6,10 +6,6 @@ Chunk::Chunk()
 
 Chunk::Chunk(Vec2 pos_)
 {
-    for (int i = 0; i <= indexVector_.size(); i++)
-    {
-        setTile(indexVector_[i]);
-    }
 }
 
 
