@@ -3,6 +3,7 @@
 namespace  MATH {
 
 	struct TileInfo {
+	
 		int x, y, id;
 
 		void set(int x_, int y_, int id_) {

@@ -146,5 +146,8 @@
     <ClInclude Include="ImageToArrayTool.h">
       <Filter>Header Files\JDim</Filter>
     </ClInclude>
+    <ClInclude Include="ScottyLinkedList.h">
+      <Filter>Header Files\JDim</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

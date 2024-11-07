@@ -12,6 +12,10 @@ using namespace MATH;
 
 class Chunk {
 protected:
+    
+   
+
+
     const static int MAXSIZE = 16;
 	int tileSet[MAXSIZE][MAXSIZE] = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -38,9 +42,11 @@ public:
 
     ~Chunk();
 
-	Chunk(std::vector<TileInfo> indexVector_);
+	Chunk(Vec2 pos_);
 	//constructor for chunk, parametres are a vector for saved tiles and its index, assume both vectors share an index for each information
-	  
+
+
+
     /// <returns>id of specific index</returns>
     int getTile(int x, int y) { return tileSet[x][y]; }
     

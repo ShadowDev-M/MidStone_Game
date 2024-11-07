@@ -6,12 +6,20 @@
 #include <SDL_image.h>
 #include <vector>
 #include "Chunk.h"
+#include "Body.h"
+#include "ScottyLinkedList.h"
 
 using namespace MATH;
 
 class ChunkHandler {
 	const float CHUNKSPACING = 16;
-	Chunk Region[10][10];
+	//std::vector<Chunk> gameMap;
+	
+
+	std::vector<Body*> entitiesThatLoadChunks;
+	Chunk* currentChunk;
+	Chunk* lastChunk;
+	ScottLinkedList chunkList;
 
 	//
 protected:
@@ -19,6 +27,24 @@ protected:
 
 public:
 
+	void OnCreate();
+
+
+	void Update();
+
+	void addLoadingEntity(Body* entity);
+
+	Chunk* getChunkPointer(Vec2 pos_);
+
+
+
+	void LoadChunk(Vec2 pos_);
+
+	Chunk* getNthNext(int numberOfNexts);
+
+	int searchForChunkPos(Vec2 pos_);
+
+	int getChunkTileID(Vec2 chunkPos_, Vec2 tilePos_);
 	/// <summary>
 	/// gets the id of the tile corresponding to a set of worldspace coordinates
 	/// </summary>

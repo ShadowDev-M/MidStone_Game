@@ -1,14 +1,153 @@
 #include "ChunkHandler.h"
 
+void ChunkHandler::LoadChunk(Vec2 pos_) {
+    chunkList.add(pos_);
+    //printf("(%d, %d) ", pos_.x, pos_.y);
+//    chunkList.print();
+    //if (chunkToLoad == nullptr) chunkToLoad = new Chunk(pos_);
+    //else {
+    //    Chunk* previousChunk = chunkToLoad->getPrevious();
+    //   // Chunk* nextChunk = chunkToLoad->getNext();
+    //   // previousChunk->setNext(*nextChunk);
+    //}
+    //lastChunk = getNthNext(30);
+
+    //if (chunkToLoad != nullptr) {
+    //    lastChunk->setNext(*chunkToLoad);
+    //    chunkToLoad->setPrevious(*lastChunk);
+    //}
+    //lastChunk = getNthNext(30);
+}
+
+Chunk* ChunkHandler::getNthNext(int numberOfNexts) 
+{
+    //Chunk* loopChunkTemp = nullptr;
+    //Chunk* tempNext = nullptr;
+    //if (numberOfNexts >= 0) {
+    //    loopChunkTemp = currentChunk;
+
+    //    for (int i = 0; i < numberOfNexts; i++)
+    //    {
+    //        //As long as there is a next pointer that is not empty it will keep searching for as long as needed
+    //        if (loopChunkTemp->getNext() != nullptr) {
+    //            loopChunkTemp = loopChunkTemp->getNext();
+    //        }
+    //        else break;
+    //    }
+    //}
+    //else if (numberOfNexts < 0) {
+    //    loopChunkTemp = lastChunk;
+
+    //    for (int i = 0; i > numberOfNexts; i--)
+    //    {
+    //        //As long as there is a next pointer that is not empty it will keep searching for as long as needed
+    //        if (loopChunkTemp->getPrevious() != nullptr) {
+    //            loopChunkTemp = loopChunkTemp->getPrevious();
+    //        }
+    //        else break;
+    //    }
+    //}
+
+    //return loopChunkTemp;
+    return nullptr;
+}
+
+int ChunkHandler::getChunkTileID(Vec2 chunkPos_, Vec2 tilePos_) {
+    return chunkList.getChunkTileIDInternal(chunkPos_,  tilePos_);
+}
+
+
+int ChunkHandler::searchForChunkPos(Vec2 pos_) {
+    //Chunk* loopChunkTemp;
+    //    loopChunkTemp = currentChunk;
+
+    //    for (int i = 0; i < 30; i++)
+    //    {
+    //        //As long as there is a next pointer that is not empty it will keep searching for as long as needed
+    //        if (loopChunkTemp->getNext() != nullptr) {
+
+    //            if (loopChunkTemp->getPos().x == pos_.x && loopChunkTemp->getPos().y == pos_.y) return i;
+
+    //            loopChunkTemp = loopChunkTemp->getNext();
+    //        }
+    //        
+    //        
+    //    }
+    //    return NULL;
+    return NULL;
+}
+
+
+void ChunkHandler::Update()
+{
+    for (Body* entity : entitiesThatLoadChunks) {
+        Vec2 entityPos = Vec2(entity->getPos().x, entity->getPos().y);
+        Vec2 entityChunkLoc = getChunkLocation(entityPos);
+
+       // if (getChunkPointer(entityChunkLoc) == chunkList.getFirst()) break;
+
+       
+        for (int i = 0; i < 3; i++) 
+        {
+            for (int j = 0; j < 3; j++) 
+            {
+                if (!(i == 1 && j == 1)) 
+                {
+                    //LoadChunk(Vec2((entityChunkLoc.x - 1) + i, (entityChunkLoc.y - 1) + j));
+
+                    //if not in the first 9 (active chunks)
+                    if (!chunkList.search(Vec2((entityChunkLoc.x - 1) + i, (entityChunkLoc.y - 1) + j), 9)) {
+                        chunkList.add(Vec2((entityChunkLoc.x - 1) + i, (entityChunkLoc.y - 1) + j));
+                    }
+                }
+            }
+        }
+
+        //if the player's current chunk is not first in the list,
+        if ((getChunkPointer(entityChunkLoc) != chunkList.getFirst())) {
+            chunkList.add(entityChunkLoc);
+            //currentChunk = getChunkPointer(entityChunkLoc);
+            std::cout << entityChunkLoc.x << ", " << entityChunkLoc.y << std::endl;
+        }
+    }
+
+    //if (currentChunk->getPos()) currentChunk = getChunkPointer(Vec2(entitiesThatLoadChunks[0]->getPos().x, entitiesThatLoadChunks[0]->getPos().y));
+
+
+
+
+
+    
+}
+void ChunkHandler::OnCreate()
+{
+
+
+
+}
+
+void ChunkHandler::addLoadingEntity(Body* entity) { 
+    //add entity to list
+    entitiesThatLoadChunks.push_back(entity); 
+
+    //first Entity is reserved for the player, currentChunk represents the player's current chunk
+    if (entitiesThatLoadChunks.size() == 1) {
+
+        //set pointer to player's chunk 
+        currentChunk = getChunkPointer(Vec2(entitiesThatLoadChunks[0]->getPos().x, entitiesThatLoadChunks[0]->getPos().y));
+    }
+};
+
+
 int ChunkHandler::getTileIDFromCoord(Vec2 pos_) {
+	
+    //position of the Tile in
+    Vec2 chunkTilePos = worldspaceToChunkCoordinates(pos_);
 
-	Vec2 chunkPos = getChunkLocation(pos_);
+    Chunk* targetChunk = chunkList.getChunkPointer(chunkTilePos);
+    if (targetChunk == nullptr) return 0;
 
-	Vec2 chunkTilePos = worldspaceToChunkCoordinates(pos_);
-
-
-
-	return Region[int(chunkPos.x)][int(chunkPos.y)].getTile(int(chunkTilePos.x), int(chunkTilePos.y));
+	return targetChunk->getTile(int(chunkTilePos.x), int(chunkTilePos.y));
 	//chunkIndexX represents the corner (0,0), relative to the chunk
 	//chunkIndexX is then multiplied by 16 to be equivalent to the translation from 0,0 world space to the corner of the chunk
 	//the translation is then subtracted from the target position 
@@ -19,8 +158,10 @@ Vec2 ChunkHandler::worldspaceToChunkCoordinates(Vec2 pos_) {
 
 	int chunkIndexX = int(chunkPos.x);
 	int chunkIndexY = int(chunkPos.y);
+    Vec2 newPos = Vec2(float(int((pos_.x) - (int(chunkPos.x) * CHUNKSPACING))), float(int((pos_.y) - (int(chunkPos.y) * CHUNKSPACING))));
 
-	return (Vec2(float(int((pos_.x) - (int(chunkPos.x) * CHUNKSPACING))), float(int((pos_.y) / (int(chunkPos.y) * CHUNKSPACING)))));
+
+	return (newPos);
 
 }
 
@@ -33,13 +174,41 @@ Vec2 ChunkHandler::getChunkLocation(Vec2 pos_) {
 }
 
 void ChunkHandler::setTile(std::vector<TileInfo> indexVector_) {
-    Vec2 chunkLoc;
-    for (int i = 0; i < indexVector_.size(); i++)
-    {
-        chunkLoc = getChunkLocation(Vec2((float)indexVector_[i].x, (float)indexVector_[i].y));
-        Region[(int)chunkLoc.x][(int)chunkLoc.y].setTile(indexVector_[i]);
 
+    for (TileInfo& obj : indexVector_)
+    {
+        //obj will be the x y and id info
+        //printf("(%d, %d, %d )", (int)obj.x, (int)obj.y, (int)obj.id);
+
+
+        Vec2 chunkLoc = getChunkLocation(Vec2(obj.x, obj.y));
+
+        TileInfo newTile;
+
+        Vec2 newPos = worldspaceToChunkCoordinates(Vec2(obj.x, obj.y));
+        newTile = TileInfo((int)newPos.x, (int)newPos.y, obj.id);
+        //printf("( ee e %d, %d)", newPos.x, newPos.y);
+        //printf("(%d)", getTileIDFromCoord(newPos));
+        
+         chunkList.setChunkTileIDInternal(chunkLoc, newTile);
+       // printf("(%d)", getChunkTileID(chunkLoc, newPos));
+        //int testf = chunkList.getChunkTileIDInternal(Vec2(0, 0), Vec2(0, 0));
+       // printf("(%d, %d) = %d in chunk (%d, %d)", (int)newTile.x, (int)newTile.y, testf, chunkLoc.x, chunkLoc.y);
     }
+
+}
+
+Chunk* ChunkHandler::getChunkPointer(Vec2 pos_) {
+    return chunkList.getChunkPointer(pos_);
+
+  /*  for (auto& obj : gameMap) 
+    { 
+        Vec2 loopCheck = obj.getPos();
+        if (loopCheck.x == pos_.x && loopCheck.y == pos_.y) {
+            return &obj;
+        }
+    }
+    return nullptr;*/
 
 }
 
