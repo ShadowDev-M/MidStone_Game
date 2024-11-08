@@ -37,6 +37,7 @@
     <ClCompile Include="ChunkHandler.cpp" />
     <ClCompile Include="TestBlock.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UiPanel.cpp" />
     <ClCompile Include="UiElement.cpp" />
     <ClCompile Include="UiScene.cpp" />
     <ClCompile Include="UiText.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="UiPanel.h" />
     <ClInclude Include="UiScene.h" />
     <ClInclude Include="UiText.h" />
     <ClInclude Include="Window.h" />

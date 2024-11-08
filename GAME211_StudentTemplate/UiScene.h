@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include <queue>
 #include "UiText.h"
+#include "UiPanel.h"
 
 using namespace MATH;
 class UiScene : public Scene {
@@ -21,6 +22,7 @@ private:
 	Player* player;
 	
 	UiText text;
+	UiPanel panel;
 
 	/// Load an image into a texture object.
 	/// <param name="textureFile">image file</param>
@@ -52,7 +54,7 @@ public:
 	SDL_Window* getWindow() { return window; }
     Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
-
+	void ButtonTest();
 	// Takes game/physics coords of an object 
 	// and multiples it by the projection matrix to get screen coords
 	Vec3 screenCoords(Vec3 gameCoords);

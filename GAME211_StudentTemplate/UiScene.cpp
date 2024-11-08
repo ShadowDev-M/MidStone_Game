@@ -1,5 +1,6 @@
 #include "UiScene.h"
 #include <VMath.h>
+#include <functional>
 
 
 // See notes about this constructor in Scene1.h.
@@ -49,7 +50,7 @@ bool UiScene::OnCreate() {
 
 	player->OnCreate();
 	
-
+	
 	text.OnCreate(renderer,
 		Vec2(w/2 - 150, h/2 - 100) //Pos
 		, "Fonts/SuperDream-ax3vE.ttf" //Font Path
@@ -59,9 +60,14 @@ bool UiScene::OnCreate() {
 		, 450.0f //Width
 		, "Unreal Engine Is Dumb"); //Message
 
-
-
+	panel.OnCreate(renderer, Vec2(w / 2 , h / 2 + 100), "textures/StoneTile.png", 5);
+	panel.AddIcon("textures/sword.png", 3.0f).AddButton(std::bind(&UiScene::ButtonTest, this));
 	return true;
+}
+
+void UiScene::ButtonTest()
+{
+	text.ChangeMessage("Please Stop Using Unreal Engine");
 }
 
 void UiScene::Update(const float deltaTime) {
@@ -105,6 +111,7 @@ void UiScene::Render() {
 	// render the player
 	player->Render(0.1f);
 	text.Render();
+	panel.Render();
 	
 	SDL_RenderPresent(renderer);
 }
@@ -113,6 +120,7 @@ void UiScene::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	player->HandleEvents(event);
+	panel.HandleEvent(event);
 }
 
 Vec3 UiScene::screenCoords(Vec3 gameCoords)

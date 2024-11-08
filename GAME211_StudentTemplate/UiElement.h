@@ -8,7 +8,6 @@ class  UiElement
 {
 public:
 	
-
 	virtual void Render() = 0;
 
 
