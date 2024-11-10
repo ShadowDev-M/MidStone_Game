@@ -19,7 +19,7 @@ private:
 	SDL_Renderer* renderer;	// the renderer associated with SDL window
 	Matrix4 projectionMatrix;	// set in OnCreate()
 	Matrix4     inverseProjection;	// set in OnCreate()
-
+	bool testh;
 	Player* player;
 	ChunkHandler RegionOne;
 
