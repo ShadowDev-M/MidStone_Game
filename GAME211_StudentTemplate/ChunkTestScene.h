@@ -13,6 +13,15 @@
 using namespace MATH;
 class SceneC : public Scene {
 private:
+
+	static const int LEVEL_WIDTH = 1920;
+	static const int LEVEL_HEIGHT = 1080;
+
+	//Screen dimension constants
+	static const int SCREEN_WIDTH = 1000;
+	static const int SCREEN_HEIGHT = 600;
+
+
 	float xAxis;	// scene width, in game coords, set in constructor
 	float yAxis;	// scene height, in game coords, set in constructor
 	SDL_Window* window;		// an SDL window with a SDL renderer
@@ -30,6 +39,15 @@ private:
 	SDL_Texture* stoneTileTexture;
 	Body* grassTile;
 	SDL_Texture* grassTileTexture;
+
+	Body* ghost;
+	SDL_Texture* ghostTexture;
+
+	//Body* ghost;
+	//SDL_Texture* ghostTexture;
+
+	SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+
 
 
 	std::vector<TileInfo> changesIndex;
@@ -53,6 +71,8 @@ private:
 	/// <param name="textureFile">image file</param>
 	/// <returns>The SDL texture of this image</returns>
 	SDL_Texture* loadImage(const char* textureFile);
+
+	float scalingFactor(SDL_Texture*& texture, float& textureScale, Body* body);
 
 	/// Generate a rectangle that will encompass a scaled version of the texture.	
 	/// <param name="objectTexture">The texture object of the image</param>
@@ -79,6 +99,8 @@ public:
 	SDL_Window* getWindow() { return window; }
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
+
+	void moveCamera();
 
 	//.pos
 	// Takes game/physics coords of an object 

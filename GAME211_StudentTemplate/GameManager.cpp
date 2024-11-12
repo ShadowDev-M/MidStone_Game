@@ -17,6 +17,8 @@ bool GameManager::OnCreate() {
     //const int SCREEN_HEIGHT = 860;
 
     // Use 1000x600 for less than full screen
+
+    // This is considered the "level" dimensions, the camera uses "screen dimensions" but those are more so the cameras "screen"
     const int SCREEN_WIDTH = 1000;
     const int SCREEN_HEIGHT = 600;
 

@@ -93,8 +93,11 @@ public:
     virtual void takeDamage(float damage) { healthpoints -= damage; }
     virtual void setItem(Item newItem) { currentItem = newItem; }
     virtual void setHealthPoints(float entityHealth) { healthpointsMax = entityHealth; healthpoints = entityHealth; }
-    virtual void setWidth(float w) { width = w; }
-    virtual void setHeight(float h) { height = h; }
+    
+    virtual void setWidth(float w_) { width = w_; }
+    virtual void setHeight(float h_) { height = h_; }
+    virtual float getWidth() { return width; }
+    virtual float getHeight() { return height; }
 
     //VARIABLES
     float width;

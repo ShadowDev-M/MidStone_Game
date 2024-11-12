@@ -52,7 +52,8 @@ public:
     // Variables
     float healthpointsMax = 10.0f;
     float healthpoints = healthpointsMax;
-    float walkSpeedMax = 3.0f;
+    //
+    float walkSpeedMax = 50.0f;
     Inventory playerInventory;
     const char* playerImage;
     SDL_Texture* playerTexture;

@@ -8,20 +8,34 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
 	game = game_;
 	renderer = SDL_GetRenderer(window);
-	xAxis = 16.0f;
-	yAxis = 16.0f;
+	xAxis = SCREEN_WIDTH;
+	yAxis = SCREEN_HEIGHT;
 	
-	player = new Player(Vec3(8.0f, 8.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	player->setRenderer(renderer);
+	player->setWidth(2.0f);
+	player->setHeight(2.0f);
 
 	stoneTile = new Body(Vec3(1.0f, 1.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	stoneTile->SetTextureFile("textures/StoneTile.png");
+	stoneTile->setWidth(1.0f);
+	stoneTile->setHeight(1.0f);
+
 
 	grassTile = new Body(Vec3(1.0f, 1.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	grassTile->SetTextureFile("textures/GrassTile.png");
+	grassTile->setWidth(1.0f);
+	grassTile->setHeight(1.0f);
+
+	
+	ghost = new Body(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	ghost->SetTextureFile("textures/Pinky.png");
+	ghost->setWidth(1.0f);
+	ghost->setHeight(1.0f);
 
 	stoneTileTexture = nullptr;
 	grassTileTexture = nullptr;
+	ghostTexture = nullptr;
 
 }
 
@@ -64,34 +78,36 @@ bool SceneC::OnCreate() {
 	stoneTileTexture = loadImage(stoneTile->GetTextureFile());
 
 	grassTileTexture = loadImage(grassTile->GetTextureFile());
+
+	ghostTexture = loadImage(ghost->GetTextureFile());
 	
 	return true;
 }
 
 void SceneC::Update(const float deltaTime) {
-	// Will make this its own extracted function after (will put in camera class too)
-	int w, h;
-	SDL_GetWindowSize(window, &w, &h);
+	//// Will make this its own extracted function after (will put in camera class too)
+	//int w, h;
+	//SDL_GetWindowSize(window, &w, &h);
 
-	Matrix4 ndc = MMath::viewportNDC(w, h);
-	float left, right, bottom, top;
+	//Matrix4 ndc = MMath::viewportNDC(w, h);
+	//float left, right, bottom, top;
 
-	left = 0.0f;
-	right = xAxis;
-	bottom = 0.0f;
-	top = yAxis;
+	//left = 0.0f;
+	//right = xAxis;
+	//bottom = 0.0f;
+	//top = yAxis;
 
-	left = player->getPos().x - xAxis / 2.0f;
-	right = player->getPos().x + xAxis / 2.0f;
-	bottom = player->getPos().y - yAxis / 2.0f;
-	top = player->getPos().y + yAxis / 2.0f;
+	//left = player->getPos().x - xAxis / 2.0f;
+	//right = player->getPos().x + xAxis / 2.0f;
+	//bottom = player->getPos().y - yAxis / 2.0f;
+	//top = player->getPos().y + yAxis / 2.0f;
 
 
-	Matrix4 ortho = MMath::orthographic(left, right, bottom, top, 0.0f, 1.0f);
-	projectionMatrix = ndc * ortho;
+	//Matrix4 ortho = MMath::orthographic(left, right, bottom, top, 0.0f, 1.0f);
+	//projectionMatrix = ndc * ortho;
 
-	// Update players projection matrix
-	player->setProjection(projectionMatrix);
+	//// Update players projection matrix
+	//player->setProjection(projectionMatrix);
 
 	player->Update(deltaTime);
 	RegionOne.Update();
@@ -102,7 +118,31 @@ void SceneC::Update(const float deltaTime) {
 	};
 
 
-}
+	// Use when moving player to keep camera on them
+	camera.x = (player->getPos().x + player->getWidth() / 2) - SCREEN_WIDTH / 2;
+	camera.y = (player->getPos().y + player->getHeight() / 2) - SCREEN_HEIGHT / 2;
+
+	// Remove Later if it bugs infinite gen
+	//Keep the camera in bounds
+	if (camera.x < 0)
+	{
+		camera.x = 0;
+	}
+	if (camera.y < 0)
+	{
+		camera.y = 0;
+	}
+	if (camera.x > LEVEL_WIDTH - camera.w)
+	{
+		camera.x = LEVEL_WIDTH - camera.w;
+	}
+	if (camera.y > LEVEL_HEIGHT - camera.h)
+	{
+		camera.y = LEVEL_HEIGHT - camera.h;
+	}
+
+	std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
+ }
 
 void SceneC::Render() {
 	//Initialize renderer color
@@ -154,9 +194,22 @@ void SceneC::Render() {
 		}
 	}
 	//}
-			
-	player->Render(0.1f);
+
+
+	//Vec3 ghostLocation(ghost->getPos().x - camera.x, ghost->getPos().y - camera.y, 0.0f);
+	//SDL_Rect ghostDest = scale(ghostTexture, ghostLocation.x, ghostLocation.y, 1.0f);
+	//SDL_RenderCopy(renderer, ghostTexture, nullptr, &ghostDest);
+
+
+	//player->Render(0.1f);
 	
+	//Vec3 ghostLocation(player->getPos().x - camera.x, player->getPos().y - camera.y, 0.0f);
+	
+	Vec3 ghostLocationTest = screenCoords(player->getPos());
+	SDL_Rect ghostDest = scale(ghostTexture, ghostLocationTest.x, ghostLocationTest.y, 0.5f);
+	SDL_RenderCopy(renderer, ghostTexture, nullptr, &ghostDest);
+
+
 
 	// update screen
 	SDL_RenderPresent(renderer);
@@ -166,6 +219,11 @@ void SceneC::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	player->HandleEvents(event);
+}
+
+void SceneC::moveCamera()
+{
+	
 }
 
 Vec3 SceneC::screenCoords(Vec3 gameCoords)
@@ -215,6 +273,12 @@ SDL_Texture* SceneC::loadImage(const char* textureFile)
 	return newTexture;
 }
 
+float SceneC::scalingFactor(SDL_Texture*& texture, float& textureScale, Body* body)
+{
+	float bodyScreenWidth = body->getWidth() * SCREEN_WIDTH / xAxis;
+	return 0.0f;
+}
+
 //
 SDL_Rect SceneC::scale(SDL_Texture* objectTexture, int start_x, int start_y, float scale)
 {
@@ -227,8 +291,8 @@ SDL_Rect SceneC::scale(SDL_Texture* objectTexture, int start_x, int start_y, flo
 
 void SceneC::OnDestroy() {
 	// Free loaded images
-	delete stoneTileTexture;
-	delete grassTileTexture;
+	//delete stoneTileTexture;
+	//delete grassTileTexture;
 	//player->OnDestroy();
 }
 
