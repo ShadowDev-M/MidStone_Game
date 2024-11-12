@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+using namespace std;
 
 class Item
 {
@@ -24,10 +25,12 @@ class Item
 	float selfHurt; //negative value per item use
 	float range;
 
+
 public:
 	Item();
 	void CheckInRange(SDL_Window* window);
-	Item(const char* itemName);
+	Item(const char* itemName, const char* filepath);
 	const char* itemName;
+	const char* filePath;
 };
 

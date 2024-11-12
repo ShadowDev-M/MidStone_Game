@@ -5,6 +5,8 @@
 #include "Inventory.h"
 
 
+
+
 // See notes about this constructor in Scene1.h.
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
 	window = sdlWindow_;
@@ -22,11 +24,16 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
 bool Scene1::OnCreate() {
 	// Check to make sure loading scene works
 	std::cout << "Entering Scene1" << std::endl;
+<<<<<<< Updated upstream
 	Item* sword = new Item("Sword");
 	Item* shield = new Item("Shield");
 	Inventory inventory;
 	inventory.addItem(sword);
 	inventory.printInventory();
+=======
+	
+
+>>>>>>> Stashed changes
 
 	int w, h;
 	SDL_GetWindowSize(window,&w,&h);

@@ -1,5 +1,7 @@
 #include "Item.h"
 #include <cmath>
+#include <string>
+using namespace std;
 
 //
 // THIS SECTION HAS PLACEHOLDERS, THE CHECKINRANGE FUNCTION CURRENTLY CHECKS THE MOUSE POSITION AND COMPARES IT TO THE CENTRE OF THE SCREEN
@@ -27,6 +29,7 @@ void Item::CheckInRange(SDL_Window* window) {
     inRange = (MouseDistance <= range);
 }
 
-Item::Item(const char* name_) {
+Item::Item(const char* name_, const char* filepath_) {
     itemName = name_;
+    filePath = filepath_;
 }

@@ -36,8 +36,10 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\..\GameDev\SDL2_ttf-2.22.0\include\SDL_ttf.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CreateItems.h" />
     <ClInclude Include="Enhancement.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Chunk.h" />
