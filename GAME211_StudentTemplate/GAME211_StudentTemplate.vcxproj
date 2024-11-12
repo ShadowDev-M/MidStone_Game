@@ -48,6 +48,7 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="ChunkTestScene.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CreateItem.h" />
     <ClInclude Include="Enhancement.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Chunk.h" />

@@ -27,7 +27,8 @@ class Item
 public:
 	Item();
 	void CheckInRange(SDL_Window* window);
-	Item(const char* itemName);
+	Item(const char* itemName, const char* filePath);
 	const char* itemName;
+	const char* filePath;
 };
 
