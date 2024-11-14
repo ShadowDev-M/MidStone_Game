@@ -98,7 +98,7 @@ void Body::RenderEntity(float scale, SDL_Texture* entityTexture)
     screenCoords = projectionMatrix * pos;
 
     // Get size of the input texture in pixels
-    SDL_Point size{};
+    
     SDL_QueryTexture(entityTexture, nullptr, nullptr, &size.x, &size.y);
     SDL_Rect dest = { screenCoords.x, screenCoords.y, size.x * scale, size.y * scale };
 
@@ -107,6 +107,10 @@ void Body::RenderEntity(float scale, SDL_Texture* entityTexture)
 
     SDL_RenderCopyEx(renderer, entityTexture, nullptr, &dest,
         orientationDegrees, nullptr, SDL_FLIP_NONE);
+
+    //SDL_Rect myRect = { screenCoords.x, screenCoords.y, screenCoords.x + size.x * scale, screenCoords.y - size.y * scale };
+    //SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    //SDL_RenderDrawRect(renderer, &myRect);
 }
 
 void Body::ApplyForce( Vec3 force_ ) {

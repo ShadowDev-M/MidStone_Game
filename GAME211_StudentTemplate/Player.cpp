@@ -25,15 +25,25 @@ Player::Player(
 
 bool Player::OnCreate()
 {
-    // sets up player image and texture
-    playerImage = "Pacman.png";
+    playerImage = "Pacman.png"; //Placeholder image
     playerTexture = loadImage(playerImage);
+    SetTextureFile(playerImage);
+
+    // sets up player image and texture
+    SDL_Surface* playerSurface = IMG_Load(playerImage);
+    setWidth(playerSurface->w); //This is in pixels
+    setHeight(playerSurface->h); //This is in pixels
+
+    scale = 0.1f;
+
+    widthScreen = playerSurface->w * scale;
+    heightScreen = playerSurface->h * scale;
 
     return true;
 }
 
 void Player::Render( float scale )
-{   
+{
     // Calls body entity render
     RenderEntity(scale, playerTexture);
 }
@@ -87,16 +97,19 @@ void Player::Update( float deltaTime )
     // Note that would update velocity too, and rotation motion
 
     Body::Update( deltaTime );
-
 }
 
 bool Player::enemyCollision(Body* other)
 {
-    if (pos.x > other->getPos().x && pos.x < other->getPos().x + other->width
-        && pos.y < other->getPos().y && pos.y > other->getPos().y - other->height) 
+    Vec3 playerPos = projectionMatrix * pos; //Need to convert to game space to use SDL_Rect
+    SDL_Rect playerRect = { playerPos.x, playerPos.y, widthScreen, heightScreen }; //Width and height are already multiplied by scale in on create
+
+    Vec3 enemyPos = projectionMatrix * other->getPos(); //Need to convert to game space to use SDL_Rect
+    SDL_Rect enemyRect = { enemyPos.x, enemyPos.y, other->widthScreen, other->heightScreen }; //Width and height are already multiplied by scale in on create
+
+    if (SDL_HasIntersection(&playerRect, &enemyRect))
     {
         return true;
-        std::cout << "COLLISION DETECTED" << std::endl;
     }
 
     return false;
@@ -106,5 +119,7 @@ void Player::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting player assets: ", __FILE__, __LINE__);
+    delete playerImage;
     delete playerTexture;
+    delete playerSurface;
 }

@@ -29,6 +29,8 @@ protected:
     SDL_Texture* texture;
     SDL_Renderer* renderer;
     Matrix4 projectionMatrix;
+    Matrix4 inverseProjection;
+
     // For new texture rendering
     const char* textureFile = "";
 
@@ -43,7 +45,7 @@ public:
         float angular_
     );
     Body(int hp, Vec3 pos_);
-    
+    SDL_Point size{};
 
     //DESTRUCTOR
     virtual ~Body();
@@ -74,6 +76,8 @@ public:
     virtual SDL_Surface* getImage() { return image; }
     virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_) { imageSizeWorldCoords = imageSizeWorldCoords_; }
     virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
+
+    virtual Vec3 getImageSizeWorldCoords() { return imageSizeWorldCoords; }
     virtual SDL_Texture* getTexture() { return texture; }
 
     virtual SDL_Texture* loadImage(const char* textureFile);
@@ -93,13 +97,21 @@ public:
     virtual void takeDamage(float damage) { healthpoints -= damage; }
     virtual void setItem(Item newItem) { currentItem = newItem; }
     virtual void setHealthPoints(float entityHealth) { healthpointsMax = entityHealth; healthpoints = entityHealth; }
+    virtual void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; }
+    virtual void setInverse(Matrix4 inverseProjection_) { inverseProjection = inverseProjection_; }
     virtual void setWidth(float w) { width = w; }
     virtual void setHeight(float h) { height = h; }
 
     //VARIABLES
+
+    //Rendering and Collision
     float width;
     float height;
-    
+    float scale = 1.0f;
+
+    float widthScreen;
+    float heightScreen;
+
     float healthpointsMax; //The max HP of the entity
     float healthpoints = healthpointsMax;
     float walkSpeedMax; //The default speed of the entity

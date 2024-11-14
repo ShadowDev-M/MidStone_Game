@@ -57,6 +57,7 @@ public:
 
     const char* enemyImage;
     SDL_Texture* enemyTexture;
+    SDL_Surface* enemySurface;
 
     // use the base class versions of getters
     bool OnCreate();
