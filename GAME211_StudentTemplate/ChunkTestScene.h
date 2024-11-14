@@ -14,13 +14,15 @@ using namespace MATH;
 class SceneC : public Scene {
 private:
 
-	static const int LEVEL_WIDTH = 1920;
-	static const int LEVEL_HEIGHT = 1080;
+	// Screen/Level Size
+	static const int SCREEN_WIDTH = 1920;
+	static const int SCREEN_HEIGHT = 1080;
 
-	//Screen dimension constants
-	static const int SCREEN_WIDTH = 1000;
-	static const int SCREEN_HEIGHT = 600;
+	// The cameras current location
+	float LEVEL_WIDTH = SCREEN_WIDTH * 16 / SCREEN_HEIGHT;
+	float LEVEL_HEIGHT = LEVEL_WIDTH * 9 /16;
 
+	
 
 	float xAxis;	// scene width, in game coords, set in constructor
 	float yAxis;	// scene height, in game coords, set in constructor
@@ -31,6 +33,8 @@ private:
 	bool testh;
 	Player* player;
 	ChunkHandler RegionOne;
+
+	
 
 	// Testing the loading of tiles
 	// Starting off with a single tile and assigning it an ID
@@ -72,7 +76,7 @@ private:
 	/// <returns>The SDL texture of this image</returns>
 	SDL_Texture* loadImage(const char* textureFile);
 
-	float scalingFactor(SDL_Texture*& texture, float& textureScale, Body* body);
+	float scalingFactor(SDL_Texture*& texture, Body* body);
 
 	/// Generate a rectangle that will encompass a scaled version of the texture.	
 	/// <param name="objectTexture">The texture object of the image</param>
@@ -105,9 +109,13 @@ public:
 	//.pos
 	// Takes game/physics coords of an object 
 	// and multiples it by the projection matrix to get screen coords
-	Vec3 screenCoords(Vec3 gameCoords);
+	Vec3 worldToScreenCoords(Vec3 gameCoords);
 
-	Vec3 worldCoords(Vec3 physicsCoords);
+	Vec3 ScreenToWorldCoords(Vec3 physicsCoords);
+
+	Vec3 worldToScreenCoords1(Vec3 gameCoords);
+
+	Vec3 ScreenToWorldCoords1(Vec3 physicsCoords);
 
 };
 

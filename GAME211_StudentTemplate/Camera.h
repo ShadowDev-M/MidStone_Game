@@ -11,14 +11,7 @@
 class Camera
 {
 private:
-	//The dimensions of the level
-	static const int LEVEL_WIDTH = 1920;
-    static const int LEVEL_HEIGHT = 1080;
-
-	//Screen dimension constants
-    static const int SCREEN_WIDTH = 1000;
-    static const int SCREEN_HEIGHT = 600;
-
+	//screen //camera
 
 public:
 	Camera();
@@ -29,18 +22,10 @@ public:
 	void HandleEvents(const SDL_Event& sdlEvent);
 
 
-    int GetLevelWidth() {
-        return LEVEL_WIDTH;
-    }
-    int GetLevelHeight() {
-        return LEVEL_HEIGHT;
-    }
-    int GetScreenWidth() {
-        return SCREEN_WIDTH;
-    }
-    int GetScreenHeight() {
-        return SCREEN_HEIGHT;
-    }
+    Quaternion orientation;
+    Vec3 position;
+    Matrix4 projection;
+    Matrix4 view;
 
 
 
