@@ -25,6 +25,18 @@ bool Enemy::OnCreate()
 {
     enemyImage = "Blinky.png"; //Placeholder image
     enemyTexture = loadImage(enemyImage);
+    SetTextureFile(enemyImage);
+
+    // sets up player image and texture
+    SDL_Surface* enemySurface = IMG_Load(enemyImage);
+    setWidth(enemySurface->w); //This is in pixels
+    setHeight(enemySurface->h); //This is in pixels
+
+    scale = 0.2f;
+
+    widthScreen = enemySurface->w * scale;
+    heightScreen = enemySurface->h * scale;
+
     return true;
 }
 
@@ -51,5 +63,6 @@ void Enemy::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting enemy assets: ", __FILE__, __LINE__);
+    delete enemyImage;
     delete enemyTexture;
 }
