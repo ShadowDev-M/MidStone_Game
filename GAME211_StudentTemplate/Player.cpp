@@ -39,6 +39,8 @@ bool Player::OnCreate()
     widthScreen = playerSurface->w * scale;
     heightScreen = playerSurface->h * scale;
 
+    hitboxOffset = Vec3(10.0f, 10.0f, 0.0f);
+
     return true;
 }
 
@@ -102,10 +104,14 @@ void Player::Update( float deltaTime )
 bool Player::enemyCollision(Body* other)
 {
     Vec3 playerPos = projectionMatrix * pos; //Need to convert to game space to use SDL_Rect
-    SDL_Rect playerRect = { playerPos.x, playerPos.y, widthScreen, heightScreen }; //Width and height are already multiplied by scale in on create
+    Vec3 playerHitboxOffset = projectionMatrix * hitboxOffset;
+
+    SDL_Rect playerRect = { playerPos.x + playerHitboxOffset.x / 2.0f, playerPos.y + playerHitboxOffset.y / 2.0f, widthScreen - playerHitboxOffset.x, heightScreen - playerHitboxOffset.y }; //Width and height are already multiplied by scale in on create
 
     Vec3 enemyPos = projectionMatrix * other->getPos(); //Need to convert to game space to use SDL_Rect
-    SDL_Rect enemyRect = { enemyPos.x, enemyPos.y, other->widthScreen, other->heightScreen }; //Width and height are already multiplied by scale in on create
+    Vec3 enemyHitboxOffset = projectionMatrix * hitboxOffset;
+
+    SDL_Rect enemyRect = { enemyPos.x + enemyHitboxOffset.x / 2.0f, enemyPos.y + enemyHitboxOffset.y / 2.0f, other->widthScreen - enemyHitboxOffset.x, other->heightScreen - enemyHitboxOffset.y }; //Width and height are already multiplied by scale in on create
 
     if (SDL_HasIntersection(&playerRect, &enemyRect))
     {

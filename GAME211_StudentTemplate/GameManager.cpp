@@ -3,6 +3,7 @@
 #include "MenuScene.h"
 #include "ChunkTestScene.h"
 #include "UiScene.h"
+#include "SceneYB.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;
@@ -38,7 +39,7 @@ bool GameManager::OnCreate() {
 
     // select scene for specific assignment
 
-    currentScene = new SceneC(windowPtr->GetSDL_Window(), this);
+    currentScene = new SceneYB(windowPtr->GetSDL_Window(), this);
 
     // need to create Player before validating scene
     if (!ValidateCurrentScene()) {
@@ -111,6 +112,9 @@ void GameManager::handleEvents()
             case SDL_SCANCODE_F4:
                 LoadScene(4);
                 break;
+            case SDL_SCANCODE_F5:
+                LoadScene(5);
+                break;
             default:
                 break;
             }
@@ -170,6 +174,9 @@ void GameManager::LoadScene( int i )
         case 4:
             currentScene = new UiScene(windowPtr->GetSDL_Window(), this);
             break;
+        //case 5:
+        //    currentScene = new SceneYB(windowPtr->GetSDL_Window(), this);
+        //    break;
         default:
             currentScene = new Scene1( windowPtr->GetSDL_Window(), this );
             break;

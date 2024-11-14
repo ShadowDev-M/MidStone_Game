@@ -24,6 +24,7 @@
     <ClCompile Include="ChunkTestScene.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Enhancement.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Inventory.cpp" />
@@ -35,6 +36,7 @@
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="ChunkHandler.cpp" />
+    <ClCompile Include="SceneYB.cpp" />
     <ClCompile Include="TestBlock.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UiPanel.cpp" />
@@ -48,6 +50,7 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="ChunkTestScene.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Enhancement.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Chunk.h" />
@@ -57,6 +60,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MenuScene.h" />
+    <ClInclude Include="SceneYB.h" />
     <ClInclude Include="ScottyLinkedList.h" />
     <ClInclude Include="TestBlock.h" />
     <ClInclude Include="TileInfo.h" />
