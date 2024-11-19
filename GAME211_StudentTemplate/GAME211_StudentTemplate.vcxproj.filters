@@ -25,6 +25,18 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{ea5702ce-552d-4dd4-a545-911d16ac8fcd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics&amp;Collision">
+      <UniqueIdentifier>{815e91a2-8668-4d13-8749-a6fc9c6fc44a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{535f531f-6059-4d92-a269-7ba140173707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{1ddb370a-a656-4710-9873-b3245c23faf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics&amp;Collision">
+      <UniqueIdentifier>{142405b9-2032-40d9-8b4a-b6e89c68fb57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp">
@@ -57,12 +69,6 @@
     <ClCompile Include="MenuScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="TestBlock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,26 +84,41 @@
     <ClCompile Include="ChunkTestScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="BoxCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ItemContexts.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UiElement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UiText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UiScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="UiPanel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneYB.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="UiText.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UiPanel.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UiElement.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBlock.cpp">
+      <Filter>Source Files\Physics&amp;Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files\Physics&amp;Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>Source Files\Physics&amp;Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,12 +155,6 @@
     <ClInclude Include="MenuScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="TestBlock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -155,29 +170,47 @@
     <ClInclude Include="ChunkTestScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="BoxCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ImageToArrayTool.h">
       <Filter>Header Files\JDim</Filter>
     </ClInclude>
-    <ClInclude Include="UiText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UiScene.h">
       <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ScottyLinkedList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UiPanel.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneYB.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ScottyLinkedList.h">
+      <Filter>Header Files\JDim</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>Header Files\Physics&amp;Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files\Physics&amp;Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="UiText.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UiPanel.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UiElement.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TestBlock.h">
+      <Filter>Header Files\Physics&amp;Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

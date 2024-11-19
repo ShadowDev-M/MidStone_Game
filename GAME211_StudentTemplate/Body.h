@@ -115,6 +115,8 @@ public:
     float widthScreen;
     float heightScreen;
 
+    Vec3 hitboxOffset;
+
     float healthpointsMax; //The max HP of the entity
     float healthpoints = healthpointsMax;
     float walkSpeedMax; //The default speed of the entity

@@ -74,7 +74,7 @@ public:
     void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; }
     void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; }
 
-
+    bool enemyCollision(Body* other);
 };
 
 #endif /* PLAYER_H */
