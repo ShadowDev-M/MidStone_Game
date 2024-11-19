@@ -134,12 +134,12 @@ float GameManager::getSceneHeight() { return currentScene->getyAxis(); }
 // This might be unfamiliar
 float GameManager::getSceneWidth() { return currentScene->getxAxis(); }
 
-float GameManager::getWindowHeight()
+float GameManager::getWindowHeight() const
 {
     return WINDOW_HEIGHT;
 }
 
-float GameManager::getWindowWidth()
+float GameManager::getWindowWidth() const
 {
     return WINDOW_WIDTH;
 }

@@ -6,6 +6,8 @@
 #include <MMath.h>
 #include "Scene.h"
 #include "Player.h"
+#include "Camera.h"
+
 
 #include "Chunk.h"
 #include "ChunkHandler.h"
@@ -20,7 +22,7 @@ private:
 
 	// The cameras current location
 	float LEVEL_WIDTH = SCREEN_WIDTH * 16 / SCREEN_HEIGHT;
-	float LEVEL_HEIGHT = LEVEL_WIDTH * 9 /16;
+	float LEVEL_HEIGHT = LEVEL_WIDTH * 9 / 16;
 
 	
 
@@ -33,8 +35,9 @@ private:
 	bool testh;
 	Player* player;
 	ChunkHandler RegionOne;
-
+	Camera camera;
 	
+	Scene* scene;
 
 	// Testing the loading of tiles
 	// Starting off with a single tile and assigning it an ID
@@ -47,11 +50,8 @@ private:
 	Body* ghost;
 	SDL_Texture* ghostTexture;
 
-	//Body* ghost;
-	//SDL_Texture* ghostTexture;
-
-	SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-
+	Body* sword;
+	SDL_Texture* swordTexture;
 
 
 	std::vector<TileInfo> changesIndex;
@@ -69,13 +69,6 @@ private:
 
 	// Rendering text using SDL_TFF is very costly 
 	// because it always creates a new surface
-
-
-	/// Load an image into a texture object.
-	/// <param name="textureFile">image file</param>
-	/// <returns>The SDL texture of this image</returns>
-	SDL_Texture* loadImage(const char* textureFile);
-
 	float scalingFactor(SDL_Texture*& texture, Body* body);
 
 	/// Generate a rectangle that will encompass a scaled version of the texture.	
@@ -94,9 +87,13 @@ public:
 	SceneC(SDL_Window* sdlWindow, GameManager* game_);
 	~SceneC();
 	bool OnCreate();
+	
+	SDL_Texture* loadImage(Body* body);
+	
 	void OnDestroy();
-	void Update(const float time);
+	void Update(const float time);	
 	void Render();
+	void renderObject(Body* object, SDL_Texture* objectTexture);
 	void HandleEvents(const SDL_Event& event);
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
@@ -104,18 +101,12 @@ public:
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
 
-	void moveCamera();
-
 	//.pos
 	// Takes game/physics coords of an object 
 	// and multiples it by the projection matrix to get screen coords
 	Vec3 worldToScreenCoords(Vec3 gameCoords);
 
 	Vec3 ScreenToWorldCoords(Vec3 physicsCoords);
-
-	Vec3 worldToScreenCoords1(Vec3 gameCoords);
-
-	Vec3 ScreenToWorldCoords1(Vec3 physicsCoords);
 
 };
 
