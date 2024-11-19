@@ -1,16 +1,15 @@
-#include "Scene1.h"
+#include "SceneYB.h"
 #include <VMath.h>
 #include "Chunk.h"
 #include "ChunkHandler.h"
 
-
 // See notes about this constructor in Scene1.h.
-Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
+SceneYB::SceneYB(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
-    game = game_;
+	game = game_;
 	renderer = SDL_GetRenderer(window);
-	xAxis = 25.0f;
-	yAxis = 15.0f;
+	xAxis = camera.getXAxis();
+	yAxis = camera.getYAxis();
 
 	// player spawns in middle of screen
 	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
@@ -25,28 +24,30 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
 
 // Once that is done, setup attaching tile ids to specific images to load in. 
 
-bool Scene1::OnCreate() {
+bool SceneYB::OnCreate() {
 	// Check to make sure loading scene works
-	std::cout << "Entering Scene1" << std::endl;
-	
+	std::cout << "Entering SceneYB" << std::endl;
+
 	Item* sword = new Item("Sword");
 	Item* shield = new Item("Shield");
 	Inventory inventory;
 	inventory.addItem(sword);
 	inventory.printInventory();
 
+	camera.OnCreate();
+
 	int w, h;
-	SDL_GetWindowSize(window,&w,&h);
+	SDL_GetWindowSize(window, &w, &h);
 
-	Matrix4 ndc = MMath::viewportNDC(w, h);
-	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
-	projectionMatrix = ndc * ortho;
-	inverseProjection = MMath::inverse(projectionMatrix);
+	//Matrix4 ndc = MMath::viewportNDC(w, h);
+	//Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
+	//projectionMatrix = ndc * ortho;
+	//inverseProjection = MMath::inverse(projectionMatrix);
 
-	player->setProjection(projectionMatrix);
+	//player->setProjection(projectionMatrix);
 	enemy->setProjection(projectionMatrix);
 
-	player->setInverse(inverseProjection);
+	//player->setInverse(inverseProjection);
 	enemy->setInverse(inverseProjection);
 
 	//for (int i = 0; i < enemyQueue.size(); i++) 
@@ -60,6 +61,9 @@ bool Scene1::OnCreate() {
 		std::cout << "SDL_image Error: " << IMG_GetError() << std::endl;
 		return false;
 	}
+
+	enemyManager = new EnemyManager(this);
+	enemyManager->spawnEnemy(4);
 
 	player->OnCreate();
 	enemy->OnCreate();
@@ -84,7 +88,7 @@ bool Scene1::OnCreate() {
 		{2,0,1}, {2,1,1}, {2,2,1}, {2,3,1}, {2,4,1}, {2,5,1}, {2,6,1}, {2,7,1}, {2,8,1}, {2,9,1}, {2,10,1}, {2,11,1}, {2,12,1}, {2,13,1}, {2,14,1}, {2,15,1} };
 
 	RegionOne.setTile(changesIndex);
-	
+
 	TileFaces intersectedTile = RegionOne.getFaces(Vec2(4.5, 6.5), Vec2(-4.0, 2.0));
 
 	// Print the intersected tiles
@@ -96,90 +100,91 @@ bool Scene1::OnCreate() {
 	return true;
 }
 
-void Scene1::Update(const float deltaTime) {
+void SceneYB::Update(const float deltaTime) {
 
 	// Update player
 	// Will make this its own extracted function after (will put in camera class too)
-	int w, h;
-	SDL_GetWindowSize(window, &w, &h);
+	//int w, h;
+	//SDL_GetWindowSize(window, &w, &h);
 
-	Matrix4 ndc = MMath::viewportNDC(w, h);
-	float left, right, bottom, top;
+	//Matrix4 ndc = MMath::viewportNDC(w, h);
+	//float left, right, bottom, top;
 
-	left = 0.0f;
-	right = xAxis;
-	bottom = 0.0f;
-	top = yAxis;
+	//left = 0.0f;
+	//right = xAxis;
+	//bottom = 0.0f;
+	//top = yAxis;
 
-	left = player->getPos().x - xAxis / 2.0f;
-	right = player->getPos().x + xAxis / 2.0f;
-	bottom = player->getPos().y - yAxis / 2.0f;
-	top = player->getPos().y + yAxis / 2.0f;
+	//left = player->getPos().x - xAxis / 2.0f;
+	//right = player->getPos().x + xAxis / 2.0f;
+	//bottom = player->getPos().y - yAxis / 2.0f;
+	//top = player->getPos().y + yAxis / 2.0f;
 
-	Matrix4 ortho = MMath::orthographic(left, right, bottom, top, 0.0f, 1.0f);
-	projectionMatrix = ndc * ortho;
+	//Matrix4 ortho = MMath::orthographic(left, right, bottom, top, 0.0f, 1.0f);
+	
 
-	inverseProjection = MMath::inverse(projectionMatrix);
+	//inverseProjection = MMath::inverse(projectionMatrix);
 
 	// Update players projection matrix
-	player->setProjection(projectionMatrix);
+	//player->setProjection(projectionMatrix);
 
-	player->setInverse(inverseProjection);
+	//player->setInverse(inverseProjection);
+
+	camera.cameraFollowsPlayer(player, window);
+	projectionMatrix = camera.getProjectionMatrix();
 
 	player->Update(deltaTime);
 
-	
-	
 	//if (player->enemyCollision(enemy))
 	//{
 	//	std::cout << "COLLISION DETECTED" << std::endl;
 	//}
 
-	
-	
-	enemy->setProjection(projectionMatrix);
-
-	enemy->setInverse(inverseProjection);
-
 	enemy->Update(deltaTime);
 }
 
-void Scene1::Render() {
+void SceneYB::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
 	SDL_RenderClear(renderer);
 
 	// render the player
 	player->Render(player->scale);
-	enemy->Render(enemy->scale);
+	//enemy->Render(enemy->scale);
 
 	//PLAYER COLLISION BOX DEBUG
-	//Vec3 playerGameCoords = screenCoords(player->getPos());
-	//SDL_Rect playerRect = { playerGameCoords.x, playerGameCoords.y, player->widthScreen, player->heightScreen };
-	//SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	//SDL_RenderDrawRect(renderer, &playerRect);
+	Vec3 playerPos = screenCoords(player->getPos());
+	Vec3 playerHitboxOffset = player->hitboxOffset;
+
+	SDL_Rect playerRect = { playerPos.x + playerHitboxOffset.x / 2.0f, playerPos.y + playerHitboxOffset.y / 2.0f, player->widthScreen - playerHitboxOffset.x, player->heightScreen - playerHitboxOffset.y }; //Width and height are already multiplied by scale in on create
+	//SDL_Rect playerRect = { player->widthScreen - playerHitboxOffset.x, player->heightScreen - playerHitboxOffset.y, playerPos.x + playerHitboxOffset.x, playerPos.y + playerHitboxOffset.y };
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderDrawRect(renderer, &playerRect);
 
 	//ENEMY COLLISION BOX DEBUG
-	//Vec3 enemyGameCoords = screenCoords(enemy->getPos());
-	//SDL_Rect enemyRect = { enemyGameCoords.x, enemyGameCoords.y, enemy->widthScreen, enemy->heightScreen };
-	//SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	//SDL_RenderDrawRect(renderer, &enemyRect);
+	Vec3 enemyPos = screenCoords(enemy->getPos());
+	Vec3 enemyHitboxOffset = screenCoords(enemy->hitboxOffset);
+
+	SDL_Rect enemyRect = { enemyPos.x + enemyHitboxOffset.x, enemyPos.y + enemyHitboxOffset.y, enemy->widthScreen - enemyHitboxOffset.x, enemy->heightScreen - enemyHitboxOffset.y }; //Width and height are already multiplied by scale in on create
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderDrawRect(renderer, &enemyRect);
 
 	SDL_RenderPresent(renderer);
 }
 
-void Scene1::HandleEvents(const SDL_Event& event)
+void SceneYB::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	player->HandleEvents(event);
 }
 
-Vec3 Scene1::screenCoords(Vec3 gameCoords)
+Vec3 SceneYB::screenCoords(Vec3 gameCoords)
 {
 	return projectionMatrix * gameCoords;
 }
 
-Vec3 Scene1::worldCoords(Vec3 physicsCoords)
+Vec3 SceneYB::worldCoords(Vec3 physicsCoords)
 {
 	return inverseProjection * physicsCoords;
 }
@@ -188,7 +193,7 @@ Vec3 Scene1::worldCoords(Vec3 physicsCoords)
 // Surface is better for rendering single objects like the player
 // However the gpu is most of the time always better in all cases
 // mostly because its faster and can handle more (use for tiling and chunks)
-SDL_Texture* Scene1::loadImage(const char* textureFile)
+SDL_Texture* SceneYB::loadImage(const char* textureFile)
 {
 	// The following is a typical chunk of code for creating 
 	// a texture in SDL
@@ -221,7 +226,7 @@ SDL_Texture* Scene1::loadImage(const char* textureFile)
 }
 
 //
-SDL_Rect Scene1::scale(SDL_Texture* objectTexture, int start_x, int start_y, float scale)
+SDL_Rect SceneYB::scale(SDL_Texture* objectTexture, int start_x, int start_y, float scale)
 {
 	// Get size of the input texture in pixels
 	SDL_Point size{};
@@ -230,9 +235,9 @@ SDL_Rect Scene1::scale(SDL_Texture* objectTexture, int start_x, int start_y, flo
 	return dest;
 }
 
-void Scene1::OnDestroy() {
+void SceneYB::OnDestroy() {
 	//player->OnDestroy();
 }
 
-Scene1::~Scene1() {
+SceneYB::~SceneYB() {
 }

@@ -24,6 +24,9 @@ private:
 	bool isRunning;
 	class Scene *currentScene;
 
+	const int WINDOW_WIDTH = 1280;
+	const int WINDOW_HEIGHT = 720;
+
 	void handleEvents();
 	void LoadScene(int i);
 	bool ValidateCurrentScene();
@@ -39,6 +42,11 @@ public:
 	// These might be unfamiliar
 	float getSceneHeight();
 	float getSceneWidth();
+	float getWindowHeight() const;
+	float getWindowWidth() const;
+	//void setWindowHeight(float WindowWidth) const;
+	//void setWindowWidth(float WindowHeight) const;
+
 	Matrix4 getProjectionMatrix();
 	SDL_Renderer* getRenderer();
 

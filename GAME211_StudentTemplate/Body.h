@@ -97,10 +97,13 @@ public:
     virtual void takeDamage(float damage) { healthpoints -= damage; }
     virtual void setItem(Item newItem) { currentItem = newItem; }
     virtual void setHealthPoints(float entityHealth) { healthpointsMax = entityHealth; healthpoints = entityHealth; }
+    
+    virtual void setWidth(float w_) { width = w_; }
+    virtual void setHeight(float h_) { height = h_; }
+    virtual float getWidth() { return width; }
+    virtual float getHeight() { return height; }
     virtual void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; }
     virtual void setInverse(Matrix4 inverseProjection_) { inverseProjection = inverseProjection_; }
-    virtual void setWidth(float w) { width = w; }
-    virtual void setHeight(float h) { height = h; }
 
     //VARIABLES
 
@@ -111,6 +114,8 @@ public:
 
     float widthScreen;
     float heightScreen;
+
+    Vec3 hitboxOffset;
 
     float healthpointsMax; //The max HP of the entity
     float healthpoints = healthpointsMax;
