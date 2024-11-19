@@ -1,5 +1,5 @@
 #include "BoxCollider.h"
-
+#include "Camera.h"
 
 
 void BoxCollider::CheckCollision(Vec2 pos)
@@ -78,6 +78,21 @@ void BoxCollider::CheckCollision(Vec2 pos)
 		}
 
 	}
+}
+Camera camera;
+void BoxCollider::OnCreate(int imageWidth, int imageHeight, float scale)
+{
+		//Setting colldier faces
+		Vec3 dimensions = Vec3(imageWidth * scale, imageHeight * scale, 0);
+		camera.OnCreate();
+
+		//TODO: Replace these two lines by the function that Massimo is gonna write for 
+		//converting screenCoords to worldCoord
+		worldH = dimensions.y * camera.getYAxis() / camera.getWindowHeight();//(15.0f / 600.0f);
+
+		worldW = dimensions.x * camera.getXAxis() / camera.getWindowWidth();//(25.0f / 1000.0f);
+		std::cout << "\n World H:" << imageHeight;
+		std::cout << "\n World W:" << imageWidth;	
 }
 
 float BoxCollider::DetectPenetration(TileFaces wall, Vec3 pos, Vec3 vel)

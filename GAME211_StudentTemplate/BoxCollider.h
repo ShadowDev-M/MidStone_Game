@@ -4,6 +4,7 @@
 #include "Vector.h";
 #include "Body.h";
 #include "ChunkHandler.h"
+
 #include <functional>
 using namespace MATH;
 
@@ -31,6 +32,7 @@ private:
 	//List of the solid faces coming from Joel's code
 	std::vector<TileFaces> collidableObjects;
 	float worldW, worldH;
+	
 	//Vec3& bodyVel;
 	//Vec3& bodyPos;
 	CollisionCallback onCollision;
@@ -39,24 +41,13 @@ public:
 
 	BoxCollider()//(Vec3& _bodyVel, Vec3& _bodyPos) : bodyVel(_bodyVel), bodyPos(_bodyPos)
 	{
-
+		
 	}
 
 	//Call this when the object's image is initilized 
 	//Set the body's width and height to calculate the collision
-	void OnCreate(int imageWidth, int imageHeight, float scale)
-	{
-		//Setting colldier faces
-		Vec3 dimensions = Vec3(imageWidth * scale, imageHeight * scale, 0);
-
-
-		//TODO: Replace these two lines by the function that Massimo is gonna write for 
-		//converting screenCoords to worldCoord
-		worldH = dimensions.y * (15.0f / 600.0f);
-		worldW = dimensions.x * (25.0f / 1000.0f);
-		std::cout << "\n World H:" << imageHeight;
-		std::cout << "\n World W:" << imageWidth;
-	}
+	void OnCreate(int imageWidth, int imageHeight, float scale);
+	
 
 
 	//Subscribe your collision response Function using this
