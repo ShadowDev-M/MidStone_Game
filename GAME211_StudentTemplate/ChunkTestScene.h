@@ -12,6 +12,8 @@
 #include "Chunk.h"
 #include "ChunkHandler.h"
 
+#include "BoxCollider.h"
+
 using namespace MATH;
 class SceneC : public Scene {
 private:
@@ -93,7 +95,6 @@ public:
 	void OnDestroy();
 	void Update(const float time);	
 	void Render();
-	void renderObject(Body* object, SDL_Texture* objectTexture);
 	void HandleEvents(const SDL_Event& event);
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
@@ -104,9 +105,7 @@ public:
 	//.pos
 	// Takes game/physics coords of an object 
 	// and multiples it by the projection matrix to get screen coords
-	Vec3 worldToScreenCoords(Vec3 gameCoords);
-
-	Vec3 ScreenToWorldCoords(Vec3 physicsCoords);
+	
 
 };
 

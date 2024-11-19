@@ -90,7 +90,19 @@ bool SceneC::OnCreate() {
 		{0, 0, 1}, {1, 2, 1}, {2,3,1}, {18,20,1} };
 
 	
-		
+	
+	
+	TileFaces sword1 = TileFaces();
+	sword1.PointOne = Vec2(sword->getPos().x - 0.5f, sword->getPos().y);
+	sword1.PointTwo = Vec2(sword->getPos().x + 0.5f, sword->getPos().y);
+	std::vector<TileFaces> faces;
+	faces.push_back(sword1);
+
+
+
+	player->hitbox.setObstacles(faces);
+	
+
 	RegionOne.addLoadingEntity(player);
 
 
@@ -117,7 +129,7 @@ SDL_Texture* SceneC::loadImage(Body* body)
 
 void SceneC::Update(const float deltaTime) {
 	//// Will make this its own extracted function after (will put in camera class too)
-	
+
 	camera.cameraFollowsPlayer(player, window);
 	projectionMatrix = camera.getProjectionMatrix();
 
@@ -133,7 +145,8 @@ void SceneC::Update(const float deltaTime) {
 
 
 	//std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
- }
+	//std::cout << "TILE LOCATIONS:" << stoneTile->getPos().x << ", " << stoneTile->getPos().y << "\n";
+}
 
 void SceneC::Render() {
 	//Initialize renderer color
@@ -162,11 +175,12 @@ void SceneC::Render() {
 					int id = RegionOne.getChunkTileID(chunkRenderPos, Vec2(x, y));
 
 					Vec3 chunkInfo = Vec3(x + 16 * chunkRenderPos.x, y + 16 * chunkRenderPos.y, id);
+					
 					if (chunkInfo.z == 0) {
 
 						grassTile->setPos(Vec3(chunkInfo.x, chunkInfo.y, 0.0f));
 
-						Vec3 grassTileCoords = worldToScreenCoords(grassTile->getPos());
+						Vec3 grassTileCoords = camera.worldToScreenCoords(grassTile->getPos());
 
 						SDL_Rect grassDest = scale(grassTileTexture, grassTileCoords.x, grassTileCoords.y, scalingFactor(grassTileTexture, grassTile) + 0.1f);
 						
@@ -176,7 +190,7 @@ void SceneC::Render() {
 					if (chunkInfo.z == 1) {
 						stoneTile->setPos(Vec3(chunkInfo.x, chunkInfo.y, 0.0f));
 
-						Vec3 stoneTileCoords = worldToScreenCoords(stoneTile->getPos());
+						Vec3 stoneTileCoords = camera.worldToScreenCoords(stoneTile->getPos());
 
 						SDL_Rect stoneDest = scale(stoneTileTexture, stoneTileCoords.x, stoneTileCoords.y, scalingFactor(stoneTileTexture, stoneTile) + 0.1f); //+ 0.1f
 						
@@ -189,16 +203,18 @@ void SceneC::Render() {
 	//}
 
 
-
+	
 	// Everything now needs to use the scalingfactor to properly scale with the screen
-	//player->Render(0.1f);
+	player->Render(camera.scalingFactor(ghostTexture, player));
 	
 	
-	Vec3 ghostLocationTest = worldToScreenCoords(player->getPos());
-	SDL_Rect ghostDest = scale(ghostTexture, ghostLocationTest.x, ghostLocationTest.y, scalingFactor(ghostTexture, ghost));
-	SDL_RenderCopy(renderer, ghostTexture, nullptr, &ghostDest);
+	
 
-	renderObject(sword, swordTexture);
+	//Vec3 ghostLocationTest = camera.worldToScreenCoords(player->getPos());
+	//SDL_Rect ghostDest = scale(ghostTexture, ghostLocationTest.x, ghostLocationTest.y, scalingFactor(ghostTexture, ghost));
+	//SDL_RenderCopy(renderer, ghostTexture, nullptr, &ghostDest);
+
+	camera.renderObject(sword, swordTexture, renderer);
 
 	//body->GetTexture() body->
 
@@ -206,29 +222,10 @@ void SceneC::Render() {
 	SDL_RenderPresent(renderer);
 }
 
-
-// Move to camera
-void SceneC::renderObject(Body* object, SDL_Texture* objectTexture)
-{
-	Vec3 worldCoords = worldToScreenCoords(object->getPos());
-	SDL_Rect Dest = camera.scale(objectTexture, worldCoords.x, worldCoords.y, camera.scalingFactor(objectTexture, object));
-	SDL_RenderCopy(renderer, objectTexture, nullptr, &Dest);
-}
-
 void SceneC::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	player->HandleEvents(event);
-}
-
-Vec3 SceneC::worldToScreenCoords(Vec3 gameCoords)
-{
-	return projectionMatrix * gameCoords;
-}
-
-Vec3 SceneC::ScreenToWorldCoords(Vec3 physicsCoords)
-{
-	return inverseProjection * physicsCoords;
 }
 
 float SceneC::scalingFactor(SDL_Texture*& texture, Body* body)

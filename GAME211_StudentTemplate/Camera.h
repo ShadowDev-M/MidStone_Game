@@ -59,6 +59,7 @@ public:
 
     // Returns Projection Matrix
     Matrix4 getProjectionMatrix() const { return projectionMatrix; }
+    Matrix4 getInverseMatrix() const { return inverseProjection; }
     int getWindowWidth() { return WINDOW_WIDTH; }
     int getWindowHeight() { return WINDOW_HEIGHT; }
 
@@ -98,5 +99,11 @@ public:
     /// <param name="body"></param>The body of the object
     /// <returns></returns>
     float scalingFactor(SDL_Texture*& texture, Body* body);
+
+    void renderObject(Body* object, SDL_Texture* objectTexture, SDL_Renderer* renderer);
+
+    Vec3 worldToScreenCoords(Vec3 gameCoords);
+
+    Vec3 ScreenToWorldCoords(Vec3 physicsCoords);
 };
 
