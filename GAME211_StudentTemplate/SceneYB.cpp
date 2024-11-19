@@ -3,7 +3,6 @@
 #include "Chunk.h"
 #include "ChunkHandler.h"
 
-
 // See notes about this constructor in Scene1.h.
 SceneYB::SceneYB(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
@@ -27,7 +26,7 @@ SceneYB::SceneYB(SDL_Window* sdlWindow_, GameManager* game_) {
 
 bool SceneYB::OnCreate() {
 	// Check to make sure loading scene works
-	std::cout << "Entering Scene1" << std::endl;
+	std::cout << "Entering SceneYB" << std::endl;
 
 	Item* sword = new Item("Sword");
 	Item* shield = new Item("Shield");
@@ -60,6 +59,9 @@ bool SceneYB::OnCreate() {
 		std::cout << "SDL_image Error: " << IMG_GetError() << std::endl;
 		return false;
 	}
+
+	enemyManager = new EnemyManager(this);
+	enemyManager->spawnEnemy(4);
 
 	player->OnCreate();
 	enemy->OnCreate();

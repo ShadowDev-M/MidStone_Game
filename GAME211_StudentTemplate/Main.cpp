@@ -4,6 +4,7 @@
 
 int main(int argc, char* args[]) { /// Standard C-style entry point, you need to use it
 
+	srand((unsigned)time(NULL)); //provide a seed value
 	GameManager *ptr = new GameManager();
 	bool status  = ptr->OnCreate();
 	if (status == true) {

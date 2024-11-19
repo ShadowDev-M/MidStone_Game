@@ -19,9 +19,16 @@ std::vector<Enemy*> EnemyManager::spawnEnemy(int amount)
 {
 	for (int i = 0; i < amount; i++)
 	{
+		Vec2 newPos = Vec2(rand() % 100, rand() % 100);
+		newPos.print();
+		enemyPositions.push_back(newPos);
+	}
+
+	for (int i = 0; i < amount; i++)
+	{
 		Enemy* myEnemy = new Enemy(Vec3(enemyPositions[i].x, enemyPositions[i].y, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 		myEnemy->OnCreate();
-		myEnemy->setRenderer(activeScene->getRenderer());
+		//myEnemy->setRenderer(activeScene->getRenderer());
 
 		enemyList.push_back(myEnemy);
 	}
