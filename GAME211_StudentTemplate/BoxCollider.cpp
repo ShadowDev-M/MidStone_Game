@@ -8,7 +8,7 @@ void BoxCollider::CheckCollision()
 	Vec2 topLCorner = Vec2(bodyPos.x, bodyPos.y);
 
 
-	for (int i = 0; i < wallFaces.capacity(); i++)
+	for (int i = 0; i < wallFaces.size(); i++)
 	{
 		TileFaces temp = wallFaces[i];
 
@@ -21,9 +21,20 @@ void BoxCollider::CheckCollision()
 			float RightEdge = temp.PointOne.x < temp.PointTwo.x ? temp.PointTwo.x : temp.PointOne.x;
 			float wallY = temp.PointTwo.y;
 
+			//Debuginh tool
 			//If the player is not between two edges on the X axis, don't do the rest of the code
-			if (bodyPos.x < leftEdge || bodyPos.x > RightEdge)
+			if (topLCorner.x < leftEdge || topLCorner.x > RightEdge)
+			{
+				//std::cout << "\n out of bound";
+				//std::cout << "\t Player Pos:" << bodyPos.x << "\t wall: " << leftEdge << "," << RightEdge;
+				
+
 				continue;
+			}
+
+			//Debuginh tool
+			std::cout << "\n out of bound";
+			std::cout << "PlayerPos" << topLCorner.y << "," << topLCorner.y - worldH << "\t wall : " << wallY;
 
 
 			//AABB Collision Detection (Search on google to undrestand the concept)
@@ -52,7 +63,7 @@ void BoxCollider::CheckCollision()
 			float wallX = temp.PointOne.x;
 
 			//If the player is not between two edges on the Y axis, don't do the rest of the code
-			if (bodyPos.y > topEdge || bodyPos.y < BottomEdge)
+			if (topLCorner.y > topEdge || topLCorner.y < BottomEdge)
 				continue;
 
 			//AABB Collision Detection (Search on google to undrestand the concept)

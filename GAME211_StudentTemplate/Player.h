@@ -5,10 +5,10 @@
 #include "Body.h"
 #include "Inventory.h"
 #include "GameManager.h"
-#include "Enemy.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <Vector.h>
+#include "BoxCollider.h"
 
 class Player : public Body
 {
@@ -17,7 +17,7 @@ protected:
 
 public:
 
-    Player() : Body{}
+    Player() : Body{}, hitbox(vel, pos)
     {
         game = nullptr;
     }
@@ -42,7 +42,7 @@ public:
           orientation_,
           rotation_,
           angular_
-    }
+    }, hitbox(vel, pos)
         , game{ game_ }
     {}
 
@@ -54,11 +54,11 @@ public:
     float healthpoints = healthpointsMax;
     float walkSpeedMax = 3.0f;
     Inventory playerInventory;
-
     const char* playerImage;
     SDL_Texture* playerTexture;
-    SDL_Surface* playerSurface;
-
+    std::vector<TileFaces> hitFaces;
+    
+    BoxCollider hitbox = BoxCollider(vel, pos);
     // use the base class versions of getters
     bool OnCreate();
     void OnDestroy();
@@ -66,12 +66,14 @@ public:
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
     void setTexture(SDL_Texture* texture_) {texture = texture_;}
-    void setItem(Item newItem) { currentItem = newItem; }
+    void takeDamage(float damage);
+    void setItem(Item newItem);
 
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
-    void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body
+    void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; }
+    void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; }
 
-    bool enemyCollision(Body* other);
+
 };
 
 #endif /* PLAYER_H */

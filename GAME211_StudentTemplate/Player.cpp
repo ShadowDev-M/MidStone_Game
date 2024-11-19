@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "Enemy.h"
 
 Player::Player(
     Vec3 pos_, Vec3 vel_, Vec3 accel_,
@@ -25,28 +24,21 @@ Player::Player(
 
 bool Player::OnCreate()
 {
-    playerImage = "Pacman.png"; //Placeholder image
-    playerTexture = loadImage(playerImage);
-    SetTextureFile(playerImage);
-
+   
     // sets up player image and texture
-    SDL_Surface* playerSurface = IMG_Load(playerImage);
-    setWidth(playerSurface->w); //This is in pixels
-    setHeight(playerSurface->h); //This is in pixels
-
-    scale = 0.1f;
-
-    widthScreen = playerSurface->w * scale;
-    heightScreen = playerSurface->h * scale;
-
+    playerImage = "Pacman.png";
+    playerTexture = loadImage(playerImage);
+    SDL_QueryTexture(playerTexture, nullptr, nullptr, &size.x, &size.y);
+    hitbox.OnCreate(size.x, size.y,0.1f);
     return true;
 }
 
 void Player::Render( float scale )
-{
+{   
     // Calls body entity render
     RenderEntity(scale, playerTexture);
 }
+
 
 void Player::HandleEvents( const SDL_Event& event )
 {
@@ -84,42 +76,42 @@ void Player::HandleEvents( const SDL_Event& event )
     }
 
     //Don't exceed our max speed when moving diagonally
-    //if (VMath::mag(vel) > walkSpeedMax)
-    //{
+   // if (VMath::mag(vel) > walkSpeedMax)
+   // {
     //    vel = VMath::normalize(vel) * walkSpeedMax; //normalize our speed to prevent this, multiply by our max speed to make it more natural
-    //}
-
+   // }
 }
 
 void Player::Update( float deltaTime )
 {
     // Update position, call Update from base class
+    
+    
     // Note that would update velocity too, and rotation motion
+    
+    //hitbox.setObstacles(hitFaces);
 
+    //hitFaces.empty();
     Body::Update( deltaTime );
-}
+    hitbox.CheckCollision();
 
-bool Player::enemyCollision(Body* other)
-{
-    Vec3 playerPos = projectionMatrix * pos; //Need to convert to game space to use SDL_Rect
-    SDL_Rect playerRect = { playerPos.x, playerPos.y, widthScreen, heightScreen }; //Width and height are already multiplied by scale in on create
-
-    Vec3 enemyPos = projectionMatrix * other->getPos(); //Need to convert to game space to use SDL_Rect
-    SDL_Rect enemyRect = { enemyPos.x, enemyPos.y, other->widthScreen, other->heightScreen }; //Width and height are already multiplied by scale in on create
-
-    if (SDL_HasIntersection(&playerRect, &enemyRect))
-    {
-        return true;
-    }
-
-    return false;
 }
 
 void Player::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting player assets: ", __FILE__, __LINE__);
-    delete playerImage;
     delete playerTexture;
-    delete playerSurface;
+}
+
+void Player::takeDamage(float damage)
+{
+    //The player takes damage
+    healthpoints -= damage;
+}
+
+void Player::setItem(Item newItem)
+{
+    //Set the player's current item to the new item
+    currentItem = newItem;
 }
