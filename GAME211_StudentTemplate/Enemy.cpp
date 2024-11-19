@@ -37,6 +37,8 @@ bool Enemy::OnCreate()
     widthScreen = enemySurface->w * scale;
     heightScreen = enemySurface->h * scale;
 
+    hitboxOffset = Vec3(100.0f, 100.0f, 0.0f);
+
     return true;
 }
 
