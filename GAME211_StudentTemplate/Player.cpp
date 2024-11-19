@@ -127,7 +127,7 @@ void Player::setItem(Item newItem)
 
 void Player::onCollisionTrigger(const TileFaces& collidedObject)
 {
-    switch (collidedObject.collisionType)
+    switch (collidedObject.objectTag)
     {
     case none:
         break;
