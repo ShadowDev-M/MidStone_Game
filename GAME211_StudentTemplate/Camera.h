@@ -63,8 +63,6 @@ public:
     int getWindowWidth() { return WINDOW_WIDTH; }
     int getWindowHeight() { return WINDOW_HEIGHT; }
 
-    
-
     void cameraFollowsPlayer(Player* player, SDL_Window* window);
 
     ////.pos

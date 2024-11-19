@@ -8,8 +8,8 @@ SceneYB::SceneYB(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
 	game = game_;
 	renderer = SDL_GetRenderer(window);
-	xAxis = 25.0f;
-	yAxis = 15.0f;
+	xAxis = camera.getXAxis();
+	yAxis = camera.getYAxis();
 
 	// player spawns in middle of screen
 	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
@@ -34,18 +34,20 @@ bool SceneYB::OnCreate() {
 	inventory.addItem(sword);
 	inventory.printInventory();
 
-	int w, h;
-	SDL_GetWindowSize(window, &w, &h);
+	camera.OnCreate();
 
-	Matrix4 ndc = MMath::viewportNDC(w, h);
-	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
-	projectionMatrix = ndc * ortho;
-	inverseProjection = MMath::inverse(projectionMatrix);
+	//int w, h;
+	//SDL_GetWindowSize(window, &w, &h);
 
-	player->setProjection(projectionMatrix);
+	//Matrix4 ndc = MMath::viewportNDC(w, h);
+	//Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
+	//projectionMatrix = ndc * ortho;
+	//inverseProjection = MMath::inverse(projectionMatrix);
+
+	//player->setProjection(projectionMatrix);
 	enemy->setProjection(projectionMatrix);
 
-	player->setInverse(inverseProjection);
+	//player->setInverse(inverseProjection);
 	enemy->setInverse(inverseProjection);
 
 	//for (int i = 0; i < enemyQueue.size(); i++) 
@@ -102,38 +104,41 @@ void SceneYB::Update(const float deltaTime) {
 
 	// Update player
 	// Will make this its own extracted function after (will put in camera class too)
-	int w, h;
-	SDL_GetWindowSize(window, &w, &h);
+	//int w, h;
+	//SDL_GetWindowSize(window, &w, &h);
 
-	Matrix4 ndc = MMath::viewportNDC(w, h);
-	float left, right, bottom, top;
+	//Matrix4 ndc = MMath::viewportNDC(w, h);
+	//float left, right, bottom, top;
 
-	left = 0.0f;
-	right = xAxis;
-	bottom = 0.0f;
-	top = yAxis;
+	//left = 0.0f;
+	//right = xAxis;
+	//bottom = 0.0f;
+	//top = yAxis;
 
-	left = player->getPos().x - xAxis / 2.0f;
-	right = player->getPos().x + xAxis / 2.0f;
-	bottom = player->getPos().y - yAxis / 2.0f;
-	top = player->getPos().y + yAxis / 2.0f;
+	//left = player->getPos().x - xAxis / 2.0f;
+	//right = player->getPos().x + xAxis / 2.0f;
+	//bottom = player->getPos().y - yAxis / 2.0f;
+	//top = player->getPos().y + yAxis / 2.0f;
 
-	Matrix4 ortho = MMath::orthographic(left, right, bottom, top, 0.0f, 1.0f);
-	projectionMatrix = ndc * ortho;
+	//Matrix4 ortho = MMath::orthographic(left, right, bottom, top, 0.0f, 1.0f);
+	
 
-	inverseProjection = MMath::inverse(projectionMatrix);
+	//inverseProjection = MMath::inverse(projectionMatrix);
 
 	// Update players projection matrix
-	player->setProjection(projectionMatrix);
+	//player->setProjection(projectionMatrix);
 
-	player->setInverse(inverseProjection);
+	//player->setInverse(inverseProjection);
+
+	camera.cameraFollowsPlayer(player, window);
+	projectionMatrix = camera.getProjectionMatrix();
 
 	player->Update(deltaTime);
 
-	if (player->enemyCollision(enemy))
-	{
-		std::cout << "COLLISION DETECTED" << std::endl;
-	}
+	//if (player->enemyCollision(enemy))
+	//{
+	//	std::cout << "COLLISION DETECTED" << std::endl;
+	//}
 
 	enemy->Update(deltaTime);
 }
