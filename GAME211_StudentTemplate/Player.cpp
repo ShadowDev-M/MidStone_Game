@@ -29,7 +29,7 @@ bool Player::OnCreate()
     playerImage = "Pacman.png";
     playerTexture = loadImage(playerImage);
     SDL_QueryTexture(playerTexture, nullptr, nullptr, &size.x, &size.y);
-    hitbox.OnCreate(size.x, size.y,0.1f);
+    hitbox.OnCreate(size.x, size.y, scale);
     return true;
 }
 

@@ -3,6 +3,7 @@
 #include "MenuScene.h"
 #include "ChunkTestScene.h"
 #include "UiScene.h"
+#include "SceneYB.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;
@@ -39,7 +40,7 @@ bool GameManager::OnCreate() {
 
     // select scene for specific assignment
 
-    currentScene = new SceneC(windowPtr->GetSDL_Window(), this);
+    currentScene = new SceneYB(windowPtr->GetSDL_Window(), this);
 
     // need to create Player before validating scene
     if (!ValidateCurrentScene()) {
