@@ -24,7 +24,7 @@ protected:
 
 public:
 
-    Enemy() : Body{}, hitbox(vel, pos)
+    Enemy() : Body{}
     {
         game = nullptr;
     }
@@ -50,7 +50,6 @@ public:
           rotation_,
           angular_
     },
-        hitbox(vel, pos),
         game{ game_ }
     {}
 
@@ -61,7 +60,7 @@ public:
     SDL_Texture* enemyTexture;
     SDL_Surface* enemySurface;
 
-    BoxCollider hitbox = BoxCollider(vel, pos);
+    BoxCollider hitbox = BoxCollider();
     // use the base class versions of getters
     bool OnCreate();
     void OnDestroy();

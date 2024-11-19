@@ -51,7 +51,7 @@ void Enemy::Update(float deltaTime)
     // Note that would update velocity too, and rotation motion
 
     Body::Update(deltaTime);
-    hitbox.CheckCollision();
+    hitbox.CheckCollision(Vec2(pos.x,pos.y));
 }
 
 void Enemy::OnDestroy()
