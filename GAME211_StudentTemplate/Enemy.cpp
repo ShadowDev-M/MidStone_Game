@@ -29,8 +29,7 @@ bool Enemy::OnCreate()
 
     // sets up enemy image and texture
     SDL_QueryTexture(enemyTexture, nullptr, nullptr, &size.x, &size.y);
-    //hitbox.OnCreate(size.x, size.y, scale);
-    return true;
+    hitbox.OnCreate(size.x, size.y, scale);
 
     return true;
 }
@@ -52,7 +51,7 @@ void Enemy::Update(float deltaTime)
     // Note that would update velocity too, and rotation motion
 
     Body::Update(deltaTime);
-    //hitbox.CheckCollision();
+    hitbox.CheckCollision();
 }
 
 void Enemy::OnDestroy()
