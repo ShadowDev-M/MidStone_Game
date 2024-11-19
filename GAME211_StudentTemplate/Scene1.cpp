@@ -128,10 +128,10 @@ void Scene1::Update(const float deltaTime) {
 
 	player->Update(deltaTime);
 
-	if (player->enemyCollision(enemy))
+	/*if (player->enemyCollision(enemy))
 	{
 		std::cout << "COLLISION DETECTED" << std::endl;
-	}
+	}*/
 
 	enemy->setProjection(projectionMatrix);
 

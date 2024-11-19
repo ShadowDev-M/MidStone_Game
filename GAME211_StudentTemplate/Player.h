@@ -17,7 +17,7 @@ protected:
 
 public:
 
-    Player() : Body{}, hitbox(vel, pos)
+    Player() : Body{}
     {
         game = nullptr;
     }
@@ -42,7 +42,7 @@ public:
           orientation_,
           rotation_,
           angular_
-    }, hitbox(vel, pos)
+    }
         , game{ game_ }
     {}
 
@@ -52,13 +52,13 @@ public:
     // Variables
     float healthpointsMax = 10.0f;
     float healthpoints = healthpointsMax;
-    float walkSpeedMax = 3.0f;
+    float walkSpeedMax = 5;//3.0f;
     Inventory playerInventory;
     const char* playerImage;
     SDL_Texture* playerTexture;
     std::vector<TileFaces> hitFaces;
     
-    BoxCollider hitbox = BoxCollider(vel, pos);
+    BoxCollider hitbox = BoxCollider();
     // use the base class versions of getters
     bool OnCreate();
     void OnDestroy();
@@ -72,7 +72,7 @@ public:
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
     void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; }
     void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; }
-
+    void onCollisionTrigger(const TileFaces& collidedObject);
 
 };
 

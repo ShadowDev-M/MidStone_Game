@@ -24,12 +24,18 @@ Player::Player(
 
 bool Player::OnCreate()
 {
-   
+
     // sets up player image and texture
     playerImage = "Pacman.png";
     playerTexture = loadImage(playerImage);
     SDL_QueryTexture(playerTexture, nullptr, nullptr, &size.x, &size.y);
-    hitbox.OnCreate(size.x, size.y,0.1f);
+    hitbox.OnCreate(size.x, size.y, 0.1f);
+    hitbox.Subscribe(
+        [this](const TileFaces& collidedObject) {
+            onCollisionTrigger(collidedObject);
+        });
+
+    //hitbox.Subscribe(onCollisionTrigger);
     return true;
 }
 
@@ -93,7 +99,8 @@ void Player::Update( float deltaTime )
 
     //hitFaces.empty();
     Body::Update( deltaTime );
-    hitbox.CheckCollision();
+    hitbox.CheckCollision(Vec2(pos.x,pos.y));
+    
 
 }
 
@@ -114,4 +121,50 @@ void Player::setItem(Item newItem)
 {
     //Set the player's current item to the new item
     currentItem = newItem;
+}
+
+
+
+void Player::onCollisionTrigger(const TileFaces& collidedObject)
+{
+    switch (collidedObject.collisionType)
+    {
+    case none:
+        break;
+    case wall:
+        if (collidedObject.PointOne.y == collidedObject.PointTwo.y) {
+            // Horizontal wall adjustment
+            if (vel.y < 0) { // Moving down
+                pos.y += hitbox.DetectPenetration(collidedObject,pos,vel); // Move player back up
+                vel.y = 0; // Stop downward movement
+            }
+            else { // Moving up
+                pos.y -= hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back down
+                vel.y = 0; // Stop upward movement
+            }
+        }
+        else {
+            // Vertical wall adjustment
+            if (vel.x > 0) { // Moving right
+                pos.x += hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back to the left
+                vel.x = 0; // Stop rightward movement
+            }
+            else { // Moving left
+                pos.x -= hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back to the right
+                vel.x = 0; // Stop leftward movement
+            }
+        }
+        break;
+
+    case enemy:
+        std::cout << "\nplayer gets damaged";
+        break;
+
+    case loot:
+        
+        break;
+
+    default:
+        break;
+    }
 }

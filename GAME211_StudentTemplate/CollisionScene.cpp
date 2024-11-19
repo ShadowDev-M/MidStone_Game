@@ -73,20 +73,39 @@ bool CollisionScene::OnCreate() {
 		return false;
 	}
 
+	std::vector<TileFaces> faces;
+
+	TileFaces wall1(
+		Vec2(block1->getPos().x - 2, block1->getPos().y),
+		Vec2(block1->getPos().x + 2, block1->getPos().y),
+		wall
+	);
+	wall1.collisionType = enemy;
+	faces.push_back(wall1);
+	// Second wall or enemy
+	TileFaces enemy1(Vec2(7, 3), Vec2(7, 7),wall);
+	
+	faces.push_back(enemy1);
+	
+	
+	
 	//Creating wall
-	TileFaces wall1 = TileFaces();
+
+
+	/*TileFaces wall1 = TileFaces();
 	wall1.PointOne = Vec2(block1->getPos().x - 2, block1->getPos().y);
 	wall1.PointTwo = Vec2(block1->getPos().x + 2, block1->getPos().y);
+	wall1.collisionType = wall;*/
 	//Creating a vector
 	
 	
-	std::vector<TileFaces> faces;
-	faces.push_back(wall1);
+	//faces.push_back(wall1);
 
-	wall1.PointOne = Vec2(7, 3);
+	/*wall1.PointOne = Vec2(7, 3);
 	wall1.PointTwo = Vec2(7, 7);
+	wall1.collisionType = enemy;
 	faces.push_back(wall1);
-	
+	*/
 	//Pass the vector to the player
 	player->hitbox.setObstacles(faces);
 

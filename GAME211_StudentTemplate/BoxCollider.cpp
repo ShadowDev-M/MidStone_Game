@@ -2,84 +2,79 @@
 
 
 
-void BoxCollider::CheckCollision()
+void BoxCollider::CheckCollision(Vec2 pos)
 {
 	//Find the worldCoords of the top left corner
-	Vec2 topLCorner = Vec2(bodyPos.x, bodyPos.y);
+	Vec2 topLCorner = Vec2(pos.x, pos.y);
 
 
-	for (int i = 0; i < wallFaces.size(); i++)
+	for (int i = 0; i < collidableObjects.size(); i++)
 	{
-		TileFaces temp = wallFaces[i];
-
+		TileFaces object = collidableObjects[i];
+		
 		//Check to see if see this face is vertical or horizontal
-		if (temp.PointOne.y == temp.PointTwo.y)
+		if (object.PointOne.y == object.PointTwo.y)
 		{
 
 			//Checking to see which point is on the right side of the wall and which on the left side
-			float leftEdge = temp.PointOne.x < temp.PointTwo.x ? temp.PointOne.x : temp.PointTwo.x;
-			float RightEdge = temp.PointOne.x < temp.PointTwo.x ? temp.PointTwo.x : temp.PointOne.x;
-			float wallY = temp.PointTwo.y;
+			float leftEdge = object.PointOne.x < object.PointTwo.x ? object.PointOne.x : object.PointTwo.x;
+			float RightEdge = object.PointOne.x < object.PointTwo.x ? object.PointTwo.x : object.PointOne.x;
+			float objectYpos = object.PointTwo.y;
 
-			//Debuginh tool
+		
 			//If the player is not between two edges on the X axis, don't do the rest of the code
-			if (topLCorner.x < leftEdge || topLCorner.x > RightEdge)
+			if ((topLCorner.x < leftEdge && topLCorner.x + worldW < leftEdge) || topLCorner.x > RightEdge)
 			{
-				//std::cout << "\n out of bound";
-				//std::cout << "\t Player Pos:" << bodyPos.x << "\t wall: " << leftEdge << "," << RightEdge;
-				
-
 				continue;
 			}
 
-			//Debuginh tool
-			std::cout << "\n out of bound";
-			std::cout << "PlayerPos" << topLCorner.y << "," << topLCorner.y - worldH << "\t wall : " << wallY;
-
+			
 
 			//AABB Collision Detection (Search on google to undrestand the concept)
-			if (topLCorner.y > wallY && topLCorner.y - worldH < wallY)
+			if (topLCorner.y > objectYpos && topLCorner.y - worldH < objectYpos)
 			{
 				//Reverse the velocity to create a bouncing effect (This caused a problem, we're not using it now)
-				float penetration = DetectPenetration(temp, bodyPos, bodyVel);
-				std::cout << "\nPen Amount: " << penetration;
-				temp.PointTwo.print();
+				//float penetration = DetectPenetration(temp, bodyPos, bodyVel);
+				//std::cout << "\nPen Amount: " << penetration;
+				
 				//Return player by the penetration amount
-				bodyPos.y -= penetration;
-				Vec3 newVel = Vec3(bodyVel.x, 0, bodyVel.z);
-				bodyVel = newVel;
-
+				//bodyPos.y -= penetration;
+				//Vec3 newVel = Vec3(bodyVel.x, 0, bodyVel.z);
+				//bodyVel = newVel;
+				TriggerCollision(object);
+				
 			}
 
 			continue;
 		}
 
 		//Check to see if see this face is vertical or horizontal
-		if (temp.PointOne.x == temp.PointTwo.x)
+		if (object.PointOne.x == object.PointTwo.x)
 		{
 			//Checking to see which point is on the top side of the wall and which on the buttom side
-			float BottomEdge = temp.PointOne.y < temp.PointTwo.y ? temp.PointOne.y : temp.PointTwo.y;
-			float topEdge = temp.PointOne.y < temp.PointTwo.y ? temp.PointTwo.y : temp.PointOne.y;
-			float wallX = temp.PointOne.x;
+			float BottomEdge = object.PointOne.y < object.PointTwo.y ? object.PointOne.y : object.PointTwo.y;
+			float topEdge = object.PointOne.y < object.PointTwo.y ? object.PointTwo.y : object.PointOne.y;
+			float objectXpos = object.PointOne.x;
 
 			//If the player is not between two edges on the Y axis, don't do the rest of the code
-			if (topLCorner.y > topEdge || topLCorner.y < BottomEdge)
+			if ((topLCorner.y > topEdge && topLCorner.y - worldH > topEdge) || topLCorner.y < BottomEdge)
 				continue;
 
 			//AABB Collision Detection (Search on google to undrestand the concept)
-			if (topLCorner.x < wallX && topLCorner.x + worldW > wallX)
+			if (topLCorner.x < objectXpos && topLCorner.x + worldW > objectXpos)
 			{
 				//Reverse the velocity to create a bouncing effect (This caused a problem, we're not using it now)
-				float penetration = DetectPenetration(temp, bodyPos, bodyVel);
-				std::cout << "\nPen Amount: " << penetration;
+				//float penetration = DetectPenetration(temp, bodyPos, bodyVel);
+				//std::cout << "\nPen Amount: " << penetration;
 
 				//Return player by the penetration amount
-				bodyPos.x -= penetration;
-				Vec3 newVel = Vec3(0, bodyVel.y, bodyVel.z);
-				bodyVel = newVel;
+				//bodyPos.x -= penetration;
+				//Vec3 newVel = Vec3(0, bodyVel.y, bodyVel.z);
+				//bodyVel = newVel;
+				TriggerCollision(object);
 			}
 
-
+		
 		}
 
 	}
@@ -109,7 +104,7 @@ float BoxCollider::DetectPenetration(TileFaces wall, Vec3 pos, Vec3 vel)
 	else
 	{
 		bool movingRight = vel.x >= 0;
-		std::cout << vel.x;
+		//std::cout << vel.x;
 		if (movingRight)
 		{
 			//Compare right face of the player with the colliding wall

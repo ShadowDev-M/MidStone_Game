@@ -4,6 +4,7 @@
 #include "Vector.h";
 #include "Body.h";
 #include "ChunkHandler.h"
+#include <functional>
 using namespace MATH;
 
 //struct ColliderFace
@@ -25,19 +26,18 @@ class BoxCollider
 {
 
 private:
+	using CollisionCallback = std::function<void(const TileFaces&)>;
+	
 	//List of the solid faces coming from Joel's code
-	std::vector<TileFaces> wallFaces;
+	std::vector<TileFaces> collidableObjects;
 	float worldW, worldH;
-	Vec3& bodyVel;
-	Vec3& bodyPos;
-
-	float DetectPenetration(TileFaces wall, Vec3 pos, Vec3 vel);
-	ChunkHandler* chunkHandler;
+	//Vec3& bodyVel;
+	//Vec3& bodyPos;
+	CollisionCallback onCollision;
 
 public:
-	
-	
-	BoxCollider(Vec3& _bodyVel, Vec3& _bodyPos) : bodyVel(_bodyVel), bodyPos(_bodyPos)
+
+	BoxCollider()//(Vec3& _bodyVel, Vec3& _bodyPos) : bodyVel(_bodyVel), bodyPos(_bodyPos)
 	{
 
 	}
@@ -57,21 +57,35 @@ public:
 		std::cout << "\n World H:" << imageHeight;
 		std::cout << "\n World W:" << imageWidth;
 	}
+
+
+	//Subscribe your collision response Function using this
+	void Subscribe(CollisionCallback callback) {
+		onCollision = callback;
+	}
+
+	// Trigger the collision callback
+	void TriggerCollision(const TileFaces& collidedObject) {
+		if (onCollision) {
+			onCollision(collidedObject); // Directly invoke the callback
+		}
+	}
+	
+
+	float DetectPenetration(TileFaces wall, Vec3 pos, Vec3 vel);
+	
 	
 	//BoxCollider& operator=(const BoxCollider& other);
 
 	//We load the solid faces here 
 	void setObstacles(std::vector<TileFaces> _wallFaces)
 	{
-		wallFaces = _wallFaces;
+		collidableObjects = _wallFaces;
 	}
-
-
-
 
 	//Call this in the object's Update function
 	//This method gets called by the owner of the collider in the update funtion
-	void CheckCollision();
+	void CheckCollision(Vec2 pos);
 
 };
 
