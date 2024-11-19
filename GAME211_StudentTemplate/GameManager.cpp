@@ -17,10 +17,11 @@ bool GameManager::OnCreate() {
     //const int SCREEN_HEIGHT = 860;
 
     // Use 1000x600 for less than full screen
-    const int SCREEN_WIDTH = 1000;
-    const int SCREEN_HEIGHT = 600;
 
-    windowPtr = new Window(SCREEN_WIDTH, SCREEN_HEIGHT);
+    // This is considered the "level" dimensions, the camera uses "screen dimensions" but those are more so the cameras "screen"
+    
+
+    windowPtr = new Window(WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (windowPtr == nullptr) {
 		OnDestroy();
 		return false;
@@ -132,6 +133,16 @@ float GameManager::getSceneHeight() { return currentScene->getyAxis(); }
 
 // This might be unfamiliar
 float GameManager::getSceneWidth() { return currentScene->getxAxis(); }
+
+float GameManager::getWindowHeight() const
+{
+    return WINDOW_HEIGHT;
+}
+
+float GameManager::getWindowWidth() const
+{
+    return WINDOW_WIDTH;
+}
 
 // This might be unfamiliar
 Matrix4 GameManager::getProjectionMatrix()

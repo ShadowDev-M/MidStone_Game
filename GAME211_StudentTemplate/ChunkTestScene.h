@@ -6,6 +6,8 @@
 #include <MMath.h>
 #include "Scene.h"
 #include "Player.h"
+#include "Camera.h"
+
 
 #include "Chunk.h"
 #include "ChunkHandler.h"
@@ -13,6 +15,17 @@
 using namespace MATH;
 class SceneC : public Scene {
 private:
+
+	// Screen/Level Size
+	static const int SCREEN_WIDTH = 1920;
+	static const int SCREEN_HEIGHT = 1080;
+
+	// The cameras current location
+	float LEVEL_WIDTH = SCREEN_WIDTH * 16 / SCREEN_HEIGHT;
+	float LEVEL_HEIGHT = LEVEL_WIDTH * 9 / 16;
+
+	
+
 	float xAxis;	// scene width, in game coords, set in constructor
 	float yAxis;	// scene height, in game coords, set in constructor
 	SDL_Window* window;		// an SDL window with a SDL renderer
@@ -22,6 +35,9 @@ private:
 	bool testh;
 	Player* player;
 	ChunkHandler RegionOne;
+	Camera camera;
+	
+	Scene* scene;
 
 	// Testing the loading of tiles
 	// Starting off with a single tile and assigning it an ID
@@ -30,6 +46,12 @@ private:
 	SDL_Texture* stoneTileTexture;
 	Body* grassTile;
 	SDL_Texture* grassTileTexture;
+
+	Body* ghost;
+	SDL_Texture* ghostTexture;
+
+	Body* sword;
+	SDL_Texture* swordTexture;
 
 
 	std::vector<TileInfo> changesIndex;
@@ -47,12 +69,7 @@ private:
 
 	// Rendering text using SDL_TFF is very costly 
 	// because it always creates a new surface
-
-
-	/// Load an image into a texture object.
-	/// <param name="textureFile">image file</param>
-	/// <returns>The SDL texture of this image</returns>
-	SDL_Texture* loadImage(const char* textureFile);
+	float scalingFactor(SDL_Texture*& texture, Body* body);
 
 	/// Generate a rectangle that will encompass a scaled version of the texture.	
 	/// <param name="objectTexture">The texture object of the image</param>
@@ -70,9 +87,13 @@ public:
 	SceneC(SDL_Window* sdlWindow, GameManager* game_);
 	~SceneC();
 	bool OnCreate();
+	
+	SDL_Texture* loadImage(Body* body);
+	
 	void OnDestroy();
-	void Update(const float time);
+	void Update(const float time);	
 	void Render();
+	void renderObject(Body* object, SDL_Texture* objectTexture);
 	void HandleEvents(const SDL_Event& event);
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
@@ -83,9 +104,9 @@ public:
 	//.pos
 	// Takes game/physics coords of an object 
 	// and multiples it by the projection matrix to get screen coords
-	Vec3 screenCoords(Vec3 gameCoords);
+	Vec3 worldToScreenCoords(Vec3 gameCoords);
 
-	Vec3 worldCoords(Vec3 physicsCoords);
+	Vec3 ScreenToWorldCoords(Vec3 physicsCoords);
 
 };
 

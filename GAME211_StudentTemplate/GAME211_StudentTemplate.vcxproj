@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChunkTestScene.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -46,6 +47,7 @@
   <ItemGroup>
     <ClInclude Include="Body.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="ChunkTestScene.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Enhancement.h" />
@@ -57,6 +59,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MenuScene.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ScottyLinkedList.h" />
     <ClInclude Include="TestBlock.h" />
     <ClInclude Include="TileInfo.h" />
