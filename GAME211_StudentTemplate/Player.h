@@ -58,9 +58,13 @@ public:
     const char* playerImage;
     SDL_Texture* playerTexture;
     std::vector<TileFaces> hitFaces;
-    
+    std::vector<TileFaces> permFaces;
+
+    ChunkHandler* region;
+
     BoxCollider hitbox = BoxCollider();
     // use the base class versions of getters
+    void SetRegion(ChunkHandler* region_) { region = region_; };
     bool OnCreate();
     void OnDestroy();
     void Render(float scale = 1.0f);

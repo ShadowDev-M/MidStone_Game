@@ -92,6 +92,10 @@ public:
 	
 	SDL_Texture* loadImage(Body* body);
 	
+	void renderLinesMethod(TileFaces info) {
+		SDL_RenderDrawLine(renderer, info.PointOne.x, info.PointOne.y, info.PointTwo.x, info.PointTwo.y);
+	};
+	TileFaces getFacesFromChunks(Vec2 entityPos_, Vec2 velVector_) { return RegionOne.getFaces(entityPos_, velVector_); }
 	void OnDestroy();
 	void Update(const float time);	
 	void Render();

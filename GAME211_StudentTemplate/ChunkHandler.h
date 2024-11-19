@@ -8,7 +8,6 @@
 #include "Chunk.h"
 #include "Body.h"
 #include "ScottyLinkedList.h"
-
 using namespace MATH;
 
 class ChunkHandler {
@@ -23,9 +22,10 @@ class ChunkHandler {
 
 	//
 protected:
-
+	
 
 public:
+	std::vector<TileFaces> renderLines;
 
 	void OnCreate();
 

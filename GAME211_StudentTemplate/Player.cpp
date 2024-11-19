@@ -1,5 +1,6 @@
 #include "Player.h"
 
+
 Player::Player(
     Vec3 pos_, Vec3 vel_, Vec3 accel_,
     float mass_,
@@ -99,6 +100,16 @@ void Player::Update( float deltaTime )
 
     //hitFaces.empty();
     Body::Update( deltaTime );
+
+    //std::cout << region->getFaces(Vec2(pos.x, pos.y), Vec2(vel.x, vel.y)).objectTag << std::endl;
+    if (region != nullptr) {
+        std::vector<TileFaces> tempFaces;
+        tempFaces.push_back(region->getFaces(Vec2(pos.x, pos.y), Vec2(vel.x, vel.y)));
+        permFaces.push_back(region->getFaces(Vec2(pos.x, pos.y), Vec2(vel.x, vel.y)));
+        
+        hitbox.setObstacles(permFaces);
+        //SDL_RenderDrawLine(renderer, 0, 0, 1, 1);
+    }
     hitbox.CheckCollision(Vec2(pos.x,pos.y));
     
 
