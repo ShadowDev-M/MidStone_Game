@@ -15,6 +15,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <Vector.h>
+#include "BoxCollider.h"
 
 class Enemy : public Body
 {
@@ -23,7 +24,7 @@ protected:
 
 public:
 
-    Enemy() : Body{}
+    Enemy() : Body{}, hitbox(vel, pos)
     {
         game = nullptr;
     }
@@ -48,8 +49,9 @@ public:
           orientation_,
           rotation_,
           angular_
-    }
-        , game{ game_ }
+    },
+        hitbox(vel, pos),
+        game{ game_ }
     {}
 
     // Temp constructer
@@ -59,6 +61,7 @@ public:
     SDL_Texture* enemyTexture;
     SDL_Surface* enemySurface;
 
+    BoxCollider hitbox = BoxCollider(vel, pos);
     // use the base class versions of getters
     bool OnCreate();
     void OnDestroy();

@@ -68,11 +68,11 @@ bool SceneYB::OnCreate() {
 	player->OnCreate();
 	enemy->OnCreate();
 
-	player->setWidth(player->width * (xAxis / w) * player->scale);
-	player->setHeight(player->height * (yAxis / h) * player->scale);
+	//player->setWidth(player->width * (xAxis / w) * player->scale);
+	//player->setHeight(player->height * (yAxis / h) * player->scale);
 
-	enemy->setWidth(enemy->width * (xAxis / w) * enemy->scale);
-	enemy->setHeight(enemy->height * (yAxis / h) * enemy->scale);
+	//enemy->setWidth(enemy->width * (xAxis / w) * enemy->scale);
+	//enemy->setHeight(enemy->height * (yAxis / h) * enemy->scale);
 
 	//for (int i = 0; i < enemyList.size(); i++)
 	//{

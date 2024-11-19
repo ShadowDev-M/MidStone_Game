@@ -13,6 +13,7 @@ EnemyManager::EnemyManager()
 EnemyManager::EnemyManager(Scene* scene_)
 {
 	activeScene = scene_;
+	srand((unsigned)time(NULL)); //provide a seed value
 }
 
 std::vector<Enemy*> EnemyManager::spawnEnemy(int amount)
