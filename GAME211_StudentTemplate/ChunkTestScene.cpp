@@ -98,6 +98,16 @@ bool SceneC::OnCreate() {
 		{0, 0, 1}, {1, 2, 1}, {2,3,1}, {18,20,1} };
 
 	
+
+	
+	// Ignore	
+	//TileFaces sword1 = TileFaces();
+	//sword1.PointOne = Vec2(sword->getPos().x - 0.5f, sword->getPos().y);
+	//sword1.PointTwo = Vec2(sword->getPos().x + 0.5f, sword->getPos().y);
+	//std::vector<TileFaces> faces;
+	//faces.push_back(sword1);
+	//player->hitbox.setObstacles(faces);
+
 	RegionOne.addLoadingEntity(player);
 
 
@@ -118,7 +128,7 @@ bool SceneC::OnCreate() {
 
 void SceneC::Update(const float deltaTime) {
 	//// Will make this its own extracted function after (will put in camera class too)
-	
+
 	camera.cameraFollowsPlayer(player, window);
 	projectionMatrix = camera.getProjectionMatrix();
 
@@ -137,7 +147,8 @@ void SceneC::Update(const float deltaTime) {
 
 
 	//std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
- }
+	//std::cout << "TILE LOCATIONS:" << stoneTile->getPos().x << ", " << stoneTile->getPos().y << "\n";
+}
 
 void SceneC::Render() {
 	//Initialize renderer color
@@ -166,6 +177,7 @@ void SceneC::Render() {
 					int id = RegionOne.getChunkTileID(chunkRenderPos, Vec2(x, y));
 
 					Vec3 chunkInfo = Vec3(x + 16 * chunkRenderPos.x, y + 16 * chunkRenderPos.y, id);
+					
 					if (chunkInfo.z == 0) {
 
 						grassTile->setPos(Vec3(chunkInfo.x, chunkInfo.y, 0.0f));
@@ -193,18 +205,24 @@ void SceneC::Render() {
 	//}
 
 
-
+	
 	// Everything now needs to use the scalingfactor to properly scale with the screen
 	player->Render(camera.scalingFactor(player->getTexture(), player));
 
 	
 	camera.renderObject(sword, swordTexture, renderer);
-	
 
 	//body->GetTexture() body->
 
 	// update screen
 	SDL_RenderPresent(renderer);
+}
+
+
+void SceneC::HandleEvents(const SDL_Event& event)
+{
+	// send events to player as needed
+	player->HandleEvents(event);
 }
 
 void SceneC::OnDestroy() {

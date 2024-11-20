@@ -299,7 +299,7 @@ TileFaces ChunkHandler::getFaces(Vec2 entityPos_, Vec2 velVector_) {
 
             if (isSolid(Vec2((float)tileX, (float)tileY))) {
                 std::cout << tileX << ", " << tileY << " is solid!\n";
-                return TileFaces(Vec2(tileX + fabs(dirX - 1.0) / 2.0, tileY), Vec2(tileX + fabs(dirX - 1.0) / 2.0, tileY + 1));
+                return TileFaces(Vec2(tileX + fabs(dirX - 1.0) / 2.0, tileY), Vec2(tileX + fabs(dirX - 1.0) / 2.0, tileY + 1),wall);
 
             }
         }
@@ -313,7 +313,7 @@ TileFaces ChunkHandler::getFaces(Vec2 entityPos_, Vec2 velVector_) {
             
             if (isSolid(Vec2((float)tileX, (float)tileY))) {
                 std::cout << tileX << ", " << tileY << " is solid!\n";
-                return (TileFaces(Vec2(tileX, tileY + fabs(dirY - 1.0) / 2.0), Vec2(tileX+1, tileY + fabs(dirY - 1.0) / 2.0)));
+                return (TileFaces(Vec2(tileX, tileY + fabs(dirY - 1.0) / 2.0), Vec2(tileX+1, tileY + fabs(dirY - 1.0) / 2.0),wall));
             }
         }
         
@@ -322,5 +322,5 @@ TileFaces ChunkHandler::getFaces(Vec2 entityPos_, Vec2 velVector_) {
         //tiles.emplace_back(tileX, tileY);
     }
 
-    return (TileFaces(Vec2(), Vec2()));
+    return (TileFaces(Vec2(), Vec2(),none));
 }

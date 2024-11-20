@@ -30,6 +30,7 @@ protected:
     SDL_Renderer* renderer;
     Matrix4 projectionMatrix;
     Matrix4 inverseProjection;
+
     // For new texture rendering
     const char* textureFile = "";
 
@@ -44,7 +45,7 @@ public:
         float angular_
     );
     Body(int hp, Vec3 pos_);
-    
+    SDL_Point size{};
 
     //DESTRUCTOR
     virtual ~Body();
@@ -52,7 +53,6 @@ public:
     //ESSENTIAL FUNCTIONS
     virtual bool OnCreate();
     virtual void OnDestroy();
-    //virtual void RenderEntity(float scale);
     virtual void Update(float deltaTime);
     virtual void HandleEvents(const SDL_Event& event);
 
@@ -75,14 +75,14 @@ public:
     virtual SDL_Surface* getImage() { return image; }
     virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_) { imageSizeWorldCoords = imageSizeWorldCoords_; }
     virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
+
+    virtual Vec3 getImageSizeWorldCoords() { return imageSizeWorldCoords; }
     virtual void renderEntity(float scaleFactor);
     virtual Vec3 getImageSizeWorldCoords() { return imageSizeWorldCoords; }
     virtual SDL_Texture* getTexture() { return texture; }
     virtual SDL_Texture* loadImage(const char* textureFile);
 
-    void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; } //projection matrix is defined in body
-    void setInverse(Matrix4 inverseMatrix_) { inverseProjection = inverseMatrix_; } //projection matrix is defined in body
-
+    
 
     /// Set a new texture file for this body	
    /// <param name="textureFile_">The new texture file</param>
@@ -104,11 +104,21 @@ public:
     virtual void setHeight(float h_) { height = h_; }
     virtual float getWidth() { return width; }
     virtual float getHeight() { return height; }
+    virtual void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; }
+    virtual void setInverse(Matrix4 inverseProjection_) { inverseProjection = inverseProjection_; }
 
     //VARIABLES
+
+    //Rendering and Collision
     float width;
     float height;
-    
+    float scale = 1.0f;
+
+    float widthScreen;
+    float heightScreen;
+
+    Vec3 hitboxOffset;
+
     float healthpointsMax; //The max HP of the entity
     float healthpoints = healthpointsMax;
     float walkSpeedMax; //The default speed of the entity

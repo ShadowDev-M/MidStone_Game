@@ -23,21 +23,15 @@ Enemy::Enemy(
 
 bool Enemy::OnCreate()
 {
+
     textureFile = "textures/Blinky.png"; //Placeholder image
     SetTextureFile(textureFile);
     texture = loadImage(textureFile);
 
-    // sets up player image and texture
-    SDL_Surface* enemySurface = IMG_Load(textureFile);
-    setWidth(enemySurface->w); //This is in pixels
-    setHeight(enemySurface->h); //This is in pixels
+    // sets up enemy image and texture
+    SDL_QueryTexture(enemyTexture, nullptr, nullptr, &size.x, &size.y);
+    hitbox.OnCreate(size.x, size.y, scale);
 
-   /* scale = 0.2f;
-
-    widthScreen = enemySurface->w * scale;
-    heightScreen = enemySurface->h * scale;
-
-    hitboxOffset = Vec3(100.0f, 100.0f, 0.0f);*/
 
     return true;
 }
@@ -59,6 +53,7 @@ void Enemy::Update(float deltaTime)
     // Note that would update velocity too, and rotation motion
 
     Body::Update(deltaTime);
+    hitbox.CheckCollision(Vec2(pos.x,pos.y));
 }
 
 void Enemy::OnDestroy()
@@ -67,4 +62,5 @@ void Enemy::OnDestroy()
     std::cout << ("Deleting enemy assets: ", __FILE__, __LINE__);
     //delete texture;
     //delete textureFile;
+
 }

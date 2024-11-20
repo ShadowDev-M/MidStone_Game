@@ -14,6 +14,8 @@
 #include "Chunk.h"
 #include "ChunkHandler.h"
 
+#include "BoxCollider.h"
+
 using namespace MATH;
 class SceneC : public Scene {
 private:
@@ -82,14 +84,12 @@ public:
 	void OnDestroy();
 	void Update(const float time);	
 	void Render();
-	void renderObject(Body* object, SDL_Texture* objectTexture);
 	void HandleEvents(const SDL_Event& event);
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
 	SDL_Window* getWindow() { return window; }
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
-
 };
 
 #endif

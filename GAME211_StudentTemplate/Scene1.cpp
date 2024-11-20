@@ -15,13 +15,9 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
 	// player spawns in middle of screen
 	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	player->setRenderer(renderer);
-	player->setWidth(1.0f);
-	player->setHeight(1.0f);
 
 	enemy = new Enemy(Vec3(xAxis / 3.0f, yAxis / 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	enemy->setRenderer(renderer);
-	enemy->setWidth(1.0f);
-	enemy->setHeight(1.0f);
 }
 
 // To render chunks and set id to tiles need to setup camera first
@@ -45,9 +41,13 @@ bool Scene1::OnCreate() {
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
+	inverseProjection = MMath::inverse(projectionMatrix);
 
 	player->setProjection(projectionMatrix);
 	enemy->setProjection(projectionMatrix);
+
+	player->setInverse(inverseProjection);
+	enemy->setInverse(inverseProjection);
 
 	//for (int i = 0; i < enemyQueue.size(); i++) 
 	//{
@@ -64,6 +64,12 @@ bool Scene1::OnCreate() {
 	player->OnCreate();
 	enemy->OnCreate();
 
+	player->setWidth(player->width * (xAxis / w) * player->scale);
+	player->setHeight(player->height * (yAxis / h) * player->scale);
+
+	enemy->setWidth(enemy->width * (xAxis / w) * enemy->scale);
+	enemy->setHeight(enemy->height * (yAxis / h) * enemy->scale);
+
 	//for (int i = 0; i < enemyList.size(); i++)
 	//{
 	//	enemyList[i]->OnCreate();
@@ -78,7 +84,7 @@ bool Scene1::OnCreate() {
 		{2,0,1}, {2,1,1}, {2,2,1}, {2,3,1}, {2,4,1}, {2,5,1}, {2,6,1}, {2,7,1}, {2,8,1}, {2,9,1}, {2,10,1}, {2,11,1}, {2,12,1}, {2,13,1}, {2,14,1}, {2,15,1} };
 
 	RegionOne.setTile(changesIndex);
-
+	
 	TileFaces intersectedTile = RegionOne.getFaces(Vec2(4.5, 6.5), Vec2(-4.0, 2.0));
 
 	// Print the intersected tiles
@@ -110,29 +116,54 @@ void Scene1::Update(const float deltaTime) {
 	bottom = player->getPos().y - yAxis / 2.0f;
 	top = player->getPos().y + yAxis / 2.0f;
 
-
 	Matrix4 ortho = MMath::orthographic(left, right, bottom, top, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
+
+	inverseProjection = MMath::inverse(projectionMatrix);
 
 	// Update players projection matrix
 	player->setProjection(projectionMatrix);
 
+	player->setInverse(inverseProjection);
+
 	player->Update(deltaTime);
 
-	player->enemyCollision(enemy);
+	
+	
+	//if (player->enemyCollision(enemy))
+	//{
+	//	std::cout << "COLLISION DETECTED" << std::endl;
+	//}
 
+	
+	
 	enemy->setProjection(projectionMatrix);
+
+	enemy->setInverse(inverseProjection);
 
 	enemy->Update(deltaTime);
 }
 
 void Scene1::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+
 	SDL_RenderClear(renderer);
 
 	// render the player
-	player->Render(0.1f);
-	enemy->Render(0.2f);
+	player->Render(player->scale);
+	enemy->Render(enemy->scale);
+
+	//PLAYER COLLISION BOX DEBUG
+	//Vec3 playerGameCoords = screenCoords(player->getPos());
+	//SDL_Rect playerRect = { playerGameCoords.x, playerGameCoords.y, player->widthScreen, player->heightScreen };
+	//SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	//SDL_RenderDrawRect(renderer, &playerRect);
+
+	//ENEMY COLLISION BOX DEBUG
+	//Vec3 enemyGameCoords = screenCoords(enemy->getPos());
+	//SDL_Rect enemyRect = { enemyGameCoords.x, enemyGameCoords.y, enemy->widthScreen, enemy->heightScreen };
+	//SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	//SDL_RenderDrawRect(renderer, &enemyRect);
 
 	SDL_RenderPresent(renderer);
 }
@@ -146,6 +177,11 @@ void Scene1::HandleEvents(const SDL_Event& event)
 Vec3 Scene1::screenCoords(Vec3 gameCoords)
 {
 	return projectionMatrix * gameCoords;
+}
+
+Vec3 Scene1::worldCoords(Vec3 physicsCoords)
+{
+	return inverseProjection * physicsCoords;
 }
 
 // Creates a surface (cpu) and converts it to a texture (gpu)

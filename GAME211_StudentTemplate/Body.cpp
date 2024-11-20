@@ -108,6 +108,8 @@ SDL_Texture* Body::loadImage(const char* textureFile)
     return newTexture;
 }
 
+
+
 void Body::ApplyForce( Vec3 force_ ) {
     accel = force_ / mass;
 }

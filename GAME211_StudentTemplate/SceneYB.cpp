@@ -14,13 +14,13 @@ SceneYB::SceneYB(SDL_Window* sdlWindow_, GameManager* game_) {
 	// player spawns in middle of screen
 	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	player->setRenderer(renderer);
-	//player->SetTextureFile("textures/Pacman.png");
 
 	enemy = new Enemy(Vec3(xAxis / 3.0f, yAxis / 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	enemy->setRenderer(renderer);
-	//enemy->SetTextureFile("textures/Pinky.png");
-
 	
+	enemy = new Enemy(Vec3(xAxis / 3.0f, yAxis / 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	enemy->setRenderer(renderer);
+
 }
 
 // To render chunks and set id to tiles need to setup camera first
@@ -38,7 +38,6 @@ bool SceneYB::OnCreate() {
 	inventory.addItem(sword);
 	inventory.printInventory();
 
-	
 
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
@@ -50,7 +49,6 @@ bool SceneYB::OnCreate() {
 
 	player->OnCreate();
 	enemy->OnCreate();
-
 
 	//Matrix4 ndc = MMath::viewportNDC(w, h);
 	//Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
@@ -78,13 +76,13 @@ bool SceneYB::OnCreate() {
 	enemyManager = new EnemyManager(this);
 	enemyManager->spawnEnemy(4);
 
-	
 
-	player->setWidth(player->width * (xAxis / w) * player->scale);
-	player->setHeight(player->height * (yAxis / h) * player->scale);
 
-	enemy->setWidth(enemy->width * (xAxis / w) * enemy->scale);
-	enemy->setHeight(enemy->height * (yAxis / h) * enemy->scale);
+	//player->setWidth(player->width * (xAxis / w) * player->scale);
+	//player->setHeight(player->height * (yAxis / h) * player->scale);
+
+	//enemy->setWidth(enemy->width * (xAxis / w) * enemy->scale);
+	//enemy->setHeight(enemy->height * (yAxis / h) * enemy->scale);
 
 	//for (int i = 0; i < enemyList.size(); i++)
 	//{
@@ -109,17 +107,12 @@ bool SceneYB::OnCreate() {
 
 	//RegionOne.getFaces(Vec2(0.5, 0.7), Vec2(20.3, 30.4));
 
-
-
-
 	return true;
 }
 
 void SceneYB::Update(const float deltaTime) {
 
 	// Update player
-	
-	
 
 	//inverseProjection = MMath::inverse(projectionMatrix);
 
@@ -146,12 +139,10 @@ void SceneYB::Render() {
 
 	SDL_RenderClear(renderer);
 
-
 	// render the player
-	//player->Render(camera.scalingFactor(playerTexture, player));
+	//camera.renderEntity(player, player->getTexture(), renderer);
 
-	
-	
+	camera.renderEntity(enemy, enemy->getTexture(), renderer);
 
 	//PLAYER COLLISION BOX DEBUG
 	Vec3 playerPos = camera.worldToScreenCoords(player->getPos());
@@ -170,13 +161,7 @@ void SceneYB::Render() {
 	SDL_Rect enemyRect = { enemyPos.x + enemyHitboxOffset.x, enemyPos.y + enemyHitboxOffset.y, enemy->widthScreen - enemyHitboxOffset.x, enemy->heightScreen - enemyHitboxOffset.y }; //Width and height are already multiplied by scale in on create
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderDrawRect(renderer, &enemyRect);
-
-
-
-	//camera.renderEntity(player, player->getTexture(), renderer);
-
-	camera.renderEntity(enemy, enemy->getTexture(), renderer);
-
+	
 	SDL_RenderPresent(renderer);
 }
 

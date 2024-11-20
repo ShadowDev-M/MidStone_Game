@@ -3,6 +3,8 @@
 #include "MenuScene.h"
 #include "ChunkTestScene.h"
 #include "UiScene.h"
+#include "CollisionScene.h"
+#include "SceneYB.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;
@@ -112,6 +114,12 @@ void GameManager::handleEvents()
             case SDL_SCANCODE_F4:
                 LoadScene(4);
                 break;
+            case SDL_SCANCODE_F5:
+                LoadScene(5);
+                break;
+            case SDL_SCANCODE_F6:
+                LoadScene(6);
+                break;
             default:
                 break;
             }
@@ -180,6 +188,12 @@ void GameManager::LoadScene( int i )
             break;
         case 4:
             currentScene = new UiScene(windowPtr->GetSDL_Window(), this);
+            break;
+        case 5:
+            currentScene = new CollisionScene(windowPtr->GetSDL_Window(), this);
+            break;
+        case 6:
+            currentScene = new SceneYB(windowPtr->GetSDL_Window(), this);
             break;
         default:
             currentScene = new Scene1( windowPtr->GetSDL_Window(), this );

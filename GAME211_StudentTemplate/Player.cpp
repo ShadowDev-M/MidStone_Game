@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "Enemy.h"
 
 Player::Player(
     Vec3 pos_, Vec3 vel_, Vec3 accel_,
@@ -28,11 +27,14 @@ bool Player::OnCreate()
     textureFile = "textures/Pacman.png"; //Placeholder image
     SetTextureFile(textureFile);
     texture = loadImage(textureFile);
+    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
+    hitbox.OnCreate(size.x, size.y, 0.1f);
+    hitbox.Subscribe(
+        [this](const TileFaces& collidedObject) {
+            onCollisionTrigger(collidedObject);
+        });
 
-    
-    //SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
-    //hitbox.OnCreate(size.x, size.y, scale);
-
+    //hitbox.Subscribe(onCollisionTrigger);
     return true;
 }
 
@@ -43,6 +45,7 @@ void Player::Render(float scale)
     
     
 }
+
 
 void Player::HandleEvents( const SDL_Event& event )
 {
@@ -80,64 +83,90 @@ void Player::HandleEvents( const SDL_Event& event )
     }
 
     //Don't exceed our max speed when moving diagonally
-    //if (VMath::mag(vel) > walkSpeedMax)
-    //{
+   // if (VMath::mag(vel) > walkSpeedMax)
+   // {
     //    vel = VMath::normalize(vel) * walkSpeedMax; //normalize our speed to prevent this, multiply by our max speed to make it more natural
-    //}
-
+   // }
 }
 
 void Player::Update( float deltaTime )
 {
     // Update position, call Update from base class
+    
+    
     // Note that would update velocity too, and rotation motion
+    
+    //hitbox.setObstacles(hitFaces);
 
+    //hitFaces.empty();
     Body::Update( deltaTime );
+    hitbox.CheckCollision(Vec2(pos.x,pos.y));
+    
 
-}
-
-bool Player::enemyCollision(Body* other)
-{
-    if (pos.x > other->getPos().x && pos.x < other->getPos().x + other->width
-        && pos.y < other->getPos().y && pos.y > other->getPos().y - other->height) 
-    {
-        return true;
-        std::cout << "COLLISION DETECTED" << std::endl;
-    }
-
-    return false;
 }
 
 void Player::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting player assets: ", __FILE__, __LINE__);
-    delete texture;
+    /*delete playerImage;
+    delete playerTexture;*/
 }
 
-void Player::takeDamage(float damage)
-{
-    //The player takes damage
-    healthpoints -= damage;
-}
-
-//
-//bool Player::enemyCollision(Body* other)
+//void Player::takeDamage(float damage)
 //{
-//    Vec3 playerPos = projectionMatrix * pos; //Need to convert to game space to use SDL_Rect
-//    Vec3 playerHitboxOffset = projectionMatrix * hitboxOffset;
-//
-//    SDL_Rect playerRect = { playerPos.x + playerHitboxOffset.x / 2.0f, playerPos.y + playerHitboxOffset.y / 2.0f, widthScreen - playerHitboxOffset.x, heightScreen - playerHitboxOffset.y }; //Width and height are already multiplied by scale in on create
-//
-//    Vec3 enemyPos = projectionMatrix * other->getPos(); //Need to convert to game space to use SDL_Rect
-//    Vec3 enemyHitboxOffset = projectionMatrix * hitboxOffset;
-//
-//    SDL_Rect enemyRect = { enemyPos.x + enemyHitboxOffset.x / 2.0f, enemyPos.y + enemyHitboxOffset.y / 2.0f, other->widthScreen - enemyHitboxOffset.x, other->heightScreen - enemyHitboxOffset.y }; //Width and height are already multiplied by scale in on create
-//
-//    if (SDL_HasIntersection(&playerRect, &enemyRect))
-//    {
-//        return true;
-//    }
-//
-//    return false;
+//    //The player takes damage
+//    healthpoints -= damage;
 //}
+//
+//void Player::setItem(Item newItem)
+//{
+//    //Set the player's current item to the new item
+//    currentItem = newItem;
+//}
+
+
+
+void Player::onCollisionTrigger(const TileFaces& collidedObject)
+{
+    switch (collidedObject.objectTag)
+    {
+    case none:
+        break;
+    case wall:
+        if (collidedObject.PointOne.y == collidedObject.PointTwo.y) {
+            // Horizontal wall adjustment
+            if (vel.y < 0) { // Moving down
+                pos.y += hitbox.DetectPenetration(collidedObject,pos,vel); // Move player back up
+                vel.y = 0; // Stop downward movement
+            }
+            else { // Moving up
+                pos.y -= hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back down
+                vel.y = 0; // Stop upward movement
+            }
+        }
+        else {
+            // Vertical wall adjustment
+            if (vel.x > 0) { // Moving right
+                pos.x += hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back to the left
+                vel.x = 0; // Stop rightward movement
+            }
+            else { // Moving left
+                pos.x -= hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back to the right
+                vel.x = 0; // Stop leftward movement
+            }
+        }
+        break;
+
+    case enemy:
+        std::cout << "\nplayer gets damaged";
+        break;
+
+    case loot:
+        
+        break;
+
+    default:
+        break;
+    }
+}

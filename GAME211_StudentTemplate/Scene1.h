@@ -55,6 +55,7 @@ public:
 	// Takes game/physics coords of an object 
 	// and multiples it by the projection matrix to get screen coords
 	Vec3 screenCoords(Vec3 gameCoords);
+	Vec3 worldCoords(Vec3 physicsCoords);
 };
 
 #endif

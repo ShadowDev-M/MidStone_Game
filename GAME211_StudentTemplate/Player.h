@@ -6,10 +6,10 @@
 #include "Inventory.h"
 #include "GameManager.h"
 #include "Enemy.h"
-#include "BoxCollider.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <Vector.h>
+#include "BoxCollider.h"
 
 class Player : public Body
 {
@@ -59,8 +59,7 @@ public:
 
     std::vector<TileFaces> hitFaces;
     
-    BoxCollider hitbox = BoxCollider(vel, pos);
-
+    BoxCollider hitbox = BoxCollider();
     // use the base class versions of getters
     bool OnCreate();
     void OnDestroy();
@@ -69,17 +68,17 @@ public:
     void Update(float deltaTime);
 
     void setTexture(SDL_Texture* texture_) {texture = texture_;}
+    void takeDamage(float damage);
     void setItem(Item newItem) { currentItem = newItem; }
 
-    void takeDamage(float damage);
 
 
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
     void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body
     void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; } //projection matrix is defined in body
     void setInverse(Matrix4 inverseMatrix_) { inverseProjection = inverseMatrix_; } //projection matrix is defined in body
+    void onCollisionTrigger(const TileFaces& collidedObject);
 
-    bool enemyCollision(Body* other);
 };
 
 #endif /* PLAYER_H */

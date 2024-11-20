@@ -59,10 +59,9 @@ public:
 
     // Returns Projection Matrix
     Matrix4 getProjectionMatrix() const { return projectionMatrix; }
+    Matrix4 getInverseMatrix() const { return inverseProjection; }
     int getWindowWidth() { return WINDOW_WIDTH; }
     int getWindowHeight() { return WINDOW_HEIGHT; }
-
-    
 
     void cameraFollowsPlayer(Player* player, SDL_Window* window);
 

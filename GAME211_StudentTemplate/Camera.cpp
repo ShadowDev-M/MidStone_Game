@@ -24,6 +24,7 @@ bool Camera::OnCreate()
 	Matrix4 ortho = MMath::orthographic(0.0f, LEVEL_WIDTH, 0.0f, LEVEL_HEIGHT, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
 
+	inverseProjection = MMath::inverse(projectionMatrix);
 
 	// Initialize PNG image loading
 	int imgFlags = IMG_INIT_PNG;
@@ -76,6 +77,8 @@ void Camera::cameraFollowsPlayer(Player* player, SDL_Window* window)
 
 	Matrix4 ortho = MMath::orthographic(left, right, bottom, top, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
+
+	inverseProjection = MMath::inverse(projectionMatrix);
 
 	// Update players projection matrix
 	player->setProjection(projectionMatrix);
@@ -149,16 +152,16 @@ float Camera::scalingFactor(SDL_Texture* texture, Body* body)
 
 void Camera::renderObject(Body* object, SDL_Texture* objectTexture, SDL_Renderer* renderer)
 {
-	Vec3 screenCoords = worldToScreenCoords(object->getPos());
-	SDL_Rect Dest = scale(objectTexture, screenCoords.x, screenCoords.y, scalingFactor(objectTexture, object));
+	Vec3 worldCoords = worldToScreenCoords(object->getPos());
+	SDL_Rect Dest = scale(objectTexture, worldCoords.x, worldCoords.y, scalingFactor(objectTexture, object));
 	SDL_RenderCopy(renderer, objectTexture, nullptr, &Dest);
 }
 
 void Camera::renderEntity(Body* object, SDL_Texture* objectTexture, SDL_Renderer* renderer)
 {
 
-	Vec3 screenCoords = worldToScreenCoords(object->getPos());
-	SDL_Rect Dest = scale(objectTexture, screenCoords.x, screenCoords.y, scalingFactor(objectTexture, object));
+	Vec3 worldCoords = worldToScreenCoords(object->getPos());
+	SDL_Rect Dest = scale(objectTexture, worldCoords.x, worldCoords.y, scalingFactor(objectTexture, object));
 	
 	// Convert character orientation from radians to degrees.
 	float orientationDegrees = object->getOrientation() * 180.0f / M_PI;
