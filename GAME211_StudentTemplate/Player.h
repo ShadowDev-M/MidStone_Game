@@ -68,7 +68,7 @@ public:
     void Update(float deltaTime);
 
     void setTexture(SDL_Texture* texture_) {texture = texture_;}
-    void takeDamage(float damage);
+    void takeDamage(float damage) { healthpoints -= damage; }
     void setItem(Item newItem) { currentItem = newItem; }
 
 

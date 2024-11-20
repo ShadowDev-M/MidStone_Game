@@ -29,7 +29,7 @@ bool Enemy::OnCreate()
     texture = loadImage(textureFile);
 
     // sets up enemy image and texture
-    SDL_QueryTexture(enemyTexture, nullptr, nullptr, &size.x, &size.y);
+    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
     hitbox.OnCreate(size.x, size.y, scale);
 
 

@@ -75,8 +75,6 @@ public:
     virtual SDL_Surface* getImage() { return image; }
     virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_) { imageSizeWorldCoords = imageSizeWorldCoords_; }
     virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
-
-    virtual Vec3 getImageSizeWorldCoords() { return imageSizeWorldCoords; }
     virtual void renderEntity(float scaleFactor);
     virtual Vec3 getImageSizeWorldCoords() { return imageSizeWorldCoords; }
     virtual SDL_Texture* getTexture() { return texture; }

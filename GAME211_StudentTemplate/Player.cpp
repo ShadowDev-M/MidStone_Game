@@ -113,20 +113,6 @@ void Player::OnDestroy()
     delete playerTexture;*/
 }
 
-//void Player::takeDamage(float damage)
-//{
-//    //The player takes damage
-//    healthpoints -= damage;
-//}
-//
-//void Player::setItem(Item newItem)
-//{
-//    //Set the player's current item to the new item
-//    currentItem = newItem;
-//}
-
-
-
 void Player::onCollisionTrigger(const TileFaces& collidedObject)
 {
     switch (collidedObject.objectTag)
