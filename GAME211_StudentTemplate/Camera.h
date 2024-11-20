@@ -82,6 +82,9 @@ public:
     /// <returns>The SDL texture of this image</returns>
     SDL_Texture* loadImage(const char* textureFile, SDL_Renderer* renderer);
 
+    // could add to camera after if it needs to be accesed outside of scenes
+    SDL_Texture* refinedLoadImage(Body* body, SDL_Renderer* renderer);
+
     /// Generate a rectangle that will encompass a scaled version of the texture.	
     /// <param name="objectTexture">The texture object of the image</param>
     /// <param name="start_x">The new x location of the image's upper left corner</param>
@@ -97,6 +100,20 @@ public:
     /// <param name="texture"></param>The texture object of the image
     /// <param name="body"></param>The body of the object
     /// <returns></returns>
+<<<<<<< Updated upstream
     float scalingFactor(SDL_Texture*& texture, Body* body);
+=======
+    float scalingFactor(SDL_Texture* texture, Body* body);
+
+    void renderObject(Body* object, SDL_Texture* objectTexture, SDL_Renderer* renderer);
+
+    void renderEntity(Body* object, SDL_Texture* objectTexture, SDL_Renderer* renderer);
+
+    Vec3 worldToScreenCoords(Vec3 gameCoords);
+
+    Vec3 ScreenToWorldCoords(Vec3 physicsCoords);
+
+    //void playerSetProjectionAndRender(Player* player, Matrix4 projectionMatrix, )
+>>>>>>> Stashed changes
 };
 

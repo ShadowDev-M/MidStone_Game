@@ -57,6 +57,20 @@ void Body::OnDestroy()
 }
 
 
+void Body::renderEntity(float scaleFactor)
+{
+    Vec3 screenCoords = projectionMatrix * pos;
+    
+    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
+    SDL_Rect dest = { screenCoords.x, screenCoords.y, size.x * scaleFactor, size.y * scaleFactor };
+
+    // Convert character orientation from radians to degrees.
+    float orientationDegrees = orientation * 180.0f / M_PI;
+
+    SDL_RenderCopyEx(renderer, texture, nullptr, &dest,
+        orientationDegrees, nullptr, SDL_FLIP_NONE);
+}
+
 // Both loading and rendering can now be accessed through body and scenes using the same functions
 SDL_Texture* Body::loadImage(const char* textureFile)
 {
@@ -90,6 +104,7 @@ SDL_Texture* Body::loadImage(const char* textureFile)
     return newTexture;
 }
 
+<<<<<<< Updated upstream
 void Body::RenderEntity(float scale, SDL_Texture* entityTexture)
 {
     Vec3 screenCoords;
@@ -109,6 +124,8 @@ void Body::RenderEntity(float scale, SDL_Texture* entityTexture)
         orientationDegrees, nullptr, SDL_FLIP_NONE);
 }
 
+=======
+>>>>>>> Stashed changes
 void Body::ApplyForce( Vec3 force_ ) {
     accel = force_ / mass;
 }

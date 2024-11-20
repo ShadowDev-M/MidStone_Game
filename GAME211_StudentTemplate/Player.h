@@ -55,17 +55,28 @@ public:
     //
     float walkSpeedMax = 3.0f;
     Inventory playerInventory;
+<<<<<<< Updated upstream
     const char* playerImage;
     SDL_Texture* playerTexture;
 
+=======
+    std::vector<TileFaces> hitFaces;
+    
+    BoxCollider hitbox = BoxCollider(vel, pos);
+>>>>>>> Stashed changes
     // use the base class versions of getters
     bool OnCreate();
     void OnDestroy();
     void Render(float scale = 1.0f);
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
+<<<<<<< Updated upstream
     void setTexture(SDL_Texture* texture_) {texture = texture_;}
     void setItem(Item newItem) { currentItem = newItem; }
+=======
+    void takeDamage(float damage);
+    void setItem(Item newItem);
+>>>>>>> Stashed changes
 
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
     void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body

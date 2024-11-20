@@ -51,7 +51,7 @@ public:
     //ESSENTIAL FUNCTIONS
     virtual bool OnCreate();
     virtual void OnDestroy();
-    virtual void RenderEntity(float scale, SDL_Texture* entityTexture);
+    //virtual void RenderEntity(float scale);
     virtual void Update(float deltaTime);
     virtual void HandleEvents(const SDL_Event& event);
 
@@ -74,6 +74,11 @@ public:
     virtual SDL_Surface* getImage() { return image; }
     virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_) { imageSizeWorldCoords = imageSizeWorldCoords_; }
     virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
+<<<<<<< Updated upstream
+=======
+    virtual void renderEntity(float scaleFactor);
+    virtual Vec3 getImageSizeWorldCoords() { return imageSizeWorldCoords; }
+>>>>>>> Stashed changes
     virtual SDL_Texture* getTexture() { return texture; }
 
     virtual SDL_Texture* loadImage(const char* textureFile);

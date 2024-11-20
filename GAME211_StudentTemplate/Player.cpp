@@ -1,5 +1,9 @@
 #include "Player.h"
+<<<<<<< Updated upstream
 #include "Enemy.h"
+=======
+//#include "Camera.h"
+>>>>>>> Stashed changes
 
 Player::Player(
     Vec3 pos_, Vec3 vel_, Vec3 accel_,
@@ -25,17 +29,29 @@ Player::Player(
 
 bool Player::OnCreate()
 {
+<<<<<<< Updated upstream
     // sets up player image and texture
     playerImage = "Pacman.png";
     playerTexture = loadImage(playerImage);
 
+=======
+    textureFile = "textures/Pacman.png"; //Placeholder image
+    SetTextureFile(textureFile);
+    texture = loadImage(textureFile);
+
+    
+    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
+    hitbox.OnCreate(size.x, size.y, scale);
+>>>>>>> Stashed changes
     return true;
 }
 
-void Player::Render( float scale )
+void Player::Render(float scale)
 {   
     // Calls body entity render
-    RenderEntity(scale, playerTexture);
+    renderEntity(scale);
+    
+    
 }
 
 void Player::HandleEvents( const SDL_Event& event )
@@ -106,5 +122,42 @@ void Player::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting player assets: ", __FILE__, __LINE__);
+<<<<<<< Updated upstream
     delete playerTexture;
+=======
+    delete texture;
+}
+
+void Player::takeDamage(float damage)
+{
+    //The player takes damage
+    healthpoints -= damage;
+}
+
+void Player::setItem(Item newItem)
+{
+    //Set the player's current item to the new item
+    currentItem = newItem;
+}
+
+
+bool Player::enemyCollision(Body* other)
+{
+    Vec3 playerPos = projectionMatrix * pos; //Need to convert to game space to use SDL_Rect
+    Vec3 playerHitboxOffset = projectionMatrix * hitboxOffset;
+
+    SDL_Rect playerRect = { playerPos.x + playerHitboxOffset.x / 2.0f, playerPos.y + playerHitboxOffset.y / 2.0f, widthScreen - playerHitboxOffset.x, heightScreen - playerHitboxOffset.y }; //Width and height are already multiplied by scale in on create
+
+    Vec3 enemyPos = projectionMatrix * other->getPos(); //Need to convert to game space to use SDL_Rect
+    Vec3 enemyHitboxOffset = projectionMatrix * hitboxOffset;
+
+    SDL_Rect enemyRect = { enemyPos.x + enemyHitboxOffset.x / 2.0f, enemyPos.y + enemyHitboxOffset.y / 2.0f, other->widthScreen - enemyHitboxOffset.x, other->heightScreen - enemyHitboxOffset.y }; //Width and height are already multiplied by scale in on create
+
+    if (SDL_HasIntersection(&playerRect, &enemyRect))
+    {
+        return true;
+    }
+
+    return false;
+>>>>>>> Stashed changes
 }

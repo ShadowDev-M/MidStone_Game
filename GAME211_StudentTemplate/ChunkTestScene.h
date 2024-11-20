@@ -8,6 +8,8 @@
 #include "Player.h"
 #include "Camera.h"
 
+#include "Enemy.h"
+
 
 #include "Chunk.h"
 #include "ChunkHandler.h"
@@ -53,6 +55,9 @@ private:
 	Body* sword;
 	SDL_Texture* swordTexture;
 
+	Enemy* enemy;
+
+
 
 	std::vector<TileInfo> changesIndex;
 	std::vector<Body*> tiles;
@@ -88,8 +93,6 @@ public:
 	~SceneC();
 	bool OnCreate();
 	
-	SDL_Texture* loadImage(Body* body);
-	
 	void OnDestroy();
 	void Update(const float time);	
 	void Render();
@@ -100,7 +103,7 @@ public:
 	SDL_Window* getWindow() { return window; }
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
-
+	
 	//.pos
 	// Takes game/physics coords of an object 
 	// and multiples it by the projection matrix to get screen coords
