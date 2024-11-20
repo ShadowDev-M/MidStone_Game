@@ -23,11 +23,6 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	player->setWidth(1.0f);
 	player->setHeight(1.0f);
 
-	enemy = new Enemy(Vec3(xAxis / 2.0f + 1, yAxis / 2.0f + 1, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
-	enemy->setRenderer(renderer);
-	enemy->setWidth(1.0f);
-	enemy->setHeight(1.0f);
-
 	stoneTile = new Body(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	stoneTile->SetTextureFile("textures/StoneTile.png");
 	stoneTile->setWidth(1.0f);
@@ -82,10 +77,10 @@ bool SceneC::OnCreate() {
 	
 	
 	player->OnCreate();
-	enemy->OnCreate();
+	//enemy->OnCreate();
 
-	enemy->setProjection(projectionMatrix);
-	enemy->setInverse(inverseProjection);
+	//enemy->setProjection(projectionMatrix);
+	//enemy->setInverse(inverseProjection);
 
 	
 	// Initialize PNG image loading
@@ -103,11 +98,6 @@ bool SceneC::OnCreate() {
 		{0, 0, 1}, {1, 2, 1}, {2,3,1}, {18,20,1} };
 
 	
-<<<<<<< Updated upstream
-		
-=======
-
->>>>>>> Stashed changes
 	RegionOne.addLoadingEntity(player);
 
 
@@ -136,7 +126,7 @@ void SceneC::Update(const float deltaTime) {
 	RegionOne.Update();
 
 
-	enemy->Update(deltaTime);
+	//enemy->Update(deltaTime);
 	
 	if (testh) {
 		RegionOne.setTile(changesIndex);
@@ -180,7 +170,7 @@ void SceneC::Render() {
 
 						grassTile->setPos(Vec3(chunkInfo.x, chunkInfo.y, 0.0f));
 
-						Vec3 grassTileCoords = worldToScreenCoords(grassTile->getPos());
+						Vec3 grassTileCoords = camera.worldToScreenCoords(grassTile->getPos());
 
 						SDL_Rect grassDest = camera.scale(grassTileTexture, grassTileCoords.x, grassTileCoords.y, camera.scalingFactor(grassTileTexture, grassTile) + 0.1f);
 						
@@ -190,7 +180,7 @@ void SceneC::Render() {
 					if (chunkInfo.z == 1) {
 						stoneTile->setPos(Vec3(chunkInfo.x, chunkInfo.y, 0.0f));
 
-						Vec3 stoneTileCoords = worldToScreenCoords(stoneTile->getPos());
+						Vec3 stoneTileCoords = camera.worldToScreenCoords(stoneTile->getPos());
 
 						SDL_Rect stoneDest = camera.scale(stoneTileTexture, stoneTileCoords.x, stoneTileCoords.y, camera.scalingFactor(stoneTileTexture, stoneTile) + 0.1f); //+ 0.1f
 						
@@ -205,27 +195,10 @@ void SceneC::Render() {
 
 
 	// Everything now needs to use the scalingfactor to properly scale with the screen
-<<<<<<< Updated upstream
-	//player->Render(0.1f);
-=======
->>>>>>> Stashed changes
-	
-	//camera.renderEntity(player, player->getTexture(), renderer);
-	
-<<<<<<< Updated upstream
-	Vec3 ghostLocationTest = worldToScreenCoords(player->getPos());
-	SDL_Rect ghostDest = scale(ghostTexture, ghostLocationTest.x, ghostLocationTest.y, scalingFactor(ghostTexture, ghost));
-	SDL_RenderCopy(renderer, ghostTexture, nullptr, &ghostDest);
-
-	renderObject(sword, swordTexture);
-=======
 	player->Render(camera.scalingFactor(player->getTexture(), player));
 
 	
 	camera.renderObject(sword, swordTexture, renderer);
->>>>>>> Stashed changes
-
-
 	
 
 	//body->GetTexture() body->
@@ -234,55 +207,6 @@ void SceneC::Render() {
 	SDL_RenderPresent(renderer);
 }
 
-
-// Move to camera
-void SceneC::renderObject(Body* object, SDL_Texture* objectTexture)
-{
-	Vec3 worldCoords = worldToScreenCoords(object->getPos());
-	SDL_Rect Dest = camera.scale(objectTexture, worldCoords.x, worldCoords.y, camera.scalingFactor(objectTexture, object));
-	SDL_RenderCopy(renderer, objectTexture, nullptr, &Dest);
-}
-
-void SceneC::HandleEvents(const SDL_Event& event)
-{
-	// send events to player as needed
-	player->HandleEvents(event);
-}
-
-<<<<<<< Updated upstream
-Vec3 SceneC::worldToScreenCoords(Vec3 gameCoords)
-{
-	return projectionMatrix * gameCoords;
-}
-
-Vec3 SceneC::ScreenToWorldCoords(Vec3 physicsCoords)
-{
-	return inverseProjection * physicsCoords;
-}
-
-float SceneC::scalingFactor(SDL_Texture*& texture, Body* body)
-{
-	float bodyScreenWidth = body->getWidth() * game->getWindowWidth() / xAxis;
-	SDL_Point size{};
-	// get the size of the orginal texture
-	SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
-	// divide the size of the texture I want in pixel / size of orginal texture
-	float textureScale = bodyScreenWidth / size.x;
-	return textureScale;
-}
-
-//
-SDL_Rect SceneC::scale(SDL_Texture* objectTexture, int start_x, int start_y, float scale)
-{
-	// Get size of the input texture in pixels
-	SDL_Point size{};
-	SDL_QueryTexture(objectTexture, nullptr, nullptr, &size.x, &size.y);
-	SDL_Rect dest = { start_x, start_y, size.x * scale, size.y * scale };
-	return dest;
-}
-
-=======
->>>>>>> Stashed changes
 void SceneC::OnDestroy() {
 	// Free loaded images
 	//delete stoneTileTexture;

@@ -29,6 +29,7 @@ protected:
     SDL_Texture* texture;
     SDL_Renderer* renderer;
     Matrix4 projectionMatrix;
+    Matrix4 inverseProjection;
     // For new texture rendering
     const char* textureFile = "";
 
@@ -74,14 +75,14 @@ public:
     virtual SDL_Surface* getImage() { return image; }
     virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_) { imageSizeWorldCoords = imageSizeWorldCoords_; }
     virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
-<<<<<<< Updated upstream
-=======
     virtual void renderEntity(float scaleFactor);
     virtual Vec3 getImageSizeWorldCoords() { return imageSizeWorldCoords; }
->>>>>>> Stashed changes
     virtual SDL_Texture* getTexture() { return texture; }
-
     virtual SDL_Texture* loadImage(const char* textureFile);
+
+    void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; } //projection matrix is defined in body
+    void setInverse(Matrix4 inverseMatrix_) { inverseProjection = inverseMatrix_; } //projection matrix is defined in body
+
 
     /// Set a new texture file for this body	
    /// <param name="textureFile_">The new texture file</param>

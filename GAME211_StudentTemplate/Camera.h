@@ -100,9 +100,7 @@ public:
     /// <param name="texture"></param>The texture object of the image
     /// <param name="body"></param>The body of the object
     /// <returns></returns>
-<<<<<<< Updated upstream
-    float scalingFactor(SDL_Texture*& texture, Body* body);
-=======
+
     float scalingFactor(SDL_Texture* texture, Body* body);
 
     void renderObject(Body* object, SDL_Texture* objectTexture, SDL_Renderer* renderer);
@@ -114,6 +112,5 @@ public:
     Vec3 ScreenToWorldCoords(Vec3 physicsCoords);
 
     //void playerSetProjectionAndRender(Player* player, Matrix4 projectionMatrix, )
->>>>>>> Stashed changes
 };
 

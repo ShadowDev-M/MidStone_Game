@@ -146,8 +146,6 @@ float Camera::scalingFactor(SDL_Texture* texture, Body* body)
 	float textureScale = bodyScreenWidth / size.x;
 	return textureScale;
 }
-<<<<<<< Updated upstream
-=======
 
 void Camera::renderObject(Body* object, SDL_Texture* objectTexture, SDL_Renderer* renderer)
 {
@@ -178,4 +176,3 @@ Vec3 Camera::ScreenToWorldCoords(Vec3 physicsCoords)
 {
 	return inverseProjection * physicsCoords;
 }
->>>>>>> Stashed changes
