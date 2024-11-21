@@ -37,6 +37,18 @@ public:
 		return *this;
 	}
 
+	UiPanel& AddIconVec2(const char* _panelImage, float _scale, Vec2 _screenCoord)
+	{
+		IconTexture = loadImage(_panelImage);
+		screenCoords = _screenCoord;
+		SDL_QueryTexture(PanelTexture, nullptr, nullptr, &iconWidth, &iconHeight);
+		hasIcon = true;
+		IconScale = _scale;
+		iconWidth *= IconScale;
+		iconHeight *= IconScale;
+		return *this;
+	}
+
 	void ClearIcons();
 
 	UiPanel& AddButton(ButtonCallback func)
