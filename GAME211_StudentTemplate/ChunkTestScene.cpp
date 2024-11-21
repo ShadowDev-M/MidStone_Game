@@ -22,6 +22,9 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	player->setRenderer(renderer);
 	player->setWidth(1.0f);
 	player->setHeight(1.0f);
+	player->SetRegion(&RegionOne);
+	//RegionOne.setPlayer(player);
+
 
 	stoneTile = new Body(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	stoneTile->SetTextureFile("textures/StoneTile.png");
@@ -126,6 +129,8 @@ bool SceneC::OnCreate() {
 
 
 
+
+
 void SceneC::Update(const float deltaTime) {
 	//// Will make this its own extracted function after (will put in camera class too)
 
@@ -203,8 +208,15 @@ void SceneC::Render() {
 		}
 	}
 	//}
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	for (TileFaces tile : player->permFaces) {
+		Vec3 screenCoords1 = projectionMatrix * Vec3(tile.PointOne.x, tile.PointOne.y, 0.0f);
+		Vec3 screenCoords2 = projectionMatrix * Vec3(tile.PointTwo.x, tile.PointTwo.y, 0.0f);;
 
+		SDL_RenderDrawLine(renderer, screenCoords1.x, screenCoords1.y, screenCoords2.x, screenCoords2.y);
+	}
 
+	
 	
 	// Everything now needs to use the scalingfactor to properly scale with the screen
 	player->Render(camera.scalingFactor(player->getTexture(), player));
