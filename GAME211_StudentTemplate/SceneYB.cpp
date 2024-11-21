@@ -29,11 +29,11 @@ bool SceneYB::OnCreate() {
 	// Check to make sure loading scene works
 	std::cout << "Entering SceneYB" << std::endl;
 
-	Item* sword = new Item("Sword");
+	/*Item* sword = new Item("Sword");
 	Item* shield = new Item("Shield");
 	Inventory inventory;
 	inventory.addItem(sword);
-	inventory.printInventory();
+	inventory.printInventory();*/
 
 
 	int w, h;
@@ -136,6 +136,7 @@ void SceneYB::Render() {
 	SDL_RenderClear(renderer);
 
 	// render the player
+	//player->Render(camera.scalingFactor(player->getTexture(), player));
 	camera.renderEntity(player, player->getTexture(), renderer);
 	camera.renderEntity(enemy, enemy->getTexture(), renderer);
 
