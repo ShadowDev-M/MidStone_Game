@@ -56,6 +56,12 @@ public:
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
 
+	Body* tempPlayer;
+	Body* tempEnemy;
+
+	SDL_Texture* texture1;
+	SDL_Texture* texture2;
+
 	// Takes game/physics coords of an object 
 	// and multiples it by the projection matrix to get screen coords
 	Vec3 screenCoords(Vec3 gameCoords);

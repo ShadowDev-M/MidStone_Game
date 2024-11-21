@@ -23,12 +23,11 @@ Enemy::Enemy(
 
 bool Enemy::OnCreate()
 {
-    enemyImage = "Blinky.png"; //Placeholder image
-    enemyTexture = loadImage(enemyImage);
-    SetTextureFile(enemyImage);
+    textureFile = "Blinky.png"; //Placeholder image
+    texture = loadImage(textureFile);
 
     // sets up enemy image and texture
-    SDL_QueryTexture(enemyTexture, nullptr, nullptr, &size.x, &size.y);
+    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
     hitbox.OnCreate(size.x, size.y, scale);
 
     return true;
@@ -37,7 +36,7 @@ bool Enemy::OnCreate()
 void Enemy::Render(float scale)
 {
     // Calls body entity render
-    RenderEntity(scale, enemyTexture);
+    RenderEntity(scale, texture);
 }
 
 void Enemy::HandleEvents(const SDL_Event& event)
@@ -58,6 +57,6 @@ void Enemy::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting enemy assets: ", __FILE__, __LINE__);
-    delete enemyImage;
-    delete enemyTexture;
+    delete image;
+    delete texture;
 }

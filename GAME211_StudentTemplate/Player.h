@@ -52,13 +52,13 @@ public:
     // Variables
     float healthpointsMax = 10.0f;
     float healthpoints = healthpointsMax;
-    //
+    
     float walkSpeedMax = 3.0f;
     Inventory playerInventory;
     const char* playerImage;
-    SDL_Texture* playerTexture;
+    //SDL_Texture* texture;
     std::vector<TileFaces> hitFaces;
-    
+
     BoxCollider hitbox = BoxCollider();
     // use the base class versions of getters
     bool OnCreate();

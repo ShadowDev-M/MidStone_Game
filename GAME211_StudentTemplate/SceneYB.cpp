@@ -14,9 +14,20 @@ SceneYB::SceneYB(SDL_Window* sdlWindow_, GameManager* game_) {
 	// player spawns in middle of screen
 	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	player->setRenderer(renderer);
+	player->setTexture(texture1);
+
+	tempPlayer = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	tempPlayer->SetTextureFile("textures/Pacman.png");
 
 	enemy = new Enemy(Vec3(xAxis / 3.0f, yAxis / 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	enemy->setRenderer(renderer);
+	enemy->setTexture(texture2);
+
+	tempEnemy = new Enemy(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	tempEnemy->SetTextureFile("textures/Blinky.png");
+
+	texture1 = nullptr;
+	texture2 = nullptr;
 }
 
 // To render chunks and set id to tiles need to setup camera first
@@ -43,6 +54,9 @@ bool SceneYB::OnCreate() {
 	//Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
 	//projectionMatrix = ndc * ortho;
 	//inverseProjection = MMath::inverse(projectionMatrix);
+
+	texture1 = camera.loadImage(tempPlayer->GetTextureFile(), renderer);
+	texture2 = camera.loadImage(tempEnemy->GetTextureFile(), renderer);
 
 	//player->setProjection(projectionMatrix);
 	enemy->setProjection(projectionMatrix);
@@ -148,8 +162,11 @@ void SceneYB::Render() {
 
 	SDL_RenderClear(renderer);
 
+	camera.renderObject(player, texture1, renderer);
+	camera.renderObject(enemy, texture2, renderer);
+
 	// render the player
-	player->Render(player->scale);
+	//player->Render(player->scale);
 	//enemy->Render(enemy->scale);
 
 	//PLAYER COLLISION BOX DEBUG

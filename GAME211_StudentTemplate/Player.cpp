@@ -24,11 +24,10 @@ Player::Player(
 
 bool Player::OnCreate()
 {
-
     // sets up player image and texture
-    playerImage = "Pacman.png";
-    playerTexture = loadImage(playerImage);
-    SDL_QueryTexture(playerTexture, nullptr, nullptr, &size.x, &size.y);
+    textureFile = "Pacman.png";
+    texture = loadImage(textureFile);
+    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
     hitbox.OnCreate(size.x, size.y, 0.1f);
     hitbox.Subscribe(
         [this](const TileFaces& collidedObject) {
@@ -42,7 +41,7 @@ bool Player::OnCreate()
 void Player::Render( float scale )
 {   
     // Calls body entity render
-    RenderEntity(scale, playerTexture);
+    //RenderEntity(scale, playerTexture);
 }
 
 
@@ -108,8 +107,8 @@ void Player::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting player assets: ", __FILE__, __LINE__);
-    delete playerImage;
-    delete playerTexture;
+    delete image;
+    delete texture;
 }
 
 void Player::takeDamage(float damage)

@@ -21,13 +21,7 @@ std::vector<Enemy*> EnemyManager::spawnEnemy(int amount)
 	for (int i = 0; i < amount; i++)
 	{
 		Vec2 newPos = Vec2(rand() % 100, rand() % 100);
-		newPos.print();
-		enemyPositions.push_back(newPos);
-	}
-
-	for (int i = 0; i < amount; i++)
-	{
-		Enemy* myEnemy = new Enemy(Vec3(enemyPositions[i].x, enemyPositions[i].y, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+		Enemy* myEnemy = new Enemy(Vec3(newPos.x, newPos.y, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 		myEnemy->OnCreate();
 		//myEnemy->setRenderer(activeScene->getRenderer());
 
@@ -49,7 +43,8 @@ void EnemyManager::Update(float deltaTime)
 {
 	for (Enemy* enemy : enemyList)
 	{
-		enemy->setProjection(projectionMatrix);
-		enemy->setInverse(inverseProjection);
+		enemy->Update(deltaTime);
+		//enemy->setProjection(projectionMatrix);
+		//enemy->setInverse(inverseProjection);
 	}
 }

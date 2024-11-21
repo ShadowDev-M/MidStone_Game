@@ -56,9 +56,11 @@ public:
     // Temp constructer
     Enemy(Vec3 pos_, Vec3 vel_, Vec3 accel_, float mass_, float radius_, float orientation_, float rotation_, float angular_);
 
-    const char* enemyImage;
-    SDL_Texture* enemyTexture;
-    SDL_Surface* enemySurface;
+    //const char* enemyImage;
+    //SDL_Texture* enemyTexture;
+    //SDL_Surface* enemySurface;
+    std::vector<TileFaces> hitFaces;
+    ObjectTag objectTag = enemy;
 
     BoxCollider hitbox = BoxCollider();
     // use the base class versions of getters
