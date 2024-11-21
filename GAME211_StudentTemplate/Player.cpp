@@ -120,9 +120,10 @@ void Player::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting player assets: ", __FILE__, __LINE__);
-    /*delete playerImage;
-    delete playerTexture;*/
+    //delete textureFile;
+    //delete texture;
 }
+
 
 void Player::onCollisionTrigger(const TileFaces& collidedObject)
 {

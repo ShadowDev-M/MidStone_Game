@@ -53,10 +53,9 @@ public:
     // Variables
     float healthpointsMax = 10.0f;
     float healthpoints = healthpointsMax;
-    //
+    
     float walkSpeedMax = 3.0f;
     Inventory playerInventory;
-
     std::vector<TileFaces> hitFaces;
     std::vector<TileFaces> permFaces;
 
@@ -70,8 +69,6 @@ public:
     void Render(float scale = 1.0f);
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
-
-    void setTexture(SDL_Texture* texture_) {texture = texture_;}
     void takeDamage(float damage) { healthpoints -= damage; }
     void setItem(Item newItem) { currentItem = newItem; }
 

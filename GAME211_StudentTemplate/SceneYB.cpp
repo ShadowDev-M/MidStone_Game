@@ -14,9 +14,6 @@ SceneYB::SceneYB(SDL_Window* sdlWindow_, GameManager* game_) {
 	// player spawns in middle of screen
 	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	player->setRenderer(renderer);
-
-	enemy = new Enemy(Vec3(xAxis / 3.0f, yAxis / 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
-	enemy->setRenderer(renderer);
 	
 	enemy = new Enemy(Vec3(xAxis / 3.0f, yAxis / 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	enemy->setRenderer(renderer);
@@ -75,7 +72,6 @@ bool SceneYB::OnCreate() {
 
 	enemyManager = new EnemyManager(this);
 	enemyManager->spawnEnemy(4);
-
 
 
 	//player->setWidth(player->width * (xAxis / w) * player->scale);
@@ -140,8 +136,7 @@ void SceneYB::Render() {
 	SDL_RenderClear(renderer);
 
 	// render the player
-	//camera.renderEntity(player, player->getTexture(), renderer);
-
+	camera.renderEntity(player, player->getTexture(), renderer);
 	camera.renderEntity(enemy, enemy->getTexture(), renderer);
 
 	//PLAYER COLLISION BOX DEBUG
