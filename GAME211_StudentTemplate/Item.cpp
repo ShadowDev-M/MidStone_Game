@@ -31,6 +31,7 @@ void Item::CheckInRange(SDL_Window* window) {
     inRange = (MouseDistance <= range);
 }
 
-Item::Item(const char* name_) {
+Item::Item(const char* name_, const char* filePath_) {
     itemName = name_;
+    filePath = filePath_;
 }

@@ -15,7 +15,7 @@ void UiPanel::HandleEvent(const SDL_Event& event)
         if (x >= screenCoords.x && x <= screenCoords.x + panelWidth &&
             y >= screenCoords.y && y <= screenCoords.y + panelHeight) {
             // Call the callback function
-            
+
             if (onClick) {
                 onClick();
             }
@@ -28,24 +28,29 @@ void UiPanel::Render()
 
     SDL_Rect panelDest = { screenCoords.x, screenCoords.y, panelWidth , panelHeight };
     SDL_RenderCopy(renderer, PanelTexture, nullptr, &panelDest);
-    
+
     if (hasIcon)
     {
         Vec2 iconCoord;
-        iconCoord.x = screenCoords.x + (panelWidth - iconWidth ) / 2;
-        iconCoord.y = screenCoords.y + (panelHeight - iconHeight ) / 2;
+        iconCoord.x = screenCoords.x + (panelWidth - iconWidth) / 2;
+        iconCoord.y = screenCoords.y + (panelHeight - iconHeight) / 2;
 
 
         SDL_Rect iconDest = { iconCoord.x, iconCoord.y, iconWidth, iconHeight };
         SDL_RenderCopy(renderer, IconTexture, nullptr, &iconDest);
 
     }
-    
+
+}
+void UiPanel::ClearIcons() { // Reset the state that an icon exists, but not available (just thanos snap it tbh)
+    hasIcon = false;
+    IconTexture = nullptr;
+    iconWidth = iconHeight = 0;
 }
 
 SDL_Texture* UiPanel::loadImage(const char* textureFile)
 {
-    
+
 
     // The final texture
     SDL_Texture* newTexture = nullptr;

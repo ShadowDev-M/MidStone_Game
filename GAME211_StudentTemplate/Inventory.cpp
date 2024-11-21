@@ -30,6 +30,7 @@ bool Inventory::removeItem(int row, int col) {
         return true;// satisfy function
     }
     return false; // is the space is already empty
+
 }
 
 void Inventory::printInventory() {
@@ -44,3 +45,4 @@ void Inventory::printInventory() {
         }
     }
 }
+
