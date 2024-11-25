@@ -35,7 +35,8 @@ private:
 	
 	//Vec3& bodyVel;
 	//Vec3& bodyPos;
-	CollisionCallback onCollision;
+	CollisionCallback onCollisionEnter;
+	CollisionCallback onCollisionExit;
 
 public:
 
@@ -51,19 +52,26 @@ public:
 
 
 	//Subscribe your collision response Function using this
-	void Subscribe(CollisionCallback callback) {
-		onCollision = callback;
+	void Subscribe(CollisionCallback enterCallback,CollisionCallback exitCallback) {
+		onCollisionEnter = enterCallback;
+		onCollisionExit = exitCallback;
 	}
 
 	// Trigger the collision callback
-	void TriggerCollision(const TileFaces& collidedObject) {
-		if (onCollision) {
-			onCollision(collidedObject); // Directly invoke the callback
+	void TriggerCollisionEnter(const TileFaces& collidedObject) {
+		if (onCollisionEnter) {
+			onCollisionEnter(collidedObject); // Directly invoke the callback
+		}
+	}
+	
+	void TriggerCollisionExit(const TileFaces& collidedObject) {
+		if (onCollisionExit) {
+			onCollisionEnter(collidedObject); // Directly invoke the callback
 		}
 	}
 	
 
-	float DetectPenetration(TileFaces wall, Vec3 pos, Vec3 vel);
+	float DetectCollision(TileFaces wall, Vec3 pos, Vec3 vel);
 	
 	
 	//BoxCollider& operator=(const BoxCollider& other);
@@ -76,7 +84,7 @@ public:
 
 	//Call this in the object's Update function
 	//This method gets called by the owner of the collider in the update funtion
-	void CheckCollision(Vec2 pos);
+	void CheckCollision(Vec3 pos, Vec3 vel);
 
 };
 

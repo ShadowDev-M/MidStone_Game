@@ -78,10 +78,16 @@ bool CollisionScene::OnCreate() {
 	TileFaces wall1(
 		Vec2(block1->getPos().x - 2, block1->getPos().y),
 		Vec2(block1->getPos().x + 2, block1->getPos().y),
-		enemy
+		wall
+	);
+	TileFaces wall2(
+		Vec2(block1->getPos().x - 2, block1->getPos().y),
+		Vec2(block1->getPos().x - 2, block1->getPos().y - 2),
+		wall
 	);
 	
 	faces.push_back(wall1);
+	faces.push_back(wall2);
 	// Second wall or enemy
 	TileFaces enemy1(Vec2(7, 3), Vec2(7, 7),wall);
 	
@@ -136,7 +142,9 @@ void CollisionScene::Render() {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderDrawLine(renderer, screenCoords1.x, screenCoords1.y, screenCoords2.x, screenCoords2.y);
 	SDL_RenderDrawLine(renderer, screenCoords1.x, screenCoords1.y, screenCoords3.x, screenCoords3.y);
-
+	screenCoords2 = projectionMatrix * (block1->getPos() + Vec3(-2, 0, 0));
+	screenCoords3 = projectionMatrix * (block1->getPos() + Vec3(-2, -2, 0));
+	SDL_RenderDrawLine(renderer, screenCoords2.x, screenCoords2.y, screenCoords3.x, screenCoords3.y);
 	screenCoords1 = projectionMatrix * Vec3(7, 3, 0);
 	screenCoords2 = projectionMatrix * Vec3(7, 7, 0);
 
@@ -145,16 +153,16 @@ void CollisionScene::Render() {
 
 
 	//Box Collider Debug Tool (Don't delete)
-	/*Vec3 screenCoord = projectionMatrix * player->getPos();
+	Vec3 screenCoord = projectionMatrix * player->getPos();
 	Vec2 imageSize = Vec2(player->getImage()->w * 0.1f, player->getImage()->h * 0.1f);
 	Vec3 one = Vec3(screenCoord.x , screenCoord.y , 0);
 	Vec3 two = Vec3(screenCoord.x + imageSize.x , screenCoord.y , 0);
 	Vec3 three = Vec3(screenCoord.x, screenCoord.y + imageSize.y , 0);
-	Vec3 four = Vec3(screenCoord.x + imageSize.x , screenCoord.y + imageSize.y , 0);*/
-	//SDL_RenderDrawLine(renderer, one.x, one.y, two.x, two.y);
-	//SDL_RenderDrawLine(renderer, one.x, one.y, three.x, three.y);
-	//SDL_RenderDrawLine(renderer, three.x, three.y, four.x, four.y);
-	//SDL_RenderDrawLine(renderer, two.x, two.y, four.x, four.y);
+	Vec3 four = Vec3(screenCoord.x + imageSize.x , screenCoord.y + imageSize.y , 0);
+	SDL_RenderDrawLine(renderer, one.x, one.y, two.x, two.y);
+	SDL_RenderDrawLine(renderer, one.x, one.y, three.x, three.y);
+	SDL_RenderDrawLine(renderer, three.x, three.y, four.x, four.y);
+	SDL_RenderDrawLine(renderer, two.x, two.y, four.x, four.y);
 
 	// render the player
 	player->Render(0.1f);

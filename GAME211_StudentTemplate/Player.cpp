@@ -32,7 +32,9 @@ bool Player::OnCreate()
     hitbox.OnCreate(size.x, size.y, 0.1f);
     hitbox.Subscribe(
         [this](const TileFaces& collidedObject) {
-            onCollisionTrigger(collidedObject);
+            onCollisionEnter(collidedObject);
+        }, [this](const TileFaces& collidedObject) {
+            onCollisionExit(collidedObject);
         });
 
     //hitbox.Subscribe(onCollisionTrigger);
@@ -48,6 +50,7 @@ void Player::Render( float scale )
 
 void Player::HandleEvents( const SDL_Event& event )
 {
+    
     //event.key.repeat == 0 prevents weirdness with normalizing the velocity later on
     if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
     {
@@ -99,8 +102,9 @@ void Player::Update( float deltaTime )
 
     //hitFaces.empty();
     Body::Update( deltaTime );
-    hitbox.CheckCollision(Vec2(pos.x,pos.y));
     
+    hitbox.CheckCollision(pos,vel);
+     
 
 }
 
@@ -126,8 +130,9 @@ void Player::setItem(Item newItem)
 
 
 
-void Player::onCollisionTrigger(const TileFaces& collidedObject)
+void Player::onCollisionEnter(const TileFaces& collidedObject)
 {
+    
     switch (collidedObject.objectTag)
     {
     case none:
@@ -136,23 +141,23 @@ void Player::onCollisionTrigger(const TileFaces& collidedObject)
         if (collidedObject.PointOne.y == collidedObject.PointTwo.y) {
             // Horizontal wall adjustment
             if (vel.y < 0) { // Moving down
-                pos.y += hitbox.DetectPenetration(collidedObject,pos,vel); // Move player back up
-                vel.y = 0; // Stop downward movement
+                //pos.y += hitbox.DetectPenetration(collidedObject,pos,vel); // Move player back up
+                vel.y *= -0.1; // Stop downward movement
             }
             else { // Moving up
-                pos.y -= hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back down
-                vel.y = 0; // Stop upward movement
+                //pos.y -= hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back down
+                vel.y *= -0.1; // Stop upward movement
             }
         }
         else {
             // Vertical wall adjustment
             if (vel.x > 0) { // Moving right
-                pos.x += hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back to the left
-                vel.x = 0; // Stop rightward movement
+                //pos.x += hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back to the left
+                vel.x *= -0.1; // Stop rightward movement
             }
             else { // Moving left
-                pos.x -= hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back to the right
-                vel.x = 0; // Stop leftward movement
+                //pos.x -= hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back to the right
+                vel.x *= -0.1; // Stop leftward movement
             }
         }
         break;
@@ -168,4 +173,9 @@ void Player::onCollisionTrigger(const TileFaces& collidedObject)
     default:
         break;
     }
+}
+
+void Player::onCollisionExit(const TileFaces& collidedObject)
+{
+    std::cout << "Exit Collision";
 }
