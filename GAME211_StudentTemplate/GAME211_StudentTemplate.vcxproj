@@ -64,6 +64,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MenuScene.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SceneYB.h" />
     <ClInclude Include="ScottyLinkedList.h" />
     <ClInclude Include="TestBlock.h" />
@@ -72,6 +73,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="UiElement.h" />
     <ClInclude Include="UiPanel.h" />
     <ClInclude Include="UiScene.h" />
     <ClInclude Include="UiText.h" />

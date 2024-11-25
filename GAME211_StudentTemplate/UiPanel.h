@@ -3,18 +3,18 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include <functional>
+#include <vector>
 
-
-class UiPanel: UiElement
+class UiPanel : UiElement
 {
 
 public:
 	UiPanel();
 	using ButtonCallback = std::function<void()>;
 
-	void OnCreate(SDL_Renderer* _renderer, Vec2 _screenCoord, const char* _backgroundImage, float _scale ) 
+	void OnCreate(SDL_Renderer* _renderer, Vec2 _screenCoord, const char* _backgroundImage, float _scale)
 	{
-	
+
 		renderer = _renderer;
 		screenCoords = _screenCoord;
 		PanelImage = _backgroundImage;
@@ -37,6 +37,20 @@ public:
 		return *this;
 	}
 
+	UiPanel& AddIconVec2(const char* _panelImage, float _scale, Vec2 _screenCoord)
+	{
+		IconTexture = loadImage(_panelImage);
+		screenCoords = _screenCoord;
+		SDL_QueryTexture(PanelTexture, nullptr, nullptr, &iconWidth, &iconHeight);
+		hasIcon = true;
+		IconScale = _scale;
+		iconWidth *= IconScale;
+		iconHeight *= IconScale;
+		return *this;
+	}
+
+	void ClearIcons();
+
 	UiPanel& AddButton(ButtonCallback func)
 	{
 		onClick = func;
@@ -44,7 +58,7 @@ public:
 	}
 
 	void HandleEvent(const SDL_Event& event);
-	
+
 	void Render() override;
 
 private:
@@ -53,7 +67,7 @@ private:
 	SDL_Texture* PanelTexture;
 	float panelScale;
 	int panelWidth, panelHeight;
-	
+
 	//Icon Properties 
 	const char* IconImage;
 	SDL_Texture* IconTexture;

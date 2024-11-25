@@ -82,6 +82,7 @@ void Camera::cameraFollowsPlayer(Player* player, SDL_Window* window)
 
 	// Update players projection matrix
 	player->setProjection(projectionMatrix);
+	player->setInverse(inverseProjection);
 
 }
 
@@ -121,6 +122,13 @@ SDL_Texture* Camera::loadImage(const char* textureFile, SDL_Renderer* renderer)
 	return newTexture;
 }
 
+SDL_Texture* Camera::refinedLoadImage(Body* body, SDL_Renderer* renderer)
+{
+	SDL_Texture* bodyTexture;
+	bodyTexture = loadImage(body->GetTextureFile(), renderer);
+	return bodyTexture;
+}
+
 // Proper scaling to window size, scale offset default is 1
 SDL_Rect Camera::scale(SDL_Texture* objectTexture, int start_x, int start_y, float scale)
 {
@@ -131,7 +139,7 @@ SDL_Rect Camera::scale(SDL_Texture* objectTexture, int start_x, int start_y, flo
 	return dest;
 }
 
-float Camera::scalingFactor(SDL_Texture*& texture, Body* body)
+float Camera::scalingFactor(SDL_Texture* texture, Body* body)
 {
 	float bodyScreenWidth = body->getWidth() * WINDOW_WIDTH / LEVEL_WIDTH;
 	SDL_Point size{};
@@ -147,6 +155,19 @@ void Camera::renderObject(Body* object, SDL_Texture* objectTexture, SDL_Renderer
 	Vec3 worldCoords = worldToScreenCoords(object->getPos());
 	SDL_Rect Dest = scale(objectTexture, worldCoords.x, worldCoords.y, scalingFactor(objectTexture, object));
 	SDL_RenderCopy(renderer, objectTexture, nullptr, &Dest);
+}
+
+void Camera::renderEntity(Body* object, SDL_Texture* objectTexture, SDL_Renderer* renderer)
+{
+
+	Vec3 worldCoords = worldToScreenCoords(object->getPos());
+	SDL_Rect Dest = scale(objectTexture, worldCoords.x, worldCoords.y, scalingFactor(objectTexture, object));
+	
+	// Convert character orientation from radians to degrees.
+	float orientationDegrees = object->getOrientation() * 180.0f / M_PI;
+
+	SDL_RenderCopyEx(renderer, objectTexture, nullptr, &Dest,
+		orientationDegrees, nullptr, SDL_FLIP_NONE);
 }
 
 Vec3 Camera::worldToScreenCoords(Vec3 gameCoords)

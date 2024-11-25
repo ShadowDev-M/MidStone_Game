@@ -15,6 +15,5 @@ public:
 	bool removeItem(int row, int col);
 	Item* getItem(int row, int col) { return mainInventory[row][col]; }
 	void printInventory() /* { cout << mainInventory << endl*/;
-
 };
 

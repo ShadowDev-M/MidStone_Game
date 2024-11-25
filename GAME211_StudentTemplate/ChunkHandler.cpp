@@ -80,6 +80,7 @@ int ChunkHandler::searchForChunkPos(Vec2 pos_) {
 
 void ChunkHandler::Update()
 {
+
     for (Body* entity : entitiesThatLoadChunks) {
         Vec2 entityPos = Vec2(entity->getPos().x, entity->getPos().y);
         Vec2 entityChunkLoc = getChunkLocation(entityPos);
@@ -107,7 +108,7 @@ void ChunkHandler::Update()
         if ((getChunkPointer(entityChunkLoc) != chunkList.getFirst())) {
             chunkList.add(entityChunkLoc);
             //currentChunk = getChunkPointer(entityChunkLoc);
-            std::cout << entityChunkLoc.x << ", " << entityChunkLoc.y << std::endl;
+           // std::cout << entityChunkLoc.x << ", " << entityChunkLoc.y << std::endl;
         }
     }
 
@@ -140,14 +141,13 @@ void ChunkHandler::addLoadingEntity(Body* entity) {
 
 
 int ChunkHandler::getTileIDFromCoord(Vec2 pos_) {
-	
     //position of the Tile in
-    Vec2 chunkTilePos = worldspaceToChunkCoordinates(pos_);
+    
 
-    Chunk* targetChunk = chunkList.getChunkPointer(chunkTilePos);
-    if (targetChunk == nullptr) return 0;
+   // printf("(%d)", targetChunk->getTile(int(chunkTilePos.x), int(chunkTilePos.y)));
 
-	return targetChunk->getTile(int(chunkTilePos.x), int(chunkTilePos.y));
+	return chunkList.getChunkTileIDInternal(getChunkLocation(pos_), worldspaceToChunkCoordinates(pos_));
+   
 	//chunkIndexX represents the corner (0,0), relative to the chunk
 	//chunkIndexX is then multiplied by 16 to be equivalent to the translation from 0,0 world space to the corner of the chunk
 	//the translation is then subtracted from the target position 
@@ -274,32 +274,43 @@ TileFaces ChunkHandler::getFaces(Vec2 entityPos_, Vec2 velVector_) {
     
     tMax.y = (dirY > 0) ? 
         /*north->*/((tileY + 1) - entityPos_.y) * tDelta.y : /*south->*/(entityPos_.y - tileY) * tDelta.y;
-    std::cout << "(next tile pos) " << tileX + 1 << " - (position of entity) " << entityPos_.x << " = (distance to next tile)\n";
-    std::cout << " distance * (fast the line travels in that axis) " << tDelta.x << "\n\n";
+  //  std::cout << "(next tile pos) " << tileX + 1 << " - (position of entity) " << entityPos_.x << " = (distance to next tile)\n";
+  //  std::cout << " distance * (fast the line travels in that axis) " << tDelta.x << "\n\n";
     
     // (adjacentTilePos.axis - entityPos.axis) = (nextTileDistance) :::::: (nextTileDistance) * (lineScaling.axis) = tMax.axis
 
     // will loop until the tile is the end point's tile
+    if ((int)floor(endPos_.x) != tileX || (int)floor(endPos_.y) != tileY) {
+        printf("Player's pos  is (%f, %f) ", entityPos_.x, entityPos_.y);
+        std::cout << std::endl;
+
+        printf("Player's tile  is (%d, %d) ", tileX, tileY);
+        std::cout << std::endl;
+
+    }
+
     while ((int)floor(endPos_.x) != tileX || (int)floor(endPos_.y) != tileY) {
-        
+
         //check which tMax axis is closer to the next wall on its axis
         if (tMax.x < tMax.y) {
-            std::cout << "tMax.x is closer to its line than tMax.y: move tMax.x down the line and then check again" << "\n";
+         //   std::cout << "tMax.x is closer to its line than tMax.y: move tMax.x down the line and then check again" << "\n";
 
 
-            std::cout << "(tMax.x) ";
+           // std::cout << "(tMax.x) ";
             //tMax.x is closer to the next wall: new tile position
             tileX += dirX;
-
+            
             // Adding tDelta moves tMax further down the line
             tMax.x += tDelta.x;
 
+          //  printf("Checking Wall : (&d, &d), (&d, &d)", entityPos_.x, entityPos_.y);
 
-            std::cout << tMax.x << " += (tDelta.x)" << tDelta.x << "\n";
+
+         //   std::cout << tMax.x << " += (tDelta.x)" << tDelta.x << "\n";
 
             if (isSolid(Vec2((float)tileX, (float)tileY))) {
                 std::cout << tileX << ", " << tileY << " is solid!\n";
-                return TileFaces(Vec2(tileX + fabs(dirX - 1.0) / 2.0, tileY), Vec2(tileX + fabs(dirX - 1.0) / 2.0, tileY + 1),wall);
+                return TileFaces(Vec2(tileX + fabs(dirX - 1.0) / 2.0, tileY-1), Vec2(tileX + fabs(dirX - 1.0) / 2.0, tileY),wall);
 
             }
         }
@@ -313,7 +324,7 @@ TileFaces ChunkHandler::getFaces(Vec2 entityPos_, Vec2 velVector_) {
             
             if (isSolid(Vec2((float)tileX, (float)tileY))) {
                 std::cout << tileX << ", " << tileY << " is solid!\n";
-                return (TileFaces(Vec2(tileX, tileY + fabs(dirY - 1.0) / 2.0), Vec2(tileX+1, tileY + fabs(dirY - 1.0) / 2.0),wall));
+                return (TileFaces(Vec2(tileX, tileY + fabs(dirY - 1.0) / 2.0 - 1), Vec2(tileX+1, tileY + fabs(dirY - 1.0) / 2.0 -1),wall));
             }
         }
         

@@ -57,13 +57,31 @@ void Body::OnDestroy()
 }
 
 
-// Both loading and rendering can now be accessed through body and scenes using the same functions
+void Body::renderEntity(float scaleFactor)
+{
+    Vec3 screenCoords;
+
+    // convert the position from game coords to screen coords.
+    screenCoords = projectionMatrix * pos;
+
+    // Get size of the input texture in pixels
+    SDL_Point size{};
+    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
+    SDL_Rect dest = { screenCoords.x, screenCoords.y, size.x * scaleFactor, size.y * scaleFactor };
+
+    // Convert character orientation from radians to degrees.
+    float orientationDegrees = orientation * 180.0f / M_PI;
+
+    SDL_RenderCopyEx(renderer, texture, nullptr, &dest,
+        orientationDegrees, nullptr, SDL_FLIP_NONE);
+}
+
 SDL_Texture* Body::loadImage(const char* textureFile)
 {
     // The following is a typical chunk of code for creating 
-    // a texture in SDL
+        // a texture in SDL
 
-    // The final texture
+        // The final texture
     SDL_Texture* newTexture = nullptr;
 
     // Load image at specified path
@@ -90,32 +108,13 @@ SDL_Texture* Body::loadImage(const char* textureFile)
     return newTexture;
 }
 
-void Body::RenderEntity(float scale, SDL_Texture* entityTexture)
-{
-    Vec3 screenCoords;
-    
-    // convert the position from game coords to screen coords.
-    screenCoords = projectionMatrix * pos;
 
-    // Get size of the input texture in pixels
-    
-    SDL_QueryTexture(entityTexture, nullptr, nullptr, &size.x, &size.y);
-    SDL_Rect dest = { screenCoords.x, screenCoords.y, size.x * scale, size.y * scale };
-
-    // Convert character orientation from radians to degrees.
-    float orientationDegrees = orientation * 180.0f / M_PI;
-
-    SDL_RenderCopyEx(renderer, entityTexture, nullptr, &dest,
-        orientationDegrees, nullptr, SDL_FLIP_NONE);
-
-    //SDL_Rect myRect = { screenCoords.x, screenCoords.y, screenCoords.x + size.x * scale, screenCoords.y - size.y * scale };
-    //SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    //SDL_RenderDrawRect(renderer, &myRect);
-}
 
 void Body::ApplyForce( Vec3 force_ ) {
     accel = force_ / mass;
 }
+
+
 
 void Body::Update( float deltaTime ){
     pos = pos + vel * deltaTime + accel * (0.5f * deltaTime * deltaTime);

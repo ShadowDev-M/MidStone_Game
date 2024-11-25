@@ -1,6 +1,7 @@
 #include <Vector>
 #include <Vector.h>
 #include "Enemy.h"
+#include "ChunkHandler.h"
 
 class EnemyManager 
 {

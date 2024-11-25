@@ -17,12 +17,19 @@ private:
 	SDL_Window* window;		// an SDL window with a SDL renderer
 	SDL_Renderer* renderer;	// the renderer associated with SDL window
 	Matrix4 projectionMatrix;	// set in OnCreate()
-    Matrix4 inverseProjection;	// set in OnCreate()
+	Matrix4 inverseProjection;	// set in OnCreate()
 
 	Player* player;
-	
+
 	UiText text;
+
+	//UI PANELS
 	UiPanel panel;
+	UiPanel space1;
+	UiPanel space2;
+	UiPanel space3;
+	UiPanel space4;
+	UiPanel space5;
 
 	/// Load an image into a texture object.
 	/// <param name="textureFile">image file</param>
@@ -48,11 +55,12 @@ public:
 	void OnDestroy();
 	void Update(const float time);
 	void Render();
-    void HandleEvents(const SDL_Event &event);
+	void HandleEvents(const SDL_Event& event);
+	void refreshIcon();
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
 	SDL_Window* getWindow() { return window; }
-    Matrix4 getProjectionMatrix() { return projectionMatrix; }
+	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
 	void ButtonTest();
 	// Takes game/physics coords of an object 

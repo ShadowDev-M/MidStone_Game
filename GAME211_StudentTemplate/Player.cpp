@@ -1,5 +1,6 @@
 #include "Player.h"
 
+
 Player::Player(
     Vec3 pos_, Vec3 vel_, Vec3 accel_,
     float mass_,
@@ -24,11 +25,10 @@ Player::Player(
 
 bool Player::OnCreate()
 {
-
-    // sets up player image and texture
-    playerImage = "Pacman.png";
-    playerTexture = loadImage(playerImage);
-    SDL_QueryTexture(playerTexture, nullptr, nullptr, &size.x, &size.y);
+    textureFile = "textures/Pacman.png"; //Placeholder image
+    SetTextureFile(textureFile);
+    texture = loadImage(textureFile);
+    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
     hitbox.OnCreate(size.x, size.y, 0.1f);
     hitbox.Subscribe(
         [this](const TileFaces& collidedObject) {
@@ -41,10 +41,12 @@ bool Player::OnCreate()
     return true;
 }
 
-void Player::Render( float scale )
+void Player::Render(float scale)
 {   
     // Calls body entity render
-    RenderEntity(scale, playerTexture);
+    renderEntity(scale);
+    
+    
 }
 
 
@@ -112,22 +114,9 @@ void Player::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting player assets: ", __FILE__, __LINE__);
-    delete playerImage;
-    delete playerTexture;
+    //delete textureFile;
+    //delete texture;
 }
-
-void Player::takeDamage(float damage)
-{
-    //The player takes damage
-    healthpoints -= damage;
-}
-
-void Player::setItem(Item newItem)
-{
-    //Set the player's current item to the new item
-    currentItem = newItem;
-}
-
 
 
 void Player::onCollisionEnter(const TileFaces& collidedObject)

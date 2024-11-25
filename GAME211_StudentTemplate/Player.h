@@ -5,6 +5,7 @@
 #include "Body.h"
 #include "Inventory.h"
 #include "GameManager.h"
+#include "Enemy.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <Vector.h>
@@ -52,27 +53,31 @@ public:
     // Variables
     float healthpointsMax = 10.0f;
     float healthpoints = healthpointsMax;
-    //
+    
     float walkSpeedMax = 3.0f;
     Inventory playerInventory;
-    const char* playerImage;
-    SDL_Texture* playerTexture;
     std::vector<TileFaces> hitFaces;
-    
+    std::vector<TileFaces> permFaces;
+
+    ChunkHandler* region;
+
     BoxCollider hitbox = BoxCollider();
     // use the base class versions of getters
+    void SetRegion(ChunkHandler* region_) { region = region_; };
     bool OnCreate();
     void OnDestroy();
     void Render(float scale = 1.0f);
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
-    void setTexture(SDL_Texture* texture_) {texture = texture_;}
-    void takeDamage(float damage);
-    void setItem(Item newItem);
+    void takeDamage(float damage) { healthpoints -= damage; }
+    void setItem(Item newItem) { currentItem = newItem; }
+
+
 
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
     void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; }
     void setProjection(Matrix4 projectionMatrix_) { projectionMatrix = projectionMatrix_; }
+    void setInverse(Matrix4 inverseMatrix_) { inverseProjection = inverseMatrix_; } //projection matrix is defined in body
     void onCollisionEnter(const TileFaces& collidedObject);
     void onCollisionExit(const TileFaces& collidedObject);
 
