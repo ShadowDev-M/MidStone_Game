@@ -70,8 +70,8 @@ bool SceneYB::OnCreate() {
 		return false;
 	}
 
-	enemyManager = new EnemyManager(this);
-	enemyManager->spawnEnemy(4);
+	enemyManager = new EnemyManager();
+	//enemyManager->spawnEnemy(4);
 
 
 	//player->setWidth(player->width * (xAxis / w) * player->scale);

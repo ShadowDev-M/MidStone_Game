@@ -23,7 +23,6 @@ Enemy::Enemy(
 
 bool Enemy::OnCreate()
 {
-
     textureFile = "textures/Blinky.png"; //Placeholder image
     SetTextureFile(textureFile);
     texture = loadImage(textureFile);
@@ -31,7 +30,6 @@ bool Enemy::OnCreate()
     // sets up enemy image and texture
     SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
     hitbox.OnCreate(size.x, size.y, scale);
-
 
     return true;
 }
@@ -60,7 +58,7 @@ void Enemy::OnDestroy()
 {
     // Change to Debug::Info after
     std::cout << ("Deleting enemy assets: ", __FILE__, __LINE__);
-    //delete texture;
-    //delete textureFile;
+    delete texture;
+    delete textureFile;
 
 }
