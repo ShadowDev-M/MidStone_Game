@@ -1,3 +1,6 @@
+
+#pragma once
+
 #include "Vector.h"
 
 namespace  MATH {

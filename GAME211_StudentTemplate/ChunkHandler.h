@@ -23,7 +23,7 @@ class ChunkHandler {
 	//
 protected:
 	
-
+	Body* newBody;
 public:
 	std::vector<TileFaces> renderLines;
 

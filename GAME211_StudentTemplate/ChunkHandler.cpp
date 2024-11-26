@@ -81,36 +81,36 @@ int ChunkHandler::searchForChunkPos(Vec2 pos_) {
 void ChunkHandler::Update()
 {
 
-    for (Body* entity : entitiesThatLoadChunks) {
-        Vec2 entityPos = Vec2(entity->getPos().x, entity->getPos().y);
-        Vec2 entityChunkLoc = getChunkLocation(entityPos);
+    //for (Body* entity : entitiesThatLoadChunks) {
+    //    Vec2 entityPos = Vec2(entity->getPos().x, entity->getPos().y);
+    //    Vec2 entityChunkLoc = getChunkLocation(entityPos);
 
-       // if (getChunkPointer(entityChunkLoc) == chunkList.getFirst()) break;
+    //   // if (getChunkPointer(entityChunkLoc) == chunkList.getFirst()) break;
+    //   // printf("%f, %f  ::: ", entityPos.x, entityPos.y);
+    //   
+    //    for (int i = -1; i < 2; i++) 
+    //    {
+    //        for (int j = -1; j < 2; j++) 
+    //        {
+    //            if (!(i == 1 && j == 1)) 
+    //            {
+    //                //LoadChunk(Vec2((entityChunkLoc.x - 1) + i, (entityChunkLoc.y - 1) + j));
 
-       
-        for (int i = 0; i < 3; i++) 
-        {
-            for (int j = 0; j < 3; j++) 
-            {
-                if (!(i == 1 && j == 1)) 
-                {
-                    //LoadChunk(Vec2((entityChunkLoc.x - 1) + i, (entityChunkLoc.y - 1) + j));
+    //                //if not in the first 9 (active chunks)
+    //                if (!chunkList.search(Vec2((entityChunkLoc.x) + i, (entityChunkLoc.y) + j), 9)) {
+    //                    chunkList.add(Vec2((entityChunkLoc.x) + i, (entityChunkLoc.y) + j));
+    //                }
+    //            }
+    //        }
+    //    }
 
-                    //if not in the first 9 (active chunks)
-                    if (!chunkList.search(Vec2((entityChunkLoc.x - 1) + i, (entityChunkLoc.y - 1) + j), 9)) {
-                        chunkList.add(Vec2((entityChunkLoc.x - 1) + i, (entityChunkLoc.y - 1) + j));
-                    }
-                }
-            }
-        }
-
-        //if the player's current chunk is not first in the list,
-        if ((getChunkPointer(entityChunkLoc) != chunkList.getFirst())) {
-            chunkList.add(entityChunkLoc);
-            //currentChunk = getChunkPointer(entityChunkLoc);
-           // std::cout << entityChunkLoc.x << ", " << entityChunkLoc.y << std::endl;
-        }
-    }
+    //    //if the player's current chunk is not first in the list,
+    //    if ((getChunkPointer(entityChunkLoc) != chunkList.getFirst())) {
+    //        chunkList.add(entityChunkLoc);
+    //        //currentChunk = getChunkPointer(entityChunkLoc);
+    //       // std::cout << entityChunkLoc.x << ", " << entityChunkLoc.y << std::endl;
+    //    }
+    //}
 
     //if (currentChunk->getPos()) currentChunk = getChunkPointer(Vec2(entitiesThatLoadChunks[0]->getPos().x, entitiesThatLoadChunks[0]->getPos().y));
 
@@ -122,6 +122,27 @@ void ChunkHandler::Update()
 }
 void ChunkHandler::OnCreate()
 {
+    Vec2 entityPos = Vec2(0,0);
+    Vec2 entityChunkLoc = getChunkLocation(entityPos);
+
+    // if (getChunkPointer(entityChunkLoc) == chunkList.getFirst()) break;
+    // printf("%f, %f  ::: ", entityPos.x, entityPos.y);
+
+    for (int i = -1; i < 2; i++)
+    {
+        for (int j = -1; j < 2; j++)
+        {
+           // if (!(i == 1 && j == 1))
+           // {
+                //LoadChunk(Vec2((entityChunkLoc.x - 1) + i, (entityChunkLoc.y - 1) + j));
+
+                //if not in the first 9 (active chunks)
+                if (!chunkList.search(Vec2((entityChunkLoc.x) + i, (entityChunkLoc.y) + j), 9)) {
+                    chunkList.add(Vec2((entityChunkLoc.x) + i, (entityChunkLoc.y) + j));
+                }
+           // }
+        }
+    }
 
 
 
@@ -129,6 +150,7 @@ void ChunkHandler::OnCreate()
 
 void ChunkHandler::addLoadingEntity(Body* entity) { 
     //add entity to list
+
     entitiesThatLoadChunks.push_back(entity); 
 
     //first Entity is reserved for the player, currentChunk represents the player's current chunk
@@ -137,6 +159,8 @@ void ChunkHandler::addLoadingEntity(Body* entity) {
         //set pointer to player's chunk 
         currentChunk = getChunkPointer(Vec2(entitiesThatLoadChunks[0]->getPos().x, entitiesThatLoadChunks[0]->getPos().y));
     }
+
+
 };
 
 
@@ -281,11 +305,11 @@ TileFaces ChunkHandler::getFaces(Vec2 entityPos_, Vec2 velVector_) {
 
     // will loop until the tile is the end point's tile
     if ((int)floor(endPos_.x) != tileX || (int)floor(endPos_.y) != tileY) {
-        printf("Player's pos  is (%f, %f) ", entityPos_.x, entityPos_.y);
-        std::cout << std::endl;
+      //  printf("Player's pos  is (%f, %f) ", entityPos_.x, entityPos_.y);
+      //  std::cout << std::endl;
 
-        printf("Player's tile  is (%d, %d) ", tileX, tileY);
-        std::cout << std::endl;
+      //  printf("Player's tile  is (%d, %d) ", tileX, tileY);
+      //  std::cout << std::endl;
 
     }
 
@@ -309,7 +333,7 @@ TileFaces ChunkHandler::getFaces(Vec2 entityPos_, Vec2 velVector_) {
          //   std::cout << tMax.x << " += (tDelta.x)" << tDelta.x << "\n";
 
             if (isSolid(Vec2((float)tileX, (float)tileY))) {
-                std::cout << tileX << ", " << tileY << " is solid!\n";
+               // std::cout << tileX << ", " << tileY << " is solid!\n";
                 return TileFaces(Vec2(tileX + fabs(dirX - 1.0) / 2.0, tileY-1), Vec2(tileX + fabs(dirX - 1.0) / 2.0, tileY),wall);
 
             }
@@ -323,7 +347,7 @@ TileFaces ChunkHandler::getFaces(Vec2 entityPos_, Vec2 velVector_) {
             tMax.y += tDelta.y;
             
             if (isSolid(Vec2((float)tileX, (float)tileY))) {
-                std::cout << tileX << ", " << tileY << " is solid!\n";
+               // std::cout << tileX << ", " << tileY << " is solid!\n";
                 return (TileFaces(Vec2(tileX, tileY + fabs(dirY - 1.0) / 2.0 - 1), Vec2(tileX+1, tileY + fabs(dirY - 1.0) / 2.0 -1),wall));
             }
         }

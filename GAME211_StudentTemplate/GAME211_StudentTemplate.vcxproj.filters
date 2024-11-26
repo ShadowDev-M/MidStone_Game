@@ -194,5 +194,8 @@
     <ClInclude Include="EnemyManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ProceduralGeneration.h">
+      <Filter>Header Files\JDim</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

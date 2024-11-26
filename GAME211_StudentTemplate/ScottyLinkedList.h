@@ -1,6 +1,8 @@
 #include <vector>
 #include "Chunk.h"
 #include "stdio.h"
+#include "ProceduralGeneration.h"
+
 
 namespace  MATH {
 
@@ -25,10 +27,11 @@ namespace  MATH {
 		void setTilePosNodeInternal(TileInfo tile_) { 
 
 			chunk.setTile(tile_); 			
-			printf("(Ping) %d) ", getTilePosNodeInternal(Vec2(tile_.x, tile_.y)));
+			//printf("(Ping) %d) ", getTilePosNodeInternal(Vec2(tile_.x, tile_.y)));
 
 		}
 
+		
 	};
 
 
@@ -55,10 +58,13 @@ namespace  MATH {
 
 				if (first == nullptr) {
 					first = new ScottLinkedNode(position);
+					generateNode(first);
 					last = first;
 				}
 				else {
 					first->previous= new ScottLinkedNode(position);
+					generateNode(first->previous);
+
 					first->previous->next = first;
 					first = first->previous;
 				}
@@ -77,10 +83,14 @@ namespace  MATH {
 
 				if (first == nullptr) {
 					first = new ScottLinkedNode(tempNode);
+					generateNode(first);
+
 					last = first;
 				}
 				else {
 					first->previous = new ScottLinkedNode(tempNode);
+					generateNode(first->previous);
+
 					first->previous->next = first;
 					first = first->previous;
 				}
@@ -89,6 +99,7 @@ namespace  MATH {
 				print();
 
 			}
+			
 		}
 
 		int getChunkTileIDInternal(Vec2 chunkPos_, Vec2 tilePos_) {
@@ -224,6 +235,19 @@ namespace  MATH {
 			}
 			printf("list end");
 			std::cout<<std::endl;
+
+		}
+
+		void generateNode(ScottLinkedNode* node) {
+			ProceduralGeneration NodeGeneration = ProceduralGeneration(1021430, node->position);
+			NodeGeneration.Generate();
+
+			std::vector<TileInfo> tilesProcedural = NodeGeneration.getGenerated();
+			
+			for (TileInfo tile : tilesProcedural) {
+				//printf("(%d, %d) ", tile.x, tile.y);
+				node->setTilePosNodeInternal(tile);
+			}
 
 		}
 	};

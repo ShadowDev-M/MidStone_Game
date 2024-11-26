@@ -64,6 +64,11 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MenuScene.h" />
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="ProceduralGeneration.h" />
+    <ClInclude Include="resource.h" />
+>>>>>>> Stashed changes
     <ClInclude Include="SceneYB.h" />
     <ClInclude Include="ScottyLinkedList.h" />
     <ClInclude Include="TestBlock.h" />

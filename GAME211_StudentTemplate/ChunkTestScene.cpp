@@ -88,9 +88,10 @@ bool SceneC::OnCreate() {
 
 	// Creating Chunks and Rendering them should be their own methods
 	
-
+	RegionOne.OnCreate();
 	changesIndex = {
-		{0, 0, 1}, {1, 2, 1}, {2,3,1}, {18,20,1} };
+	{0, 0, 1}, {1, 2, 1}, {2,3,1}, {18,20,1} };
+
 
 	
 	
@@ -106,10 +107,10 @@ bool SceneC::OnCreate() {
 	player->hitbox.setObstacles(faces);
 	
 
-	RegionOne.addLoadingEntity(player);
+	//RegionOne.addLoadingEntity(player);
 
 
-	std::cout << changesIndex.at(0).id;
+	//std::cout << changesIndex.at(0).id;
 
 	stoneTileTexture = loadImage(stoneTile);
 
@@ -147,7 +148,7 @@ void SceneC::Update(const float deltaTime) {
 	};
 
 
-
+	//std::cout << "(" << player->getPos().x << ") " << std::endl;
 
 	//std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
 	//std::cout << "TILE LOCATIONS:" << stoneTile->getPos().x << ", " << stoneTile->getPos().y << "\n";
@@ -167,13 +168,13 @@ void SceneC::Render() {
 	// NOT FINAL, just temp rendering for chunks just to get something on screen that can also be changed and used with physics and collision
 	// Will get fixed up afterwards
 
-	Vec2 playerChunkPos = RegionOne.getChunkLocation(Vec2(player->getPos().x, player->getPos().y));
+	Vec2 playerChunkPos = Vec2(0,0);
 	//for (int i = 0; i < 16*16; i++) {
-	for (int i = 0; i < 3; i++)
+	for (int i = -1; i < 2; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int j = -1; j < 2; j++)
 		{
-			Vec2 chunkRenderPos = Vec2((playerChunkPos.x-1)+i, (playerChunkPos.y-1)+j);
+			Vec2 chunkRenderPos = Vec2((playerChunkPos.x)+i, (playerChunkPos.y)+j);
 
 			for (int x = 0; x < 16; x++) {
 				for (int y = 0; y < 16; y++) {

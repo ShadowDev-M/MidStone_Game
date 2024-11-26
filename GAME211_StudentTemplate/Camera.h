@@ -21,7 +21,7 @@ private:
     // The Cameras Current Location In Physics Space
     // This sets up the physics space/what the camera renders
     float LEVEL_WIDTH = SCREEN_WIDTH * 16 / SCREEN_HEIGHT;
-    float LEVEL_HEIGHT = LEVEL_WIDTH * 9 / 16;
+    float LEVEL_HEIGHT = LEVEL_WIDTH * 9 / 16 ;
 
 
 
