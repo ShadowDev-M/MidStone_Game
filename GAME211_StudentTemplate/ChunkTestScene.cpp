@@ -87,7 +87,7 @@ bool SceneC::OnCreate() {
 
 	// Creating Chunks and Rendering them should be their own methods
 	
-
+	RegionOne.OnCreate();
 	changesIndex = {
 		{1, 0, 1}, {2, 0, 1}, {3, 0, 1}, {4, 0, 1}, {5, 0, 1},
 		{2, 7, 1}, {3, 7, 1}, {4, 7, 1}, {5, 7, 1}, {6, 7, 1},
@@ -105,10 +105,15 @@ bool SceneC::OnCreate() {
 	//faces.push_back(sword1);
 	//player->hitbox.setObstacles(faces);
 
+
+
+	player->hitbox.setObstacles(faces);
+	
+
 	RegionOne.addLoadingEntity(player);
 
 
-	std::cout << changesIndex.at(0).id;
+	//std::cout << changesIndex.at(0).id;
 
 	stoneTileTexture = camera.refinedLoadImage(stoneTile, renderer);
 
