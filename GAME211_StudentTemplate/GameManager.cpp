@@ -4,7 +4,7 @@
 #include "ChunkTestScene.h"
 #include "UiScene.h"
 #include "CollisionScene.h"
-#include "SceneYB.h"
+#include "SceneYBTest.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;
@@ -193,7 +193,7 @@ void GameManager::LoadScene( int i )
             currentScene = new CollisionScene(windowPtr->GetSDL_Window(), this);
             break;
         case 6:
-            currentScene = new SceneYB(windowPtr->GetSDL_Window(), this);
+            currentScene = new SceneYBTest(windowPtr->GetSDL_Window(), this);
             break;
         default:
             currentScene = new Scene1( windowPtr->GetSDL_Window(), this );
