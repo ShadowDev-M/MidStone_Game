@@ -55,20 +55,26 @@ public:
     // Temp constructer
     Enemy(Vec3 pos_, Vec3 vel_, Vec3 accel_, float mass_, float radius_, float orientation_, float rotation_, float angular_);
 
+    Enemy(Vec3 pos_, float dmg);
+
     //const char* enemyImage;
     //SDL_Texture* enemyTexture;
     //SDL_Surface* enemySurface;
     std::vector<TileFaces> hitFaces;
+    //std::vector<TileFaces> permFaces;
     ObjectTag objectTag = enemy;
 
     BoxCollider hitbox = BoxCollider();
+
+    float damage;
+
     // use the base class versions of getters
     bool OnCreate();
     void OnDestroy();
     void Render(float scale = 1.0f);
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
-    
+    float getDamage() { return damage; }
 
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
     void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body

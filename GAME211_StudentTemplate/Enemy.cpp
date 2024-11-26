@@ -21,15 +21,37 @@ Enemy::Enemy(
     image = nullptr;
 }
 
+Enemy::Enemy(Vec3 pos_, float dmg)
+{
+    pos = pos_;
+    damage = dmg;
+}
+
 bool Enemy::OnCreate()
 {
     textureFile = "textures/Blinky.png"; //Placeholder image
     SetTextureFile(textureFile);
     texture = loadImage(textureFile);
 
+    //1
+    hitFaces[0].PointOne = Vec2(pos.x, pos.y);
+    hitFaces[0].PointTwo = Vec2(pos.x, pos.y - getImage()->h);
+    //2
+    hitFaces[1].PointOne = Vec2(pos.x + getImage()->w, pos.y);
+    hitFaces[1].PointTwo = Vec2(pos.x + getImage()->w, pos.y - getImage()->h);
+    //3
+    hitFaces[2].PointOne = Vec2(pos.x, pos.y);
+    hitFaces[2].PointTwo = Vec2(pos.x + getImage()->w, pos.y);
+    //4
+    hitFaces[3].PointOne = Vec2(pos.x, pos.y - getImage()->h);
+    hitFaces[3].PointTwo = Vec2(pos.x + getImage()->w, pos.y - getImage()->h);
+
+
     // sets up enemy image and texture
-    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
-    hitbox.OnCreate(size.x, size.y, scale);
+    //SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
+    //hitbox.OnCreate(size.x, size.y, scale);
+
+
 
     return true;
 }
@@ -49,6 +71,19 @@ void Enemy::Update(float deltaTime)
 {
     // Update position, call Update from base class
     // Note that would update velocity too, and rotation motion
+
+    //1
+    hitFaces[0].PointOne = Vec2(pos.x, pos.y);
+    hitFaces[0].PointTwo = Vec2(pos.x, pos.y - getImage()->h);
+    //2
+    hitFaces[1].PointOne = Vec2(pos.x + getImage()->w, pos.y);
+    hitFaces[1].PointTwo = Vec2(pos.x + getImage()->w, pos.y - getImage()->h);
+    //3
+    hitFaces[2].PointOne = Vec2(pos.x, pos.y);
+    hitFaces[2].PointTwo = Vec2(pos.x + getImage()->w, pos.y);
+    //4
+    hitFaces[3].PointOne = Vec2(pos.x, pos.y - getImage()->h);
+    hitFaces[3].PointTwo = Vec2(pos.x + getImage()->w, pos.y - getImage()->h);
 
     Body::Update(deltaTime);
     hitbox.CheckCollision(Vec2(pos.x,pos.y));

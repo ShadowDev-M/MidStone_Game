@@ -18,8 +18,10 @@ std::vector<Enemy*> EnemyManager::spawnEnemy(int amount)
 		Enemy* myEnemy = new Enemy(Vec3(newPos.x, newPos.y, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 		myEnemy->setRenderer(renderer);
 		myEnemy->OnCreate();
-		myEnemy->setWidth(1.0f);
-		myEnemy->setHeight(1.0f);
+		myEnemy->setWidth(0.5f);
+		myEnemy->setHeight(0.5f);
+		//myEnemy->hitFaces
+		//myEnemy->permFaces 
 
 		enemyList.push_back(myEnemy);
 	}
@@ -40,6 +42,7 @@ void EnemyManager::Update(float deltaTime)
 	for (Enemy* enemy : enemyList)
 	{
 		enemy->Update(deltaTime);
+
 		//enemy->setProjection(projectionMatrix);
 		//enemy->setInverse(inverseProjection);
 	}
