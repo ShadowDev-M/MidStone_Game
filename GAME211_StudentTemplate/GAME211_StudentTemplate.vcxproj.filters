@@ -108,6 +108,9 @@
     <ClCompile Include="EnemyManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SceneYBTest.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="EnemyManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneYBTest.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

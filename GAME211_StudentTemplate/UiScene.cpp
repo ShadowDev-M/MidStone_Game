@@ -312,5 +312,6 @@ void UiScene::OnDestroy() {
 }
 
 UiScene::~UiScene() {
+
 }
 
