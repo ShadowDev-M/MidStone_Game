@@ -38,6 +38,7 @@ private:
 	Matrix4     inverseProjection;	// set in OnCreate()
 	bool testh;
 	Player* player;
+	Enemy* enemy;
 	ChunkHandler RegionOne;
 	Camera camera;
 	
@@ -59,6 +60,13 @@ private:
 
 	//Enemy* enemy;
 
+	// Mouse coords
+	int mouseOffSet = -50;
+	int mouseX;
+	int mouseY;
+	Vec3 mousePhysicsCoords;
+
+	//bool mouseInsideEnemy(const Vec3& mouseCoords, Body* body);
 
 
 	std::vector<TileInfo> changesIndex;

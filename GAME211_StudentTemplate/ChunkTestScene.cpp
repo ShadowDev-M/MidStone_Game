@@ -38,10 +38,11 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	grassTile->setHeight(1.0f);
 
 	
-	ghost = new Body(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
-	ghost->SetTextureFile("textures/Pinky.png");
-	ghost->setWidth(1.0f);
-	ghost->setHeight(1.0f);
+	enemy = new Enemy(Vec3(xAxis / 2.0f + 3.0f, yAxis / 2.0f + 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	enemy->setRenderer(renderer);
+	//ghost->SetTextureFile("textures/Pinky.png");
+	enemy->setWidth(1.0f);
+	enemy->setHeight(1.0f);
 
 
 	sword = new Body(Vec3(xAxis / 2.0f + 1, yAxis / 2.0f + 1, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
@@ -52,7 +53,7 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 
 	stoneTileTexture = nullptr;
 	grassTileTexture = nullptr;
-	ghostTexture = nullptr;
+	//ghostTexture = nullptr;
 	swordTexture = nullptr;
 
 }
@@ -63,16 +64,6 @@ bool SceneC::OnCreate() {
 	std::cout << "Entering ChunkTest" << std::endl;
 	testh = true;
 
-	
-
-	/*int w, h;
-	SDL_GetWindowSize(window, &w, &h);
-
-	Matrix4 ndc = MMath::viewportNDC(w, h);
-	Matrix4 ortho = MMath::orthographic(0.0f, LEVEL_WIDTH, 0.0f, LEVEL_HEIGHT, 0.0f, 1.0f);
-	projectionMatrix = ndc * ortho;*/
-	
-
 
 
 	camera.OnCreate();	
@@ -80,9 +71,9 @@ bool SceneC::OnCreate() {
 	
 	
 	player->OnCreate();
-	//enemy->OnCreate();
+	enemy->OnCreate();
 
-	//enemy->setProjection(projectionMatrix);
+	enemy->setProjection(projectionMatrix);
 	//enemy->setInverse(inverseProjection);
 
 	
@@ -98,7 +89,10 @@ bool SceneC::OnCreate() {
 	
 
 	changesIndex = {
-		{0, 0, 1}, {1, 2, 1}, {2,3,1}, {18,20,1} };
+		{1, 0, 1}, {2, 0, 1}, {3, 0, 1}, {4, 0, 1}, {5, 0, 1},
+		{2, 7, 1}, {3, 7, 1}, {4, 7, 1}, {5, 7, 1}, {6, 7, 1},
+		{1, 1, 1}, {1, 2, 1}, {1, 3, 1}, {1, 4, 1}, {1, 5, 1}, {1, 6, 1}, {1, 7, 1},
+		{7, 7, 1}, {7, 6, 1}, {7, 5, 1}, {7, 4, 1}, {7, 3, 1}, {7, 2, 1}, {7, 1, 1} };
 
 	
 
@@ -120,7 +114,7 @@ bool SceneC::OnCreate() {
 
 	grassTileTexture = camera.refinedLoadImage(grassTile, renderer);
 
-	ghostTexture = camera.refinedLoadImage(ghost, renderer);
+	//ghostTexture = camera.refinedLoadImage(ghost, renderer);
 	
 	swordTexture = camera.refinedLoadImage(sword, renderer);
 
@@ -141,15 +135,16 @@ void SceneC::Update(const float deltaTime) {
 	RegionOne.Update();
 
 
-	//enemy->Update(deltaTime);
+	enemy->Update(deltaTime);
 	
 	if (testh) {
 		RegionOne.setTile(changesIndex);
 			testh = false;
 	};
 
-
-
+	
+	SDL_GetMouseState(&mouseX, &mouseY);
+	mousePhysicsCoords = camera.ScreenToWorldCoords(Vec3(mouseX, mouseY, 0.0f));
 
 	//std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
 	//std::cout << "TILE LOCATIONS:" << stoneTile->getPos().x << ", " << stoneTile->getPos().y << "\n";
@@ -208,6 +203,7 @@ void SceneC::Render() {
 		}
 	}
 	//}
+
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	for (TileFaces tile : player->permFaces) {
 		Vec3 screenCoords1 = projectionMatrix * Vec3(tile.PointOne.x, tile.PointOne.y, 0.0f);
@@ -221,10 +217,11 @@ void SceneC::Render() {
 	// Everything now needs to use the scalingfactor to properly scale with the screen
 	player->Render(camera.scalingFactor(player->getTexture(), player));
 
-	
+	camera.renderEntity(enemy, enemy->getTexture(), renderer);
+
 	camera.renderObject(sword, swordTexture, renderer);
 
-	//body->GetTexture() body->
+	
 
 	// update screen
 	SDL_RenderPresent(renderer);
