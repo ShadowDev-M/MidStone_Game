@@ -15,45 +15,8 @@ void BoxCollider::CheckCollision(Vec3 pos, Vec3 vel)
 		TileFaces object = collidableObjects[i];
 		
 		//Check to see if see this face is vertical or horizontal
-		if (object.PointOne.y == object.PointTwo.y)
-		{
-			//Horizontal
-			//Checking to see which point is on the right side of the wall and which on the left side
-			float leftEdge = object.PointOne.x < object.PointTwo.x ? object.PointOne.x : object.PointTwo.x;
-			float RightEdge = object.PointOne.x < object.PointTwo.x ? object.PointTwo.x : object.PointOne.x;
-			float objectYpos = object.PointTwo.y;
 
 		
-			//If the player is not between two edges on the X axis, don't do the rest of the code
-			if ((topLCorner.x < leftEdge && topLCorner.x + worldW < leftEdge) || topLCorner.x > RightEdge)
-			{
-				if (hasHcollision)
-				{
-					std::cout << "Bruh1";
-					onCollisionExit(object);
-				}
-				continue;
-			}
-
-			
-
-			//AABB Collision Detection (Search on google to undrestand the concept)
-			if (topLCorner.y > objectYpos && topLCorner.y - worldH < objectYpos)
-			{
-				hasHcollision = true;
-				Hwall = object;
-				TriggerCollisionEnter(object);	
-				continue;
-			}
-			else if(hasHcollision)
-			{
-				TriggerCollisionExit(object);
-				std::cout << "Bruh1";
-			}
-
-
-		}
-
 		//Check to see if see this face is vertical or horizontal
 		if (object.PointOne.x == object.PointTwo.x)
 		{
@@ -75,6 +38,46 @@ void BoxCollider::CheckCollision(Vec3 pos, Vec3 vel)
 				Vwall = object;
 				continue;
 			}
+			continue;
+		}
+
+		if (object.PointOne.y == object.PointTwo.y)
+		{
+			//Horizontal
+			//Checking to see which point is on the right side of the wall and which on the left side
+			float leftEdge = object.PointOne.x < object.PointTwo.x ? object.PointOne.x : object.PointTwo.x;
+			float RightEdge = object.PointOne.x < object.PointTwo.x ? object.PointTwo.x : object.PointOne.x;
+			float objectYpos = object.PointTwo.y;
+
+
+			//If the player is not between two edges on the X axis, don't do the rest of the code
+			if ((topLCorner.x < leftEdge && topLCorner.x + worldW < leftEdge) || topLCorner.x > RightEdge)
+			{
+				if (hasHcollision)
+				{
+					std::cout << "Bruh1";
+					//onCollisionExit(object);
+				}
+				continue;
+			}
+
+
+
+			//AABB Collision Detection (Search on google to undrestand the concept)
+			if (topLCorner.y > objectYpos && topLCorner.y - worldH < objectYpos)
+			{
+				hasHcollision = true;
+				Hwall = object;
+				TriggerCollisionEnter(object);
+				continue;
+			}
+			else if (hasHcollision)
+			{
+				//TriggerCollisionExit(object);
+				std::cout << "Bruh1";
+			}
+
+
 		}
 
 		/*if (hasHcollision && hasVcollision)
@@ -116,7 +119,7 @@ float BoxCollider::DetectCollision(TileFaces wall, Vec3 pos, Vec3 vel)
 	if (wall.PointOne.y == wall.PointTwo.y)
 	{
 		bool movingDown = vel.y <= 0;
-
+		
 		if (movingDown)
 		{
 			//Compare bottom face of the player with the colliding wall

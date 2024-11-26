@@ -15,6 +15,8 @@ class Player : public Body
 {
 protected:
     class GameManager* game;
+    bool isWallBouncing = false; // Is the player in a bounce-back state?
+    float wallBounceDecay = 0.7f; // Damping factor (adjust as needed)
 
 public:
 
@@ -80,6 +82,8 @@ public:
     void setInverse(Matrix4 inverseMatrix_) { inverseProjection = inverseMatrix_; } //projection matrix is defined in body
     void onCollisionEnter(const TileFaces& collidedObject);
     void onCollisionExit(const TileFaces& collidedObject);
+
+
 
 };
 

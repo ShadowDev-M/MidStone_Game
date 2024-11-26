@@ -67,6 +67,8 @@ void Player::HandleEvents( const SDL_Event& event )
         
         if (event.key.keysym.scancode == SDL_SCANCODE_A)
             vel.x = -walkSpeedMax;
+
+        isWallBouncing = false;
     }
 
     //If we release one of the keys, stop velocity in that direction
@@ -107,6 +109,28 @@ void Player::Update( float deltaTime )
     
     hitbox.CheckCollision(pos,vel);
      
+    if (isWallBouncing) {
+        // Gradually reduce horizontal velocity
+        if (fabs(vel.x) > 0.01f) {
+            vel.x *= wallBounceDecay; // Apply damping
+        }
+        else {
+            vel.x = 0; // Stop when velocity is small enough
+        }
+
+        // Gradually reduce vertical velocity
+        if (fabs(vel.y) > 0.01f) {
+            vel.y *= wallBounceDecay; // Apply damping
+        }
+        else {
+            vel.y = 0; // Stop when velocity is small enough
+        }
+
+        // Stop bounce-back when both velocities are zero
+        if (vel.x == 0 && vel.y == 0) {
+            isWallBouncing = false; // End bounce-back state
+        }
+    }
 
 }
 
@@ -127,26 +151,19 @@ void Player::onCollisionEnter(const TileFaces& collidedObject)
     case none:
         break;
     case wall:
+                
         if (collidedObject.PointOne.y == collidedObject.PointTwo.y) {
             // Horizontal wall adjustment
-            if (vel.y < 0) { // Moving down
-                //pos.y += hitbox.DetectPenetration(collidedObject,pos,vel); // Move player back up
-                vel.y *= -0.1; // Stop downward movement
-            }
-            else { // Moving up
-                //pos.y -= hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back down
-                vel.y *= -0.1; // Stop upward movement
+            if (vel.y != 0) {
+                vel.y = -vel.y; // Reverse velocity to simulate bounce-back
+                isWallBouncing = true; // Trigger bounce-back state
             }
         }
         else {
             // Vertical wall adjustment
-            if (vel.x > 0) { // Moving right
-                //pos.x += hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back to the left
-                vel.x *= -0.1; // Stop rightward movement
-            }
-            else { // Moving left
-                //pos.x -= hitbox.DetectPenetration(collidedObject, pos, vel); // Move player back to the right
-                vel.x *= -0.1; // Stop leftward movement
+            if (vel.x != 0) {
+                vel.x = -vel.x; // Reverse velocity to simulate bounce-back
+                isWallBouncing = true; // Trigger bounce-back state
             }
         }
         break;
