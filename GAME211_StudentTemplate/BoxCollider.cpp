@@ -55,7 +55,7 @@ void BoxCollider::CheckCollision(Vec3 pos, Vec3 vel)
 			{
 				if (hasHcollision)
 				{
-					std::cout << "Bruh1";
+					//std::cout << "Bruh1";
 					//onCollisionExit(object);
 				}
 				continue;
@@ -74,7 +74,7 @@ void BoxCollider::CheckCollision(Vec3 pos, Vec3 vel)
 			else if (hasHcollision)
 			{
 				//TriggerCollisionExit(object);
-				std::cout << "Bruh1";
+				//std::cout << "Bruh1";
 			}
 
 

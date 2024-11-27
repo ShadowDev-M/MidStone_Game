@@ -52,9 +52,6 @@ private:
 	Body* grassTile;
 	SDL_Texture* grassTileTexture;
 
-	Body* ghost;
-	SDL_Texture* ghostTexture;
-
 	Body* sword;
 	SDL_Texture* swordTexture;
 

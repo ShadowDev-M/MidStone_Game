@@ -40,7 +40,6 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	
 	enemy = new Enemy(Vec3(xAxis / 2.0f + 3.0f, yAxis / 2.0f + 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	enemy->setRenderer(renderer);
-	//ghost->SetTextureFile("textures/Pinky.png");
 	enemy->setWidth(1.0f);
 	enemy->setHeight(1.0f);
 
@@ -53,7 +52,6 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 
 	stoneTileTexture = nullptr;
 	grassTileTexture = nullptr;
-	//ghostTexture = nullptr;
 	swordTexture = nullptr;
 
 }
@@ -75,14 +73,6 @@ bool SceneC::OnCreate() {
 
 	enemy->setProjection(projectionMatrix);
 	//enemy->setInverse(inverseProjection);
-
-	
-	// Initialize PNG image loading
-	int imgFlags = IMG_INIT_PNG;
-	if (!(IMG_Init(imgFlags) & imgFlags)) {
-		std::cout << "SDL_image Error: " << IMG_GetError() << std::endl;
-		return false;
-	}
 	
 
 	// Creating Chunks and Rendering them should be their own methods
@@ -92,22 +82,12 @@ bool SceneC::OnCreate() {
 		{1, 0, 1}, {2, 0, 1}, {3, 0, 1}, {4, 0, 1}, {5, 0, 1},
 		{2, 7, 1}, {3, 7, 1}, {4, 7, 1}, {5, 7, 1}, {6, 7, 1},
 		{1, 1, 1}, {1, 2, 1}, {1, 3, 1}, {1, 4, 1}, {1, 5, 1}, {1, 6, 1}, {1, 7, 1},
-		{7, 7, 1}, {7, 6, 1}, {7, 5, 1}, {7, 4, 1}, {7, 3, 1}, {7, 2, 1}, {7, 1, 1} };
+		{7, 7, 1}, {7, 6, 1}, {7, 5, 1}, {7, 4, 1}, {7, 3, 1}, {7, 2, 1}, {7, 1, 1}
+		
+	};
 
-	
 
-	
-	// Ignore	
-	//TileFaces sword1 = TileFaces();
-	//sword1.PointOne = Vec2(sword->getPos().x - 0.5f, sword->getPos().y);
-	//sword1.PointTwo = Vec2(sword->getPos().x + 0.5f, sword->getPos().y);
-	//std::vector<TileFaces> faces;
-	//faces.push_back(sword1);
 	//player->hitbox.setObstacles(faces);
-
-
-
-	player->hitbox.setObstacles(faces);
 	
 
 	RegionOne.addLoadingEntity(player);
@@ -118,8 +98,6 @@ bool SceneC::OnCreate() {
 	stoneTileTexture = camera.refinedLoadImage(stoneTile, renderer);
 
 	grassTileTexture = camera.refinedLoadImage(grassTile, renderer);
-
-	//ghostTexture = camera.refinedLoadImage(ghost, renderer);
 	
 	swordTexture = camera.refinedLoadImage(sword, renderer);
 
@@ -161,7 +139,7 @@ void SceneC::Render() {
 	
 	// Clear the screen
 	SDL_RenderClear(renderer);
-
+	
 	// unified measurement system
 	// Render Chunks
 	// Camera
@@ -209,6 +187,8 @@ void SceneC::Render() {
 	}
 	//}
 
+
+	// Renders line of Tile Collison
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	for (TileFaces tile : player->permFaces) {
 		Vec3 screenCoords1 = projectionMatrix * Vec3(tile.PointOne.x, tile.PointOne.y, 0.0f);
@@ -226,7 +206,10 @@ void SceneC::Render() {
 
 	camera.renderObject(sword, swordTexture, renderer);
 
-	
+
+	// TileFaces newTile = TileFaces(Vec2(5, 4), Vec2(10, 4), wall);
+	/*SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderDrawLine(renderer, newTile.PointOne.x, newTile.PointOne.y, newTile.PointTwo.x, newTile.PointTwo.y);*/
 
 	// update screen
 	SDL_RenderPresent(renderer);

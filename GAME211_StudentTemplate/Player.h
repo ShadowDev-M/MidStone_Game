@@ -56,7 +56,7 @@ public:
     float healthpointsMax = 10.0f;
     float healthpoints = healthpointsMax;
     
-    float walkSpeedMax = 3.0f;
+    float walkSpeedMax = 2.0f;
     Inventory playerInventory;
     std::vector<TileFaces> hitFaces;
     std::vector<TileFaces> permFaces;

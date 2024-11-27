@@ -29,7 +29,7 @@ bool Player::OnCreate()
     SetTextureFile(textureFile);
     texture = loadImage(textureFile);
     SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
-    hitbox.OnCreate(size.x, size.y, 0.1f);
+    hitbox.OnCreate(size.x, size.y, 0.05f);
     hitbox.Subscribe(
         [this](const TileFaces& collidedObject) {
             onCollisionEnter(collidedObject);
@@ -44,7 +44,7 @@ bool Player::OnCreate()
 void Player::Render(float scale)
 {   
     // Calls body entity render
-    renderEntity(scale);
+    renderEntity(0.05f);
     
     
 }
@@ -68,7 +68,7 @@ void Player::HandleEvents( const SDL_Event& event )
         if (event.key.keysym.scancode == SDL_SCANCODE_A)
             vel.x = -walkSpeedMax;
 
-        isWallBouncing = false;
+        //isWallBouncing = false;
     }
 
     //If we release one of the keys, stop velocity in that direction
@@ -103,12 +103,27 @@ void Player::Update( float deltaTime )
     // Note that would update velocity too, and rotation motion
     
     //hitbox.setObstacles(hitFaces);
-
+    pos.print();
     //hitFaces.empty();
-    Body::Update( deltaTime );
     
+    if (region != nullptr) {
+        std::vector<TileFaces> tempFaces;
+        
+        tempFaces.push_back(region->getFaces(Vec2(pos.x, pos.y), Vec2(vel.x, vel.y)));
+        permFaces.push_back(region->getFaces(Vec2(pos.x, pos.y), Vec2(vel.x, vel.y)));
+
+        hitbox.setObstacles(permFaces);
+        //SDL_RenderDrawLine(renderer, 0, 0, 1, 1);
+    }
+
+   
+
     hitbox.CheckCollision(pos,vel);
-     
+   
+    Body::Update(deltaTime);
+
+    hitbox.CheckCollision(pos, vel);
+
     if (isWallBouncing) {
         // Gradually reduce horizontal velocity
         if (fabs(vel.x) > 0.01f) {
@@ -132,6 +147,8 @@ void Player::Update( float deltaTime )
         }
     }
 
+
+    Body::Update(deltaTime);
 }
 
 void Player::OnDestroy()
@@ -152,17 +169,17 @@ void Player::onCollisionEnter(const TileFaces& collidedObject)
         break;
     case wall:
                 
-        if (collidedObject.PointOne.y == collidedObject.PointTwo.y) {
-            // Horizontal wall adjustment
-            if (vel.y != 0) {
-                vel.y = -vel.y; // Reverse velocity to simulate bounce-back
+        if (collidedObject.PointOne.x == collidedObject.PointTwo.x) {
+            // Vertical wall adjustment
+            if (vel.x != 0) {
+                vel.x = -4.0f; // Reverse velocity to simulate bounce-back
                 isWallBouncing = true; // Trigger bounce-back state
             }
         }
         else {
-            // Vertical wall adjustment
-            if (vel.x != 0) {
-                vel.x = -vel.x; // Reverse velocity to simulate bounce-back
+            //
+            if (vel.y != 0) {
+                vel.y = -4.0f; // Reverse velocity to simulate bounce-back
                 isWallBouncing = true; // Trigger bounce-back state
             }
         }

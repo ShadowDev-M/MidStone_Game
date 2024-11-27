@@ -67,7 +67,7 @@ public:
 					case 15:
 					case 1500: 
 					case 1515:
-						tile.id = 1;
+						tile.id = 0;
 
 
 
