@@ -29,6 +29,13 @@ std::vector<Enemy*> EnemyManager::spawnEnemy(int amount)
 	return enemyList;
 }
 
+bool EnemyManager::OnCreate()
+{
+	
+	
+	return true;
+}
+
 void EnemyManager::RenderEnemies(Camera localCamera)
 {
 	for (Enemy* enemy : enemyList)
@@ -39,11 +46,18 @@ void EnemyManager::RenderEnemies(Camera localCamera)
 
 void EnemyManager::Update(float deltaTime)
 {
+	enemyFaces.clear();
 	for (Enemy* enemy : enemyList)
 	{
 		enemy->Update(deltaTime);
-
+		for (int i = 0; i < 4; i++)
+		{
+			enemyFaces.push_back(enemy->hitFaces[i]);
+		}
 		//enemy->setProjection(projectionMatrix);
 		//enemy->setInverse(inverseProjection);
 	}
+		
+
+	
 }

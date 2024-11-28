@@ -15,11 +15,13 @@ public:
 	
 	EnemyManager();
 
-	//List of enemies
+	//List of enemies and their faces
 	std::vector<Enemy*> enemyList = {};
-	
+	std::vector<TileFaces> enemyFaces;
+
 	//Spawn enemies
 	std::vector<Enemy*> spawnEnemy(int amount);
+	bool OnCreate();
 
 	void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body
 

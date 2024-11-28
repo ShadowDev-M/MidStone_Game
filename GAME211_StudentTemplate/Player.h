@@ -71,7 +71,7 @@ public:
     void Update(float deltaTime);
     void takeDamage(float damage) { healthpoints -= damage; }
     void setItem(Item newItem) { currentItem = newItem; }
-
+    void setFaces(std::vector<TileFaces> faces_);
 
 
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
