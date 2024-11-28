@@ -25,11 +25,7 @@ private:
 
 	//UI PANELS
 	UiPanel panel;
-	UiPanel space1;
-	UiPanel space2;
-	UiPanel space3;
-	UiPanel space4;
-	UiPanel space5;
+	UiPanel space[5];
 
 	/// Load an image into a texture object.
 	/// <param name="textureFile">image file</param>
