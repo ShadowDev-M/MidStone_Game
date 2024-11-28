@@ -169,19 +169,22 @@ void Player::onCollisionEnter(const TileFaces& collidedObject)
         break;
     case wall:
                 
-        if (collidedObject.PointOne.x == collidedObject.PointTwo.x) {
-            // Vertical wall adjustment
-            if (vel.x != 0) {
-                vel.x = -4.0f; // Reverse velocity to simulate bounce-back
+        if (collidedObject.PointOne.y == collidedObject.PointTwo.y) {
+            //
+            if (vel.y != 0) {
+                int direction = vel.y > 0 ? 1 : -1;
+                vel.y = - direction * 4.0f; // Reverse velocity to simulate bounce-back
                 isWallBouncing = true; // Trigger bounce-back state
             }
         }
         else {
-            //
-            if (vel.y != 0) {
-                vel.y = -4.0f; // Reverse velocity to simulate bounce-back
+            // Vertical wall adjustment
+            if (vel.x != 0) {
+                int direction = vel.x > 0 ? 1 : -1;
+                vel.x = -direction * 4.0f; // Reverse velocity to simulate bounce-back
                 isWallBouncing = true; // Trigger bounce-back state
             }
+            
         }
         break;
 
