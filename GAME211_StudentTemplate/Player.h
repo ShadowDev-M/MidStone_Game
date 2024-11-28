@@ -53,7 +53,10 @@ public:
     // Variables
     float healthpointsMax = 10.0f;
     float healthpoints = healthpointsMax;
-    
+
+    float invulTimerMax = 30.0f;
+    float invulTimer = 0.0f;
+
     float walkSpeedMax = 3.0f;
     Inventory playerInventory;
     std::vector<TileFaces> hitFaces;

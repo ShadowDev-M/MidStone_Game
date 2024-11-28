@@ -102,6 +102,9 @@ void Player::Update( float deltaTime )
     //hitFaces.empty();
     Body::Update( deltaTime );
 
+    if (invulTimer > 0)
+        invulTimer--;
+
     //std::cout << region->getFaces(Vec2(pos.x, pos.y), Vec2(vel.x, vel.y)).objectTag << std::endl;
     if (region != nullptr) {
         std::vector<TileFaces> tempFaces;
@@ -162,7 +165,12 @@ void Player::onCollisionTrigger(const TileFaces& collidedObject)
         break;
 
     case enemy:
-        std::cout << "\nplayer gets damaged";
+        if (invulTimer <= 0)
+        {
+            invulTimer = invulTimerMax;
+            std::cout << healthpoints << "\n";
+            healthpoints -= 1;
+        }
         break;
 
     case loot:
