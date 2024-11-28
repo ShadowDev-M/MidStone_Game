@@ -15,8 +15,10 @@ class Player : public Body
 {
 protected:
     class GameManager* game;
-    bool isWallBouncing = false; // Is the player in a bounce-back state?
+    bool isWallBouncingY = false; // Is the player in a bounce-back state?
+    bool isWallBouncingX = false; // Is the player in a bounce-back state?
     float wallBounceDecay = 0.7f; // Damping factor (adjust as needed)
+    int pushBackDirection;
 
 public:
 

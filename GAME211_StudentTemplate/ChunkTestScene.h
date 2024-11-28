@@ -58,13 +58,13 @@ private:
 	//Enemy* enemy;
 
 	// Mouse coords
-	int mouseOffSet = -50;
+	int mouseOffSet = -5;
 	int mouseX;
 	int mouseY;
 	Vec3 mousePhysicsCoords;
 
-	//bool mouseInsideEnemy(const Vec3& mouseCoords, Body* body);
-
+	bool mouseInsideEnemy(Vec3 mouseCoords, Body* body);
+	Body* movedObject;
 
 	std::vector<TileInfo> changesIndex;
 	std::vector<Body*> tiles;
@@ -91,7 +91,7 @@ public:
 	void renderLinesMethod(TileFaces info) {
 		SDL_RenderDrawLine(renderer, info.PointOne.x, info.PointOne.y, info.PointTwo.x, info.PointTwo.y);
 	};
-	TileFaces getFacesFromChunks(Vec2 entityPos_, Vec2 velVector_) { return RegionOne.getFaces(entityPos_, velVector_); }
+	std::vector<TileFaces> getFacesFromChunks(Vec2 entityPos_, Vec2 velVector_) { return RegionOne.getFaces(entityPos_, velVector_); }
 	void OnDestroy();
 	void Update(const float time);	
 	void Render();

@@ -95,10 +95,10 @@ bool SceneYB::OnCreate() {
 
 	RegionOne.setTile(changesIndex);
 
-	TileFaces intersectedTile = RegionOne.getFaces(Vec2(4.5, 6.5), Vec2(-4.0, 2.0));
+	//TileFaces intersectedTile = RegionOne.getFaces(Vec2(4.5, 6.5), Vec2(-4.0, 2.0));
 
 	// Print the intersected tiles
-	std::cout << " (" << intersectedTile.PointOne.x << ", " << intersectedTile.PointOne.y << ") (" << intersectedTile.PointTwo.x << ", " << intersectedTile.PointTwo.y << ")\n";
+	//std::cout << " (" << intersectedTile.PointOne.x << ", " << intersectedTile.PointOne.y << ") (" << intersectedTile.PointTwo.x << ", " << intersectedTile.PointTwo.y << ")\n";
 
 
 	//RegionOne.getFaces(Vec2(0.5, 0.7), Vec2(20.3, 30.4));

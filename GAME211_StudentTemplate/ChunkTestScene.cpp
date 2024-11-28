@@ -1,8 +1,6 @@
 #include "ChunkTestScene.h"
 #include <VMath.h>
 
-
-
 // See notes about this constructor in Scene1.h.
 SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
@@ -53,6 +51,8 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	stoneTileTexture = nullptr;
 	grassTileTexture = nullptr;
 	swordTexture = nullptr;
+
+	movedObject = nullptr;
 
 }
 
@@ -106,7 +106,16 @@ bool SceneC::OnCreate() {
 
 
 
-
+bool SceneC::mouseInsideEnemy(Vec3 mouseCoords, Body* body)
+{
+	if ((mouseCoords.x >= body->getPos().x - body->width) &&
+		(mouseCoords.x <= body->getPos().x + body->width) &&
+		(mouseCoords.y >= body->getPos().y - body->height) &&
+		(mouseCoords.y <= body->getPos().y + body->height)) {
+		return true;
+	}
+	return false;
+} 
 
 void SceneC::Update(const float deltaTime) {
 	//// Will make this its own extracted function after (will put in camera class too)
@@ -127,7 +136,16 @@ void SceneC::Update(const float deltaTime) {
 
 	
 	SDL_GetMouseState(&mouseX, &mouseY);
-	mousePhysicsCoords = camera.ScreenToWorldCoords(Vec3(mouseX, mouseY, 0.0f));
+	mousePhysicsCoords = camera.ScreenToWorldCoords(Vec3(mouseX + mouseOffSet, mouseY + mouseOffSet, 0.0f));
+	
+
+	if (mouseInsideEnemy(mousePhysicsCoords, sword) == true) {
+		std::cout << "ENEMY UNDER CURSOR";
+	}
+
+
+	//std::cout << "Mouse Coords: " << mousePhysicsCoords.x << ", " << mousePhysicsCoords.y << "\n";
+	//std::cout << "Sword Pos: " << sword->getPos().x << ", " << sword->getPos().y << "\n";
 
 	//std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
 	//std::cout << "TILE LOCATIONS:" << stoneTile->getPos().x << ", " << stoneTile->getPos().y << "\n";
@@ -220,6 +238,27 @@ void SceneC::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	player->HandleEvents(event);
+
+
+	if (event.type == SDL_MOUSEBUTTONDOWN) { // mouse button down event
+		if (event.button.button == SDL_BUTTON_LEFT) { // left click on mouse
+			// Using function to check if mouse click is within the bounds of the image "bounds"
+			if (mouseInsideEnemy(mousePhysicsCoords, sword) == true) {
+				movedObject = sword; // if mouse matches star bounds set the Body* movedStar to star
+			}
+			else {
+				movedObject = nullptr; // if mouse click isn't any of the stars then movedStar points to nothing
+			}
+		}
+	}
+	else if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) { // when the left click of the mouse is released
+		movedObject = nullptr; // After moving and placing down the star, movedStar points to nothing
+	}
+	else if (event.type == SDL_MOUSEMOTION && movedObject) { // When movedStar is equal to one of the stars, use mouse motion to move the planet around 
+		// set the poistion of the movedStar to that of the mouse when moving it around
+		movedObject->getPos() = mousePhysicsCoords;
+	}
+
 }
 
 void SceneC::OnDestroy() {
