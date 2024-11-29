@@ -64,7 +64,10 @@ private:
 	Vec3 mousePhysicsCoords;
 
 	bool mouseInsideEnemy(Vec3 mouseCoords, Body* body);
-	Body* movedObject;
+	SDL_Event event;
+
+	int tempHealth = 5;
+	int tempDamage = 3;
 
 	std::vector<TileInfo> changesIndex;
 	std::vector<Body*> tiles;
@@ -95,7 +98,9 @@ public:
 	void OnDestroy();
 	void Update(const float time);	
 	void Render();
+	SDL_Rect PlayerAnimation(int frames);
 	void HandleEvents(const SDL_Event& event);
+	void MoveSword(const SDL_Event& event);
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
 	SDL_Window* getWindow() { return window; }

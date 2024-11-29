@@ -1,6 +1,5 @@
 #include "Player.h"
 
-
 Player::Player(
     Vec3 pos_, Vec3 vel_, Vec3 accel_,
     float mass_,
@@ -25,9 +24,12 @@ Player::Player(
 
 bool Player::OnCreate()
 {
-    textureFile = "textures/Pacman.png"; //Placeholder image
+    textureFile = "textures/PacMan.png";//Placeholder image
     SetTextureFile(textureFile);
     texture = loadImage(textureFile);
+    // Image Surface used for animations
+    setImage(IMG_Load(textureFile));
+
     SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
     hitbox.OnCreate(size.x, size.y, 0.05f);
     hitbox.Subscribe(

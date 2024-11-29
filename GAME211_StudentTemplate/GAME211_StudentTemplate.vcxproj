@@ -39,7 +39,6 @@
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="ChunkHandler.cpp" />
-    <ClCompile Include="SceneYB.cpp" />
     <ClCompile Include="SceneYBTest.cpp" />
     <ClCompile Include="TestBlock.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -68,7 +67,6 @@
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="ProceduralGeneration.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SceneYB.h" />
     <ClInclude Include="SceneYBTest.h" />
     <ClInclude Include="ScottyLinkedList.h" />
     <ClInclude Include="TestBlock.h" />
