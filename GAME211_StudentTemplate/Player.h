@@ -61,7 +61,7 @@ public:
     float invulTimerMax = 30.0f;
     float invulTimer = 0.0f;
 
-    float walkSpeedMax = 3.0f;
+    float walkSpeedMax = 2.0f;
     Inventory playerInventory;
     std::vector<TileFaces> hitFaces;
     std::vector<TileFaces> permFaces;
