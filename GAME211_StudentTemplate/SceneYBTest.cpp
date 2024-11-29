@@ -22,6 +22,7 @@ SceneYBTest::SceneYBTest(SDL_Window* sdlWindow_, GameManager* game_) {
 	player->setRenderer(renderer);
 	player->setWidth(1.0f);
 	player->setHeight(1.0f);
+	player->hitbox.setObstacles(player->hitFaces);
 	//player->SetRegion(&RegionOne);
 	//RegionOne.setPlayer(player);
 
@@ -128,6 +129,9 @@ bool SceneYBTest::OnCreate() {
 
 	swordTexture = camera.refinedLoadImage(sword, renderer);
 
+	enemyManager->OnCreate();
+	
+
 	return true;
 }
 
@@ -137,10 +141,9 @@ bool SceneYBTest::OnCreate() {
 
 void SceneYBTest::Update(const float deltaTime) {
 	//// Will make this its own extracted function after (will put in camera class too)
-	player->getPos().print();
 	camera.cameraFollowsPlayer(player, window);
 	projectionMatrix = camera.getProjectionMatrix();
-
+	player->setFaces(enemyManager->enemyFaces);
 	player->Update(deltaTime);
 	RegionOne.Update();
 
@@ -210,14 +213,17 @@ void SceneYBTest::Render() {
 			}
 		}
 	}
-	//}
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	//for (TileFaces tile : player->permFaces) {
-		//Vec3 screenCoords1 = projectionMatrix * Vec3(tile.PointOne.x, tile.PointOne.y, 0.0f);
-		//Vec3 screenCoords2 = projectionMatrix * Vec3(tile.PointTwo.x, tile.PointTwo.y, 0.0f);;
 
-		//SDL_RenderDrawLine(renderer, screenCoords1.x, screenCoords1.y, screenCoords2.x, screenCoords2.y);
-	//}
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+	for (int i = 0; i < enemyList.size(); i++){
+		for (TileFaces tile : enemyList[i]->hitFaces) {
+			Vec3 screenCoords1 = projectionMatrix * Vec3(tile.PointOne.x, tile.PointOne.y, 0.0f);
+			Vec3 screenCoords2 = projectionMatrix * Vec3(tile.PointTwo.x, tile.PointTwo.y, 0.0f);;
+
+			SDL_RenderDrawLine(renderer, screenCoords1.x, screenCoords1.y, screenCoords2.x, screenCoords2.y);
+		}
+	}
 
 
 

@@ -57,8 +57,11 @@ public:
     // Variables
     float healthpointsMax = 10.0f;
     float healthpoints = healthpointsMax;
-    
-    float walkSpeedMax = 2.0f;
+
+    float invulTimerMax = 30.0f;
+    float invulTimer = 0.0f;
+
+    float walkSpeedMax = 3.0f;
     Inventory playerInventory;
     std::vector<TileFaces> hitFaces;
     std::vector<TileFaces> permFaces;
@@ -75,7 +78,7 @@ public:
     void Update(float deltaTime);
     void takeDamage(float damage) { healthpoints -= damage; }
     void setItem(Item newItem) { currentItem = newItem; }
-
+    void setFaces(std::vector<TileFaces> faces_);
 
 
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
