@@ -169,7 +169,11 @@ void Player::Update( float deltaTime )
     Body::Update(deltaTime);
 }
 
-
+//
+void Player::setFaces(std::vector<TileFaces> faces_)
+{
+    hitbox.setObstacles(faces_);
+}
 
 
 void Player::OnDestroy()
