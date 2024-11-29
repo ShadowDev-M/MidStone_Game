@@ -76,6 +76,6 @@ public:
 	/// <param name="entityPos_">position of the entity</param>
 	/// <param name="velVector_">the farthest location the entity would move in the current frame</param>
 	/// <returns>list of lines for collision</returns>
-	TileFaces getFaces(Vec2 entityPos_, Vec2 velVector_);
+	std::vector<TileFaces> getFaces(Vec2 entityPos_, Vec2 velVector_);
 	
 };

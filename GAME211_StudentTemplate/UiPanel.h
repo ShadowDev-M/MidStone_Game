@@ -9,12 +9,13 @@ class UiPanel : UiElement
 {
 
 public:
+	virtual ~UiPanel();
 	UiPanel();
 	using ButtonCallback = std::function<void()>;
 
 	void OnCreate(SDL_Renderer* _renderer, Vec2 _screenCoord, const char* _backgroundImage, float _scale)
+	
 	{
-
 		renderer = _renderer;
 		screenCoords = _screenCoord;
 		PanelImage = _backgroundImage;
@@ -25,7 +26,7 @@ public:
 		panelHeight *= panelScale;
 		panelWidth *= panelScale;
 	}
-
+	
 	UiPanel& AddIcon(const char* _panelImage, float _scale)
 	{
 		IconTexture = loadImage(_panelImage);
@@ -61,6 +62,7 @@ public:
 
 	void Render() override;
 
+	void OnDestroy();
 private:
 	//Panel Properties
 	const char* PanelImage;

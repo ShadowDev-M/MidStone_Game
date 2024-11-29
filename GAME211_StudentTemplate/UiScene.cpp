@@ -35,6 +35,7 @@ bool UiScene::OnCreate() {
 	// Check to make sure loading scene works
 	std::cout << "Entering UiScene" << std::endl;
 	playerInventory.addItem(sword);
+	playerInventory.addItem(sword);
 	playerInventory.addItem(shield);
 	playerInventory.printInventory();
 
@@ -76,45 +77,22 @@ bool UiScene::OnCreate() {
 	else 
 		panel.AddIcon("textures/emptySlot.png", 7.0f);
 	
-	//SPACE 1 ICON
-	space1.OnCreate(renderer, Vec2(w / 3, h * 0.9), "textures/itemframe.png", 0.5);
-	if (currentItem == nullptr)
-		space1.AddIcon(playerInventory.getItem(0, 0)->filePath, 0.5f);
-	else 
-		space1.AddIcon("textures/emptySlot.png", 0.5f);
-	
-	
-	//SPACE 2 ICON
-	space2.OnCreate(renderer, Vec2(w / 3 + (50 * 1), h * 0.9), "textures/itemframe.png", 0.5);
-	if (currentItem == nullptr)
-		space2.AddIcon(playerInventory.getItem(0, 1)->filePath, 0.5f);
-	else
-		space2.AddIcon("textures/emptySlot.png", 0.5f);
+	for (int i = 0; i < 5; i++)
+	{
+		if (playerInventory.getItem(0, i) != nullptr)
+		{
+			// display
+			space[i].OnCreate(renderer, Vec2(w / 2.6f + 50 * i + 5 * i, h * 0.9), "textures/itemFrame.png", 0.5);
+			space[i].AddIcon(playerInventory.getItem(0, i)->filePath, 0.5);
+		}
+		else
+		{
+			// display
+			space[i].OnCreate(renderer, Vec2(w / 2.6f + 50 * i + 5 * i, h * 0.9), "textures/itemFrame.png", 0.5);
+			space[i].AddIcon("textures/emptySlot.png", 0.5);
+		}
+	}
 
-	/*
-	//SPACE 3 ICON
-	space3.OnCreate(renderer, Vec2(w / 3 + (50 * 2), h * 0.9), "textures/stoneTile.png", 3);
-	if (currentItem == nullptr)
-		space3.AddIcon(playerInventory.getItem(0, 2)->filePath, 3.0f);
-	else
-		space3.AddIcon("textures/emptySlot.png", 3.0f);
-
-	
-	//SPACE 4 ICON
-	space4.OnCreate(renderer, Vec2(w / 3 + (50 * 3), h * 0.9), "textures/stoneTile.png", 3);
-	if (currentItem == nullptr)
-		space4.AddIcon(playerInventory.getItem(0, 3)->filePath, 3.0f);
-	else
-		space4.AddIcon("textures/emptySlot.png", 3.0f);
-
-	
-	//SPACE 5 ICON
-	space5.OnCreate(renderer, Vec2(w / 3 + (20 * 5), h * 0.9), "textures/stoneTile.png", 3);
-	if (currentItem == nullptr)
-		space5.AddIcon(playerInventory.getItem(0, 4)->filePath, 3.0f);
-	else
-		space5.AddIcon("textures/emptySlot.png", 3.0f);
-	*/
 	return true;
 }
 
@@ -161,11 +139,11 @@ void UiScene::Render() {
 	player->Render(0.1f);
 	text.Render();
 	panel.Render();
-	space1.Render();
-	space2.Render();
-	//space3.Render();
-	//space4.Render();
-	//space5.Render();
+	for (int i = 0; i < 5; i++)
+	{
+		
+		space[i].Render();
+	}
 
 	SDL_RenderPresent(renderer);
 }
@@ -184,28 +162,16 @@ void UiScene::refreshIcon() {
 		panel.AddIcon("textures/emptySlot.png", 7.0f).AddButton(std::bind(&UiScene::ButtonTest, this));
 	}
 
-	space1.ClearIcons();
-
-	// Add the new icon based on the current item
-	if (playerInventory.getItem(0,0) != nullptr) {
-		// Add the current item's icon
-		space1.AddIcon(playerInventory.getItem(0,0)->filePath, 0.5f).AddButton(std::bind(&UiScene::ButtonTest, this));
-	}
-	else {
-		// If no item, show an empty slot, which is just a plus icon
-		space1.AddIcon("textures/emptySlot.png", 0.5f).AddButton(std::bind(&UiScene::ButtonTest, this));
-	}
-
-	space2.ClearIcons();
-
-	// Add the new icon based on the current item
-	if (playerInventory.getItem(0, 1) != nullptr) {
-		// Add the current item's icon
-		space2.AddIcon(playerInventory.getItem(0, 1)->filePath, 0.5f).AddButton(std::bind(&UiScene::ButtonTest, this));
-	}
-	else {
-		// If no item, show an empty slot, which is just a plus icon
-		space2.AddIcon("textures/emptySlot.png", 0.5f).AddButton(std::bind(&UiScene::ButtonTest, this));
+	for (int i = 0; i < 5; i++) {
+		space[i].ClearIcons();
+		if (playerInventory.getItem(0, i) != nullptr) {
+			// Add the current item's icon
+			space[i].AddIcon(playerInventory.getItem(0, i)->filePath, 0.5f).AddButton(std::bind(&UiScene::ButtonTest, this));
+		}
+		else {
+			// If no item, show an empty slot, which is just a plus icon
+			space[i].AddIcon("textures/emptySlot.png", 0.5f).AddButton(std::bind(&UiScene::ButtonTest, this));
+		}
 	}
 }
 
@@ -239,6 +205,7 @@ void UiScene::HandleEvents(const SDL_Event& event)
 					break;
 				case SDL_SCANCODE_Z:
 					playerInventory.removeItem(currentItemRow, currentItemColumn);
+					currentItem = playerInventory.getItem(0, currentItemColumn);
 					break;
 
 		}
@@ -308,7 +275,8 @@ SDL_Rect UiScene::scale(SDL_Texture* objectTexture, int start_x, int start_y, fl
 }
 
 void UiScene::OnDestroy() {
-	//player->OnDestroy();
+	player->OnDestroy();
+	panel.OnDestroy();
 }
 
 UiScene::~UiScene() {

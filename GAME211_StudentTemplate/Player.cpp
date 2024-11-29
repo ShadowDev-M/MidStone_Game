@@ -1,6 +1,5 @@
 #include "Player.h"
 
-
 Player::Player(
     Vec3 pos_, Vec3 vel_, Vec3 accel_,
     float mass_,
@@ -25,11 +24,14 @@ Player::Player(
 
 bool Player::OnCreate()
 {
-    textureFile = "textures/Pacman.png"; //Placeholder image
+    textureFile = "textures/PacMan.png";//Placeholder image
     SetTextureFile(textureFile);
     texture = loadImage(textureFile);
+    // Image Surface used for animations
+    setImage(IMG_Load(textureFile));
+
     SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
-    hitbox.OnCreate(size.x, size.y, 0.1f);
+    hitbox.OnCreate(size.x, size.y, 0.05f);
     hitbox.Subscribe(
         [this](const TileFaces& collidedObject) {
             onCollisionEnter(collidedObject);
@@ -44,7 +46,7 @@ bool Player::OnCreate()
 void Player::Render(float scale)
 {   
     // Calls body entity render
-    renderEntity(scale);
+    renderEntity(0.05f);
     
     
 }
@@ -68,7 +70,7 @@ void Player::HandleEvents( const SDL_Event& event )
         if (event.key.keysym.scancode == SDL_SCANCODE_A)
             vel.x = -walkSpeedMax;
 
-        isWallBouncing = false;
+        //isWallBouncing = false;
     }
 
     //If we release one of the keys, stop velocity in that direction
@@ -103,13 +105,38 @@ void Player::Update( float deltaTime )
     // Note that would update velocity too, and rotation motion
     
     //hitbox.setObstacles(hitFaces);
+    //pos.print();
+    
 
+    ////
+    //vel.print();
+    
     //hitFaces.empty();
     Body::Update( deltaTime );
-    
+
+    if (invulTimer > 0)
+        invulTimer--;
+
+    //std::cout << region->getFaces(Vec2(pos.x, pos.y), Vec2(vel.x, vel.y)).objectTag << std::endl;
+    if (region != nullptr) {
+        std::vector<TileFaces> tempFaces;
+        
+        //tempFaces.push_back(region->getFaces(Vec2(pos.x, pos.y), Vec2(vel.x, vel.y)));
+        permFaces = region->getFaces(Vec2(pos.x,pos.y),Vec2(vel.x,vel.y));
+
+        hitbox.setObstacles(permFaces);
+        //SDL_RenderDrawLine(renderer, 0, 0, 1, 1);
+    }
+
+   
+
     hitbox.CheckCollision(pos,vel);
-     
-    if (isWallBouncing) {
+   
+    Body::Update(deltaTime);
+
+    hitbox.CheckCollision(pos, vel);
+
+    if (isWallBouncingX) {
         // Gradually reduce horizontal velocity
         if (fabs(vel.x) > 0.01f) {
             vel.x *= wallBounceDecay; // Apply damping
@@ -117,7 +144,12 @@ void Player::Update( float deltaTime )
         else {
             vel.x = 0; // Stop when velocity is small enough
         }
-
+        if (vel.x == 0) {
+            isWallBouncingX = false; // End bounce-back state
+             // End bounce-back state
+        }
+    }
+    else if (isWallBouncingY) {
         // Gradually reduce vertical velocity
         if (fabs(vel.y) > 0.01f) {
             vel.y *= wallBounceDecay; // Apply damping
@@ -127,12 +159,22 @@ void Player::Update( float deltaTime )
         }
 
         // Stop bounce-back when both velocities are zero
-        if (vel.x == 0 && vel.y == 0) {
-            isWallBouncing = false; // End bounce-back state
+        if (vel.y == 0) {
+           // End bounce-back state
+            isWallBouncingY = false; // End bounce-back state
         }
+        //else if (vel.x <= 0 && vel.y == 0) {
     }
-
+        //}
+    Body::Update(deltaTime);
 }
+
+//
+void Player::setFaces(std::vector<TileFaces> faces_)
+{
+    hitbox.setObstacles(faces_);
+}
+
 
 void Player::OnDestroy()
 {
@@ -153,23 +195,72 @@ void Player::onCollisionEnter(const TileFaces& collidedObject)
     case wall:
                 
         if (collidedObject.PointOne.y == collidedObject.PointTwo.y) {
-            // Horizontal wall adjustment
-            if (vel.y != 0) {
-                vel.y = -vel.y; // Reverse velocity to simulate bounce-back
-                isWallBouncing = true; // Trigger bounce-back state
+            //
+            if (abs(vel.y) != 0) {
+                int direction = vel.y > 0 ? 1 : -1;
+
+                if (isWallBouncingY == false)
+                vel.y = -direction * 4.0f; // Reverse velocity to simulate bounce-back
+                
+                
+                isWallBouncingY = true; // Trigger bounce-back state
             }
+            
+
+            /*if (vel.y <= -0) {
+                vel.y += 4.0f;
+                isWallBouncing = true;
+                return;
+            }
+
+            if (vel.y > 0) {
+                vel.y -= 4.0f;
+                isWallBouncing = false;
+                return;
+            }*/
+
+            // Velocity is KEY to this issue, gotta figure out how to do it with negative velocity or change how movement works
+
+            //
+            
         }
-        else {
+
+        else if(collidedObject.PointOne.x == collidedObject.PointTwo.x) {
             // Vertical wall adjustment
-            if (vel.x != 0) {
-                vel.x = -vel.x; // Reverse velocity to simulate bounce-back
-                isWallBouncing = true; // Trigger bounce-back state
+            if (abs(vel.x) != 0) {
+                
+                int direction = vel.x > 0 ? 1 : -1;
+                if (isWallBouncingX == false)
+                vel.x = -direction * 4.0f; // Reverse velocity to simulate bounce-back
+
+                isWallBouncingX = true;// Trigger bounce-back state
+                printf("%f ", vel.x);
             }
+            
+
+           /* if (vel.x <= -0) {
+                vel.x += 4.0f;
+                isWallBouncing = true;
+            }*/
+
+            //
+            //if (vel.x < 0) {
+            //    int direction = vel.x < 0 ? -1 : 1;
+            //    //walkSpeedMax = 2.0f;
+            //    vel.x = direction * 4.0f; // Reverse velocity to simulate bounce-back
+            //    isWallBouncing = true; // Trigger bounce-back state
+            //}
+            
         }
         break;
 
     case enemy:
-        std::cout << "\nplayer gets damaged";
+        if (invulTimer <= 0)
+        {
+            invulTimer = invulTimerMax;
+            std::cout << healthpoints << "\n";
+            healthpoints -= 1;
+        }
         break;
 
     case loot:

@@ -1,8 +1,6 @@
 #include "ChunkTestScene.h"
 #include <VMath.h>
 
-
-
 // See notes about this constructor in Scene1.h.
 SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
@@ -20,6 +18,7 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 
 	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	player->setRenderer(renderer);
+	player->SetTextureFile("textures/PlayerFacingFrontIdle.png");
 	player->setWidth(1.0f);
 	player->setHeight(1.0f);
 	player->SetRegion(&RegionOne);
@@ -38,10 +37,10 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	grassTile->setHeight(1.0f);
 
 	
-	ghost = new Body(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
-	ghost->SetTextureFile("textures/Pinky.png");
-	ghost->setWidth(1.0f);
-	ghost->setHeight(1.0f);
+	enemy = new Enemy(Vec3(xAxis / 2.0f + 3.0f, yAxis / 2.0f + 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	enemy->setRenderer(renderer);
+	enemy->setWidth(1.0f);
+	enemy->setHeight(1.0f);
 
 
 	sword = new Body(Vec3(xAxis / 2.0f + 1, yAxis / 2.0f + 1, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
@@ -52,8 +51,9 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 
 	stoneTileTexture = nullptr;
 	grassTileTexture = nullptr;
-	ghostTexture = nullptr;
 	swordTexture = nullptr;
+
+	
 
 }
 
@@ -63,16 +63,6 @@ bool SceneC::OnCreate() {
 	std::cout << "Entering ChunkTest" << std::endl;
 	testh = true;
 
-	
-
-	/*int w, h;
-	SDL_GetWindowSize(window, &w, &h);
-
-	Matrix4 ndc = MMath::viewportNDC(w, h);
-	Matrix4 ortho = MMath::orthographic(0.0f, LEVEL_WIDTH, 0.0f, LEVEL_HEIGHT, 0.0f, 1.0f);
-	projectionMatrix = ndc * ortho;*/
-	
-
 
 
 	camera.OnCreate();	
@@ -80,39 +70,43 @@ bool SceneC::OnCreate() {
 	
 	
 	player->OnCreate();
-	//enemy->OnCreate();
+	enemy->OnCreate();
 
-	//enemy->setProjection(projectionMatrix);
+	enemy->setProjection(projectionMatrix);
 	//enemy->setInverse(inverseProjection);
-
-	
-	// Initialize PNG image loading
-	int imgFlags = IMG_INIT_PNG;
-	if (!(IMG_Init(imgFlags) & imgFlags)) {
-		std::cout << "SDL_image Error: " << IMG_GetError() << std::endl;
-		return false;
-	}
 	
 
 	// Creating Chunks and Rendering them should be their own methods
 	
 	RegionOne.OnCreate();
 	changesIndex = {
-	{0, 0, 1}, {1, 2, 1}, {2,3,1}, {18,20,1} };
+		{0, 0, 1}
+		
+		
+		/*, {2, 0, 1}, {3, 0, 1}, {4, 0, 1}, {5, 0, 1},
+		{2, 7, 1}, {3, 7, 1}, {4, 7, 1}, {5, 7, 1}, {6, 7, 1},
+		{1, 1, 1}, {1, 2, 1}, {1, 3, 1}, {1, 4, 1}, {1, 5, 1}, {1, 6, 1}, {1, 7, 1},
+		{7, 7, 1}, {7, 6, 1}, {7, 5, 1}, {7, 4, 1}, {7, 3, 1}, {7, 2, 1}, {7, 1, 1}
 
 
-	
 
-	
-	// Ignore	
-	//TileFaces sword1 = TileFaces();
-	//sword1.PointOne = Vec2(sword->getPos().x - 0.5f, sword->getPos().y);
-	//sword1.PointTwo = Vec2(sword->getPos().x + 0.5f, sword->getPos().y);
-	//std::vector<TileFaces> faces;
-	//faces.push_back(sword1);
+		,{6, 0, 1}, {7, 0, 1}, {8, 0, 1}, {9, 0, 1}, {10, 0, 1},
+		{7, 7, 1}, {8, 7, 1}, {9, 7, 1}, {10, 7, 1}, {11, 7, 1},
+		{1, 8, 1}, {1, 9, 1}, {1, 10, 1}, {1, 11, 1}, {1, 12, 1}, {1, 13, 1}, {1, 14, 1},
+		{7, 14, 1}, {7, 13, 1}, {7, 12, 1}, {7, 11, 1}, {7, 10, 1}, {7, 9, 1}, {7, 8, 1}
+
+		,{15, 0, 1}, {14, 0, 1}, {13, 0, 1}, {12, 0, 1}, {11, 0, 1},
+		{12, 7, 1}, {13, 7, 1}, {14, 7, 1}, {15, 7, 1}, {16, 7, 1},
+		{1, 21, 1}, {1, 20, 1}, {1, 19, 1}, {1, 18, 1}, {1, 17, 1}, {1, 16, 1}, {1, 15, 1},
+		{7, 21, 1}, {7, 20, 1}, {7, 19, 1}, {7, 18, 1}, {7, 17, 1}, {7, 16, 1}, {7, 15, 1}*/
+		
+	};
+
+
 	//player->hitbox.setObstacles(faces);
+	
 
-	//RegionOne.addLoadingEntity(player);
+	RegionOne.addLoadingEntity(player);
 
 
 	//std::cout << changesIndex.at(0).id;
@@ -120,8 +114,6 @@ bool SceneC::OnCreate() {
 	stoneTileTexture = camera.refinedLoadImage(stoneTile, renderer);
 
 	grassTileTexture = camera.refinedLoadImage(grassTile, renderer);
-
-	ghostTexture = camera.refinedLoadImage(ghost, renderer);
 	
 	swordTexture = camera.refinedLoadImage(sword, renderer);
 
@@ -130,7 +122,16 @@ bool SceneC::OnCreate() {
 
 
 
-
+bool SceneC::mouseInsideEnemy(Vec3 mouseCoords, Body* body)
+{
+	if ((mouseCoords.x >= body->getPos().x - body->width) &&
+		(mouseCoords.x <= body->getPos().x + body->width) &&
+		(mouseCoords.y >= body->getPos().y - body->height) &&
+		(mouseCoords.y <= body->getPos().y + body->height)) {
+		return true;
+	}
+	return false;
+} 
 
 void SceneC::Update(const float deltaTime) {
 	//// Will make this its own extracted function after (will put in camera class too)
@@ -142,15 +143,27 @@ void SceneC::Update(const float deltaTime) {
 	RegionOne.Update();
 
 
-	//enemy->Update(deltaTime);
+	enemy->Update(deltaTime);
 	
 	if (testh) {
 		RegionOne.setTile(changesIndex);
 			testh = false;
 	};
 
+	
+	SDL_GetMouseState(&mouseX, &mouseY);
+	mousePhysicsCoords = camera.ScreenToWorldCoords(Vec3(mouseX + mouseOffSet, mouseY + mouseOffSet, 0.0f));
+	
 
-	//std::cout << "(" << player->getPos().x << ") " << std::endl;
+
+	//if (mouseInsideEnemy(mousePhysicsCoords, sword) == true) {
+	//	std::cout << "ENEMY UNDER CURSOR";
+	//}
+
+	
+
+	//std::cout << "Mouse Coords: " << mousePhysicsCoords.x << ", " << mousePhysicsCoords.y << "\n";
+	//std::cout << "Sword Pos: " << sword->getPos().x << ", " << sword->getPos().y << "\n";
 
 	//std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
 	//std::cout << "TILE LOCATIONS:" << stoneTile->getPos().x << ", " << stoneTile->getPos().y << "\n";
@@ -162,7 +175,7 @@ void SceneC::Render() {
 	
 	// Clear the screen
 	SDL_RenderClear(renderer);
-
+	
 	// unified measurement system
 	// Render Chunks
 	// Camera
@@ -170,13 +183,13 @@ void SceneC::Render() {
 	// NOT FINAL, just temp rendering for chunks just to get something on screen that can also be changed and used with physics and collision
 	// Will get fixed up afterwards
 
-	Vec2 playerChunkPos = Vec2(0,0);
+	Vec2 playerChunkPos = RegionOne.getChunkLocation(Vec2(player->getPos().x, player->getPos().y));
 	//for (int i = 0; i < 16*16; i++) {
-	for (int i = -1; i < 2; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		for (int j = -1; j < 2; j++)
+		for (int j = 0; j < 3; j++)
 		{
-			Vec2 chunkRenderPos = Vec2((playerChunkPos.x)+i, (playerChunkPos.y)+j);
+			Vec2 chunkRenderPos = Vec2((playerChunkPos.x-1)+i, (playerChunkPos.y-1)+j);
 
 			for (int x = 0; x < 16; x++) {
 				for (int y = 0; y < 16; y++) {
@@ -209,6 +222,9 @@ void SceneC::Render() {
 		}
 	}
 	//}
+
+
+	// Renders line of Tile Collison
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	for (TileFaces tile : player->permFaces) {
 		Vec3 screenCoords1 = projectionMatrix * Vec3(tile.PointOne.x, tile.PointOne.y, 0.0f);
@@ -217,18 +233,77 @@ void SceneC::Render() {
 		SDL_RenderDrawLine(renderer, screenCoords1.x, screenCoords1.y, screenCoords2.x, screenCoords2.y);
 	}
 
-	
-	
-	// Everything now needs to use the scalingfactor to properly scale with the screen
-	player->Render(camera.scalingFactor(player->getTexture(), player));
+
+	SDL_Rect srcRect = PlayerAnimation(2);
+
+	Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
+	SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
+	SDL_RenderCopy(renderer, player->getTexture(), &srcRect, &Dest);
+
+
+
+
+	//Uint32 ticks = SDL_GetTicks();
+	//Uint32 sprite = (ticks / 200) % 2;
+
+	//SDL_Rect srcrect = { sprite * (player->getImage()->w / 2.0f), 0, player->getImage()->w / 2.0f, player->getImage()->h };
 
 	
+
+	//// Everything now needs to use the scalingfactor to properly scale with the screen
+
+	////player->Render(camera.scalingFactor(player->getTexture(), player));
+
+	//Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
+	//SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
+
+	//SDL_RenderCopy(renderer, player->getTexture(), &srcrect, &Dest);
+	
+	
+	//Uint32 ticks = SDL_GetTicks();
+	//Uint32 sprite = (ticks / 200) % 2;
+
+	//SDL_Rect srcrect = { sprite * (player->getImage()->w / 2.0f), 0, player->getImage()->w / 2.0f, player->getImage()->h };
+
+
+	//// Everything now needs to use the scalingfactor to properly scale with the screen
+	//
+	////player->Render(camera.scalingFactor(player->getTexture(), player));
+
+	//Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
+	//SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
+
+	//SDL_RenderCopy(renderer, player->getTexture(), &srcrect, &Dest);
+	//// Convert character orientation from radians to degrees.
+	//float orientationDegrees = object->getOrientation() * 180.0f / M_PI;
+
+	//SDL_RenderCopyEx(renderer, objectTexture, nullptr, &Dest,
+	//	orientationDegrees, nullptr, SDL_FLIP_NONE);
+
+
+	camera.renderEntity(enemy, enemy->getTexture(), renderer);
+
 	camera.renderObject(sword, swordTexture, renderer);
 
-	//body->GetTexture() body->
+
+	// TileFaces newTile = TileFaces(Vec2(5, 4), Vec2(10, 4), wall);
+	/*SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderDrawLine(renderer, newTile.PointOne.x, newTile.PointOne.y, newTile.PointTwo.x, newTile.PointTwo.y);*/
 
 	// update screen
 	SDL_RenderPresent(renderer);
+}
+
+SDL_Rect SceneC::PlayerAnimation(int frames)
+{
+	SDL_RenderClear;
+
+	Uint32 ticks = SDL_GetTicks();
+	Uint32 sprite = (ticks / 200) % frames;
+
+	SDL_Rect srcrect = { sprite * (player->getImage()->w / frames), 0, player->getImage()->w / frames, player->getImage()->h };
+
+	return srcrect;
 }
 
 
@@ -236,6 +311,116 @@ void SceneC::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	player->HandleEvents(event);
+
+
+	MoveSword(event);
+
+	//switch (event.type) {
+	//case SDL_KEYDOWN:
+	//	switch (event.key.keysym.scancode) {
+	//	case SDL_SCANCODE_S:
+	//		//SDL_RenderClear;
+	//		//player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	//		player->SetTextureFile("textures/PlayerWalkBack.png");
+	//		player->setImage(IMG_Load(player->GetTextureFile()));
+
+	//		Uint32 ticks = SDL_GetTicks();
+	//		Uint32 sprite = (ticks / 200) % 4;
+
+	//		SDL_Rect srcrect = { sprite * (player->getImage()->w / 4.0f), 0, player->getImage()->w / 4.0f, player->getImage()->h };
+
+
+	//		// Everything now needs to use the scalingfactor to properly scale with the screen
+
+	//		//player->Render(camera.scalingFactor(player->getTexture(), player));
+
+	//		Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
+	//		SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
+
+	//		SDL_RenderCopy(renderer, player->getTexture(), &srcrect, &Dest);
+	//		break;
+	//	}
+
+	//	break;
+
+	//default:
+	//	//player->SetTextureFile("textures/PlayerFacingFrontIdle.png");
+	//	Uint32 ticks = SDL_GetTicks();
+	//	Uint32 sprite = (ticks / 200) % 2;
+
+	//	SDL_Rect srcrect = { sprite * (player->getImage()->w / 2.0f), 0, player->getImage()->w / 2.0f, player->getImage()->h };
+
+
+	//	// Everything now needs to use the scalingfactor to properly scale with the screen
+
+	//	
+
+	//	Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
+	//	SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
+
+	//	SDL_RenderCopy(renderer, player->getTexture(), &srcrect, &Dest);
+	//	break;
+	//}
+
+
+	//else {
+	//	//SDL_RenderClear;
+	//	Uint32 ticks = SDL_GetTicks();
+	//	Uint32 sprite = (ticks / 200) % 2;
+
+	//	SDL_Rect srcrect = { sprite * (player->getImage()->w / 2.0f), 0, player->getImage()->w / 2.0f, player->getImage()->h };
+
+
+	//	// Everything now needs to use the scalingfactor to properly scale with the screen
+
+	//	//player->Render(camera.scalingFactor(player->getTexture(), player));
+
+	//	Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
+	//	SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
+
+	//	SDL_RenderCopy(renderer, player->getTexture(), &srcrect, &Dest);
+	//}
+
+}
+
+void SceneC::MoveSword(const SDL_Event& event)
+{
+	if (event.type == SDL_MOUSEBUTTONDOWN) { // mouse button down event
+		if (event.button.button == SDL_BUTTON_LEFT) { // left click on mouse
+			// Using function to check if mouse click is within the bounds of the image "bounds"
+			
+			
+
+			// Change player sprite when attacking
+			if (mouseInsideEnemy(mousePhysicsCoords, enemy) == true) {
+				tempHealth -= tempDamage;
+				std::cout << "\n" << "Clicked/Enemy Takes Damage";
+				
+				std::cout << "Damage Value: " << tempHealth << std::endl;
+				
+				if (tempHealth <= 0) {
+					std::cout << "\n" << "Enemy Dies";
+
+					enemy = nullptr;
+					enemy = new Enemy();
+				}
+				
+			}
+
+			
+
+
+		}
+	}
+
+	else if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) { // when the left click of the mouse is released
+		
+	}
+
+	//else if (event.type == SDL_MOUSEMOTION && movedObject) { // When movedStar is equal to one of the stars, use mouse motion to move the planet around 
+	//	// set the poistion of the movedStar to that of the mouse when moving it around
+	//	movedObject->getPos() = mousePhysicsCoords;
+	//}
 }
 
 void SceneC::OnDestroy() {
