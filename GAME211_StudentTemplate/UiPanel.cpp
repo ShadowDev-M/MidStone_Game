@@ -1,5 +1,10 @@
 #include "UiPanel.h"
 
+UiPanel::~UiPanel()
+{
+    
+}
+
 UiPanel::UiPanel()
 {
 
@@ -78,3 +83,9 @@ SDL_Texture* UiPanel::loadImage(const char* textureFile)
 
     return newTexture;
 }
+void UiPanel::OnDestroy() {
+    delete PanelImage;
+    delete PanelTexture;
+    delete IconImage;
+    delete IconTexture;
+};
