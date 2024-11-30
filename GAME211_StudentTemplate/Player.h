@@ -10,6 +10,8 @@
 #include <SDL_image.h>
 #include <Vector.h>
 #include "BoxCollider.h"
+#include "ChunkHandler.h"
+#include "BoxCollider.h"
 
 class Player : public Body
 {
@@ -76,7 +78,10 @@ public:
     void Render(float scale = 1.0f);
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
-    void takeDamage(float damage) { healthpoints -= damage; }
+    void takeDamage(float damage) {
+        healthpoints -= damage;
+        std::cout << "Damaged: " << healthpoints << endl;
+    }
     void setItem(Item newItem) { currentItem = newItem; }
     void setFaces(std::vector<TileFaces> faces_); //
 

@@ -37,7 +37,7 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	grassTile->setHeight(1.0f);
 
 	
-	enemy = new Enemy(Vec3(xAxis / 2.0f + 3.0f, yAxis / 2.0f + 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	enemy = new Enemy(Vec3(xAxis / 2.0f + 3.0f, yAxis / 2.0f + 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
 	enemy->setRenderer(renderer);
 	enemy->setWidth(1.0f);
 	enemy->setHeight(1.0f);
