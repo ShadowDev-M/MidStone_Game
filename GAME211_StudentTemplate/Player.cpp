@@ -35,8 +35,6 @@ bool Player::OnCreate()
     hitbox.Subscribe(
         [this](const TileFaces& collidedObject) {
             onCollisionEnter(collidedObject);
-        }, [this](const TileFaces& collidedObject) {
-            onCollisionExit(collidedObject);
         });
 
     //hitbox.Subscribe(onCollisionTrigger);

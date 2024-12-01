@@ -5,7 +5,7 @@ EnemyManager::EnemyManager()
 	srand((unsigned)time(NULL)); //provide a seed value
 }
 
-std::vector<Enemy*> EnemyManager::spawnEnemy(int amount)
+std::vector<Enemy*> EnemyManager::spawnEnemy(int amount, Player* player_)
 {
 	for (int i = 0; i < amount; i++)
 	{
@@ -15,12 +15,11 @@ std::vector<Enemy*> EnemyManager::spawnEnemy(int amount)
 		newPos.print();
 		std::cout << "\n";
 
-		Enemy* myEnemy = new Enemy(Vec3(newPos.x, newPos.y, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+		Enemy* myEnemy = new Enemy(Vec3(newPos.x, newPos.y, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0,player_);
 		myEnemy->setRenderer(renderer);
 		myEnemy->OnCreate();
 		myEnemy->setWidth(1.0f);
 		myEnemy->setHeight(1.0f);
-
 		enemyList.push_back(myEnemy);
 	}
 
@@ -32,6 +31,14 @@ bool EnemyManager::OnCreate()
 	
 	
 	return true;
+}
+
+void EnemyManager::SetRegion(ChunkHandler* region_)
+{
+	for (int i = 0; i < enemyList.size(); i++)
+	{
+		enemyList[i]->SetRegion(region_);
+	}
 }
 
 void EnemyManager::RenderEnemies(Camera localCamera)

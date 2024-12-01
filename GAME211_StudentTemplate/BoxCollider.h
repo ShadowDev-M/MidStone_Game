@@ -52,9 +52,9 @@ public:
 
 
 	//Subscribe your collision response Function using this
-	void Subscribe(CollisionCallback enterCallback,CollisionCallback exitCallback) {
+	void Subscribe(CollisionCallback enterCallback) {
 		onCollisionEnter = enterCallback;
-		onCollisionExit = exitCallback;
+		
 	}
 
 	// Trigger the collision callback

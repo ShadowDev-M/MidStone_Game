@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "ChunkHandler.h"
 #include "Camera.h"
+#include "Player.h"
 
 class EnemyManager 
 {
@@ -20,9 +21,9 @@ public:
 	std::vector<TileFaces> enemyFaces;
 
 	//Spawn enemies
-	std::vector<Enemy*> spawnEnemy(int amount);
+	std::vector<Enemy*> spawnEnemy(int amount, Player* player_);
 	bool OnCreate();
-
+	void SetRegion(ChunkHandler* region_);
 	void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body
 
 	//Render enemies
