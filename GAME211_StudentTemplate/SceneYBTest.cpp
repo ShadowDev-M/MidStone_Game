@@ -254,6 +254,9 @@ void SceneYBTest::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	player->HandleEvents(event);
+
+
+
 }
 
 void SceneYBTest::OnDestroy() {

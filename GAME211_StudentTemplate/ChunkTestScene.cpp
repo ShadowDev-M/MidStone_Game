@@ -16,7 +16,7 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	yAxis = camera.getYAxis();
 
 
-	player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	player = new Player(Vec3(1, 1, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	player->setRenderer(renderer);
 	player->SetTextureFile("textures/PlayerFacingFrontIdle.png");
 	player->setWidth(1.0f);
@@ -25,25 +25,25 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	//RegionOne.setPlayer(player);
 
 
-	stoneTile = new Body(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	stoneTile = new Body(Vec3(0, 0, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	stoneTile->SetTextureFile("textures/StoneTile.png");
 	stoneTile->setWidth(1.0f);
 	stoneTile->setHeight(1.0f);
 
 
-	grassTile = new Body(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	grassTile = new Body(Vec3(0, 0, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	grassTile->SetTextureFile("textures/GrassTile.png");
 	grassTile->setWidth(1.0f);
 	grassTile->setHeight(1.0f);
 
 	
-	enemy = new Enemy(Vec3(xAxis / 2.0f + 3.0f, yAxis / 2.0f + 3.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	enemy = new Enemy(Vec3(4, 4, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	enemy->setRenderer(renderer);
 	enemy->setWidth(1.0f);
 	enemy->setHeight(1.0f);
 
 
-	sword = new Body(Vec3(xAxis / 2.0f + 1, yAxis / 2.0f + 1, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	sword = new Body(Vec3(3, 3, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	sword->SetTextureFile("textures/sword.png");
 	sword->setWidth(1.0f);
 	sword->setHeight(1.0f);
@@ -165,7 +165,7 @@ void SceneC::Update(const float deltaTime) {
 	//std::cout << "Mouse Coords: " << mousePhysicsCoords.x << ", " << mousePhysicsCoords.y << "\n";
 	//std::cout << "Sword Pos: " << sword->getPos().x << ", " << sword->getPos().y << "\n";
 
-	//std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
+	std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
 	//std::cout << "TILE LOCATIONS:" << stoneTile->getPos().x << ", " << stoneTile->getPos().y << "\n";
 }
 
