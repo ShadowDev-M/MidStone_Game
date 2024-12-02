@@ -46,16 +46,19 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	grassTile->setWidth(1.0f);
 	grassTile->setHeight(1.0f);
 
-	
-	enemy = new Enemy(Vec3(4, 4, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
-	enemy->setRenderer(renderer);
-	enemy->setWidth(1.0f);
-	enemy->setHeight(1.0f);
+	enemyManager = new EnemyManager();
+	enemyManager->setRenderer(renderer);
+	enemyList = enemyManager->spawnEnemy(10, player);
 
-	enemy1 = new Enemy(Vec3(6, 6, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
-	enemy1->setRenderer(renderer);
-	enemy1->setWidth(1.0f);
-	enemy1->setHeight(1.0f);
+	//enemy = new Enemy(Vec3(4, 4, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
+	//enemy->setRenderer(renderer);
+	//enemy->setWidth(1.0f);
+	//enemy->setHeight(1.0f);
+
+	//enemy1 = new Enemy(Vec3(6, 6, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
+	//enemy1->setRenderer(renderer);
+	//enemy1->setWidth(1.0f);
+	//enemy1->setHeight(1.0f);
 
 	
 
@@ -85,13 +88,13 @@ bool SceneC::OnCreate() {
 
 	player->setupCollision();
 
-	enemy->OnCreate();
+	//enemy->OnCreate();
 
-	enemy->setProjection(projectionMatrix);
+	//enemy->setProjection(projectionMatrix);
 
-	enemy1->OnCreate();
+	//enemy1->OnCreate();
 
-	enemy1->setProjection(projectionMatrix);
+	//enemy1->setProjection(projectionMatrix);
 	//enemy->setInverse(inverseProjection);
 	
 
@@ -200,10 +203,12 @@ void SceneC::Update(const float deltaTime) {
 	player->Update(deltaTime);
 	RegionOne.Update();
 
+	enemyManager->Update(deltaTime);
 
-	enemy->Update(deltaTime);
 
-	enemy1->Update(deltaTime);
+	//enemy->Update(deltaTime);
+
+	//enemy1->Update(deltaTime);
 	
 	if (testh) {
 		RegionOne.setTile(changesIndex);
@@ -306,14 +311,11 @@ void SceneC::Render() {
 	
 	player->renderPlayer(player->scale, 2);
 
+	enemyManager->RenderEnemies(camera);
 
+	//camera.renderEntity(enemy, enemy->getTexture(), renderer);
 
-
-	
-
-	camera.renderEntity(enemy, enemy->getTexture(), renderer);
-
-	camera.renderEntity(enemy1, enemy1->getTexture(), renderer);
+	//camera.renderEntity(enemy1, enemy1->getTexture(), renderer);
 
 
 	
@@ -406,43 +408,44 @@ void SceneC::AttackEnemy(const SDL_Event& event)
 		if (event.button.button == SDL_BUTTON_LEFT) { // left click on mouse
 			// Using function to check if mouse click is within the bounds of the image "bounds"
 			
-			
+			for (int i = 0; i < enemyList.size(); i++)
+			{
+				// Change player sprite when attacking
+				if (mouseInsideEnemy(mousePhysicsCoords, enemyList[i]) == true) {
+					tempHealth -= tempDamage;
+					std::cout << "\n" << "Clicked/Enemy Takes Damage";
 
-			// Change player sprite when attacking
-			if (mouseInsideEnemy(mousePhysicsCoords, enemy) == true) {
-				tempHealth -= tempDamage;
-				std::cout << "\n" << "Clicked/Enemy Takes Damage";
-				
-				std::cout << "Damage Value: " << tempHealth << std::endl;
-				
-				if (tempHealth <= 0) {
-					std::cout << "\n" << "Enemy Dies";
-					enemy->setTexture(nullptr);
-					//enemy = nullptr;
+					std::cout << "Damage Value: " << tempHealth << std::endl;
 
-					//enemy = nullptr;
-					//enemy = new Enemy();
+					if (tempHealth <= 0) {
+						std::cout << "\n" << "Enemy Dies";
+						enemy->setTexture(nullptr);
+						//enemy = nullptr;
+
+						//enemy = nullptr;
+						//enemy = new Enemy();
+					}
+
 				}
-				
 			}
 
 			// Change player sprite when attacking
-			if (mouseInsideEnemy(mousePhysicsCoords, enemy1) == true) {
-				tempHealth -= tempDamage;
-				std::cout << "\n" << "Clicked/Enemy Takes Damage";
+			//if (mouseInsideEnemy(mousePhysicsCoords, enemy1) == true) {
+			//	tempHealth -= tempDamage;
+			//	std::cout << "\n" << "Clicked/Enemy Takes Damage";
 
-				std::cout << "Damage Value: " << tempHealth << std::endl;
+			//	std::cout << "Damage Value: " << tempHealth << std::endl;
 
-				if (tempHealth <= 0) {
-					std::cout << "\n" << "Enemy Dies";
-					enemy1->setTexture(nullptr);
-					//enemy = nullptr;
+			//	if (tempHealth <= 0) {
+			//		std::cout << "\n" << "Enemy Dies";
+			//		enemy1->setTexture(nullptr);
+			//		//enemy = nullptr;
 
-					//enemy = nullptr;
-					//enemy = new Enemy();
-				}
+			//		//enemy = nullptr;
+			//		//enemy = new Enemy();
+			//	}
 
-			}
+			//}
 			
 
 
@@ -472,6 +475,8 @@ void SceneC::OnDestroy() {
 		space[i].OnDestroy();
 	}
 	panel.OnDestroy();
+	enemyManager->OnDestroy();
+	delete enemyManager;
 }
 
 
