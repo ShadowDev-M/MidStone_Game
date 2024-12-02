@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "MMATH.h"
 #include <SDL_ttf.h>
+#include <string>
 
 
 using namespace MATH;

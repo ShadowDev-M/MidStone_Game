@@ -1,4 +1,5 @@
 #include "Item.h"
+#include "player.h"
 #include <cmath>
 
 //
@@ -31,7 +32,10 @@ void Item::CheckInRange(SDL_Window* window) {
     inRange = (MouseDistance <= range);
 }
 
-Item::Item(const char* name_, const char* filePath_) {
+Item::Item(const char* name_, const char* filePath_, float range_, float one_, float two_) {
     itemName = name_;
     filePath = filePath_;
+    one_ = one;
+    two_ = two;
+    range_ = range;
 }

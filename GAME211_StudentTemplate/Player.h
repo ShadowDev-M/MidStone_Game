@@ -58,6 +58,8 @@ public:
     SDL_Texture* playerTexture;
 
     // use the base class versions of getters
+    float getPlayerHP() { return healthpoints; }
+    float addPlayerHP(float heal) { healthpoints += heal; if (healthpoints >= healthpointsMax) { healthpoints = healthpointsMax; } return healthpoints; }
     bool OnCreate();
     void OnDestroy();
     void Render(float scale = 1.0f);

@@ -5,7 +5,10 @@
 #include "Scene.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "UiPanel.h"
+#include "UiText.h"
 #include <queue>
+#include "HPbar.h"
 
 using namespace MATH;
 class Scene1 : public Scene {
@@ -16,6 +19,8 @@ private:
 	SDL_Renderer* renderer;	// the renderer associated with SDL window
 	Matrix4 projectionMatrix;	// set in OnCreate()
     Matrix4 inverseProjection;	// set in OnCreate()
+
+
 
 	Player* player;
 	Enemy* enemy;
@@ -45,6 +50,7 @@ public:
 	void OnDestroy();
 	void Update(const float time);
 	void Render();
+	//void refreshIcon();
     void HandleEvents(const SDL_Event &event);
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }

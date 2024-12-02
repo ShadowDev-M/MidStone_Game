@@ -1,7 +1,7 @@
 #include "UiScene.h"
 #include <VMath.h>
 #include <functional>
-#include "CreateItem.h"
+//#include "CreateItem.h"
 
 
 
@@ -27,18 +27,18 @@ UiScene::UiScene(SDL_Window* sdlWindow_, GameManager* game_) {
 
 
 //defualt initial item
-Item* currentItem = playerInventory.getItem(0, 3);
-int currentItemRow = 0;
-int currentItemColumn = 3;
+//Item* currentItem = playerInventory.getItem(0, 3);
+//int currentItemRow = 0;
+//int currentItemColumn = 3;
 
 bool UiScene::OnCreate() {
 	// Check to make sure loading scene works
 	std::cout << "Entering UiScene" << std::endl;
-	playerInventory.addItem(sword);
+	/*playerInventory.addItem(sword);
 	playerInventory.addItem(sword);
 	playerInventory.addItem(shield);
 	playerInventory.printInventory();
-
+	*/
 
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
@@ -69,7 +69,7 @@ bool UiScene::OnCreate() {
 		, 450.0f //Width
 		, "Unreal Engine Is Dumb"); //Message
 
-
+/*
 	//CURRENT ITEM ICON
 	panel.OnCreate(renderer, Vec2(w / 30, h / 2 + 160), "textures/stoneTile.png", 7);
 	if (currentItem != nullptr)
@@ -92,7 +92,7 @@ bool UiScene::OnCreate() {
 			space[i].AddIcon("textures/emptySlot.png", 0.5);
 		}
 	}
-
+	*/
 	return true;
 }
 
@@ -137,20 +137,20 @@ void UiScene::Render() {
 
 	// render the player
 	player->Render(0.1f);
-	text.Render();
+	text.Render();/*
 	panel.Render();
 	for (int i = 0; i < 5; i++)
 	{
 		
 		space[i].Render();
 	}
-
+	*/
 	SDL_RenderPresent(renderer);
 }
 
-void UiScene::refreshIcon() {
+//void UiScene::refreshIcon() {
 	// Clear the current icon
-	panel.ClearIcons();
+	/*panel.ClearIcons();
 
 	// Add the new icon based on the current item
 	if (currentItem != nullptr) {
@@ -172,14 +172,14 @@ void UiScene::refreshIcon() {
 			// If no item, show an empty slot, which is just a plus icon
 			space[i].AddIcon("textures/emptySlot.png", 0.5f).AddButton(std::bind(&UiScene::ButtonTest, this));
 		}
-	}
-}
+	}*/
+//}
 
 void UiScene::HandleEvents(const SDL_Event& event)
 {
 	player->HandleEvents(event);
-	panel.HandleEvent(event);
-
+//	panel.HandleEvent(event);
+/*
 	if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
 		// Press number to change your current item
 		switch (event.key.keysym.scancode) {
@@ -219,9 +219,8 @@ void UiScene::HandleEvents(const SDL_Event& event)
 		}
 		else {
 			std::cout << "Selected slot is empty." << std::endl;
-		}
+		}*/
 	}
-}
 
 Vec3 UiScene::screenCoords(Vec3 gameCoords)
 {
@@ -276,7 +275,8 @@ SDL_Rect UiScene::scale(SDL_Texture* objectTexture, int start_x, int start_y, fl
 
 void UiScene::OnDestroy() {
 	player->OnDestroy();
-	panel.OnDestroy();
+	//panel.OnDestroy();
+	
 }
 
 UiScene::~UiScene() {

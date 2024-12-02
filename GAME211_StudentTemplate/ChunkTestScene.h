@@ -1,6 +1,7 @@
 #ifndef SCENEC_H
 #define SCENEC_H
 
+#include <queue>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <MMath.h>
@@ -9,6 +10,9 @@
 
 #include "Chunk.h"
 #include "ChunkHandler.h"
+
+#include "HPbar.h"
+#include "UiPanel.h"
 
 using namespace MATH;
 class SceneC : public Scene {
@@ -22,6 +26,11 @@ private:
 	bool testh;
 	Player* player;
 	ChunkHandler RegionOne;
+
+	UiPanel panel;
+	UiPanel space[5];
+
+	HealthBar* healthBar;
 
 	// Testing the loading of tiles
 	// Starting off with a single tile and assigning it an ID
@@ -73,6 +82,7 @@ public:
 	void OnDestroy();
 	void Update(const float time);
 	void Render();
+	void refreshIcon();
 	void HandleEvents(const SDL_Event& event);
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }

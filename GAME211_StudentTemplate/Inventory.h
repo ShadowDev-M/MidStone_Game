@@ -4,7 +4,7 @@
 using namespace std;
 class Inventory
 {
-	static const int rows = 4;
+	static const int rows = 1;
 	static const int cols = 5;
 	Item* mainInventory[rows][cols];
 
