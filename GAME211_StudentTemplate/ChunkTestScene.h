@@ -1,6 +1,7 @@
 #ifndef SCENEC_H
 #define SCENEC_H
 
+#include <queue>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <MMath.h>
@@ -13,6 +14,9 @@
 
 #include "Chunk.h"
 #include "ChunkHandler.h"
+
+#include "HPbar.h"
+#include "UiPanel.h"
 
 #include "BoxCollider.h"
 
@@ -44,6 +48,11 @@ private:
 	Camera camera;
 	
 	Scene* scene;
+
+	UiPanel panel;
+	UiPanel space[5];
+
+	HealthBar* healthBar;
 
 	// Testing the loading of tiles
 	// Starting off with a single tile and assigning it an ID
@@ -97,6 +106,7 @@ public:
 	void OnDestroy();
 	void Update(const float time);	
 	void Render();
+	void refreshIcon();
 	void HandleEvents(const SDL_Event& event);
 	void AttackEnemy(const SDL_Event& event);
 	float getxAxis() { return xAxis; }

@@ -2,6 +2,7 @@
 #include <VMath.h>
 #include "Chunk.h"
 #include "ChunkHandler.h"
+#include <string>
 
 
 // See notes about this constructor in Scene1.h.
@@ -27,7 +28,9 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
 
 bool Scene1::OnCreate() {
 	// Check to make sure loading scene works
+
 	std::cout << "Entering Scene1" << std::endl;
+
 
 	int w, h;
 	SDL_GetWindowSize(window,&w,&h);
@@ -87,11 +90,11 @@ bool Scene1::OnCreate() {
 
 	//RegionOne.getFaces(Vec2(0.5, 0.7), Vec2(20.3, 30.4));
 
+
 	return true;
 }
 
 void Scene1::Update(const float deltaTime) {
-
 	// Update player
 	// Will make this its own extracted function after (will put in camera class too)
 	int w, h;
@@ -166,6 +169,7 @@ void Scene1::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	player->HandleEvents(event);
+
 }
 
 Vec3 Scene1::screenCoords(Vec3 gameCoords)
@@ -225,7 +229,8 @@ SDL_Rect Scene1::scale(SDL_Texture* objectTexture, int start_x, int start_y, flo
 }
 
 void Scene1::OnDestroy() {
-	//player->OnDestroy();
+
+
 }
 
 Scene1::~Scene1() {

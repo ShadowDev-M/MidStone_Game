@@ -73,6 +73,8 @@ public:
     BoxCollider hitbox = BoxCollider();
     // use the base class versions of getters
     void SetRegion(ChunkHandler* region_) { region = region_; };
+    float getPlayerHP() { return healthpoints; }
+    float addPlayerHP(float heal) { healthpoints += heal; if (healthpoints >= healthpointsMax) { healthpoints = healthpointsMax; } return healthpoints; }
     bool OnCreate();
     void setupCollision();
     void OnDestroy();

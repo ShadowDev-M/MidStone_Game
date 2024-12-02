@@ -24,8 +24,8 @@ private:
 	UiText text;
 
 	//UI PANELS
-	UiPanel panel;
-	UiPanel space[5];
+	//UiPanel panel;
+	//UiPanel space[5];
 
 	/// Load an image into a texture object.
 	/// <param name="textureFile">image file</param>
@@ -52,7 +52,7 @@ public:
 	void Update(const float time);
 	void Render();
 	void HandleEvents(const SDL_Event& event);
-	void refreshIcon();
+	//void refreshIcon();
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
 	SDL_Window* getWindow() { return window; }
