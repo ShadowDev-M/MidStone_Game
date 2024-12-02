@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "UiPanel.h"
+//#include "Camera.h"
 #include "Item.h"
 #include "Inventory.h"
 #include <stdio.h>
@@ -14,6 +16,7 @@
 #include "BoxCollider.h"
 #include "ChunkHandler.h"
 #include "BoxCollider.h"
+#include "HPbar.h"
 
 class Player : public Body
 {
@@ -26,15 +29,18 @@ protected:
 	int pushBackDirection;
 	OnAttackCallBack onAttackCallBack;
 private:
-	Item* currentItem;
+    Item* currentItem;
+    UiPanel panel;
+    UiPanel space[5];
+    HealthBar* healthBar;
+    //Camera camera;
 
 public:
-
-
-	Player() : Body{}
-	{
-		game = nullptr;
-	}
+    float panelScaling = 1.7f;
+    Player() : Body{}
+    {
+        game = nullptr;
+    }
 
 	// Note the last parameter in this constructor!
 	// Look in GameManager.cpp to see how this is called.
@@ -76,9 +82,10 @@ public:
 	Inventory playerInventory;
 	std::vector<TileFaces> hitFaces;
 	std::vector<TileFaces> permFaces;
-
-	bool isHoldingShield() const;
-	void setCurrentItem(Item* item) { currentItem = item; }
+    bool hasShoes();
+    bool isHoldingShield() const; 
+    void setCurrentItem(Item* item) { currentItem = item; }
+    void refreshIcons();
 
 	ChunkHandler* region;
 
@@ -89,14 +96,16 @@ public:
 
 	// Damage and Health Should be Body varibles that are set and accesed via player and enemy
 	int getPlayerDamage() { return dmgValue; }
+    float addPlayerHP(float heal) { healthpoints += heal; if (healthpoints >= healthpointsMax) { healthpoints = healthpointsMax; } return healthpoints; }
+    bool OnCreate();
+    void setupCollision();
+    void OnDestroy();
+    void Render();
+    void RenderUI();
+    void HandleEvents(const SDL_Event& event);
+    void Update(float deltaTime);
+    
 
-	float addPlayerHP(float heal) { healthpoints += heal; if (healthpoints >= healthpointsMax) { healthpoints = healthpointsMax; } return healthpoints; }
-	bool OnCreate();
-	void setupCollision();
-	void OnDestroy();
-	void Render();
-	void HandleEvents(const SDL_Event& event);
-	void Update(float deltaTime);
 	void takeDamage(float damage);
 
 	//void setItem(Item* newItem) { currentItem = newItem; }

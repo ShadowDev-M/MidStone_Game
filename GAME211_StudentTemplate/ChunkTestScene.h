@@ -15,7 +15,6 @@
 #include "Chunk.h"
 #include "ChunkHandler.h"
 
-#include "HPbar.h"
 #include "UiPanel.h"
 
 #include "BoxCollider.h"
@@ -50,11 +49,6 @@ private:
 	Camera camera;
 	
 	Scene* scene;
-
-	UiPanel panel;
-	UiPanel space[5];
-
-	HealthBar* healthBar;
 
 	// Testing the loading of tiles
 	// Starting off with a single tile and assigning it an ID
@@ -103,11 +97,11 @@ public:
 	void OnDestroy();
 	void Update(const float time);	
 	void Render();
-	void refreshIcon();
-	void PlayerAttack(Vec3 mouseCoord_,float damage_);
+	//void refreshIcon();
 	void HandleEvents(const SDL_Event& event);
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
+	void PlayerAttack(Vec3 mouseCoord_, float damage_);
 	SDL_Window* getWindow() { return window; }
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }

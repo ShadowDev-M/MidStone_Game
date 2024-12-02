@@ -1,14 +1,6 @@
 #include "ChunkTestScene.h"
 #include <VMath.h>
-#include "createItem.h"
 #include "UiPanel.h"
-
-
-
-
-Item* currentItem = playerInventory.getItem(0, 3);
-int currentItemRow = 0;
-int currentItemColumn = 3;
 
 
 // See notes about this constructor in Scene1.h.
@@ -111,67 +103,7 @@ bool SceneC::OnCreate() {
 
 	grassTileTexture = camera.refinedLoadImage(grassTile, renderer);
 
-
-
-	playerInventory.addItem(sword);
-	playerInventory.addItem(armor);
-	playerInventory.addItem(shield);
-	playerInventory.addItem(potion);
-	playerInventory.addItem(shoes);
-	playerInventory.printInventory();
-
-	healthBar = new HealthBar(10.0f, 200.0f, { 0, 255, 150, 255 });
-
-	panel.OnCreate(renderer, Vec2(camera.getWindowWidth() / 30, camera.getWindowHeight() / 2 + 100), "textures/stoneTile.png", 7);
-	if (currentItem != nullptr)
-		panel.AddIcon(currentItem->filePath, 7.0f);
-	else
-		panel.AddIcon("textures/emptySlot.png", 7.0f);
-
-	for (int i = 0; i < 5; i++)
-	{
-		if (playerInventory.getItem(0, i) != nullptr)
-		{
-			// display
-			space[i].OnCreate(renderer, Vec2(camera.getWindowWidth() / 2.6f + 50 * i + 5 * i, camera.getWindowHeight() * 0.9), "textures/itemFrame.png", 0.5);
-			space[i].AddIcon(playerInventory.getItem(0, i)->filePath, 0.5);
-		}
-		else
-		{
-			// display
-			space[i].OnCreate(renderer, Vec2(camera.getWindowWidth() / 2.6f + 50 * i + 5 * i, camera.getWindowHeight() * 0.9), "textures/itemFrame.png", 0.5);
-			space[i].AddIcon("textures/emptySlot.png", 0.5);
-		}
-	}
-
 	return true;
-}
-
-void SceneC::refreshIcon() {
-	// Clear the current icon
-	panel.ClearIcons();
-
-	// Add the new icon based on the current item
-	if (currentItem != nullptr) {
-		// Add the current item's icon
-		panel.AddIcon(currentItem->filePath, 7.0f);
-	}
-	else {
-		// If no item, show an empty slot, which is just a plus icon
-		panel.AddIcon("textures/emptySlot.png", 7.0f);
-	}
-
-	for (int i = 0; i < 5; i++) {
-		space[i].ClearIcons();
-		if (playerInventory.getItem(0, i) != nullptr) {
-			// Add the current item's icon
-			space[i].AddIcon(playerInventory.getItem(0, i)->filePath, 0.5f);
-		}
-		else {
-			// If no item, show an empty slot, which is just a plus icon
-			space[i].AddIcon("textures/emptySlot.png", 0.5f);
-		}
-	}
 }
 
 void SceneC::PlayerAttack(Vec3 mouseCoord_, float damage_)
@@ -206,8 +138,7 @@ void SceneC::Update(const float deltaTime) {
 		RegionOne.setTile(changesIndex);
 		testh = false;
 	};
-	float currentHP = player->getPlayerHP();
-	healthBar->UpdateHealth(currentHP);
+
 
 
 
@@ -236,6 +167,7 @@ void SceneC::Render() {
 	// unified measurement system
 	// Render Chunks
 	// Camera
+	
 
 	// NOT FINAL, just temp rendering for chunks just to get something on screen that can also be changed and used with physics and collision
 	// Will get fixed up afterwards
@@ -303,9 +235,7 @@ void SceneC::Render() {
 
 	enemyManager->RenderEnemies(camera);
 
-	//camera.renderEntity(enemy, enemy->getTexture(), renderer);
-
-	//camera.renderEntity(enemy1, enemy1->getTexture(), renderer);
+	player->RenderUI();
 
 
 
@@ -316,15 +246,6 @@ void SceneC::Render() {
 	SDL_RenderDrawLine(renderer, newTile.PointOne.x, newTile.PointOne.y, newTile.PointTwo.x, newTile.PointTwo.y);*/
 
 
-	healthBar->Render(renderer, Vec2(1050, 650), 20); // Position, height 20px
-
-	panel.Render();
-
-	for (int i = 0; i < 5; i++)
-	{
-		space[i].Render();
-	}
-
 	// update screen
 	SDL_RenderPresent(renderer);
 }
@@ -334,57 +255,6 @@ void SceneC::HandleEvents(const SDL_Event& event)
 	// send events to player as needed
 	player->HandleEvents(event);
 
-	if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
-		// Press number to change your current item
-		switch (event.key.keysym.scancode) {
-		case SDL_SCANCODE_1:
-			currentItem = playerInventory.getItem(0, 0);
-			currentItemColumn = 0;
-			break;
-		case SDL_SCANCODE_2:
-			currentItem = playerInventory.getItem(0, 1);
-			currentItemColumn = 1;
-			break;
-		case SDL_SCANCODE_3:
-			currentItem = playerInventory.getItem(0, 2);
-			currentItemColumn = 2;
-			break;
-		case SDL_SCANCODE_4:
-			currentItem = playerInventory.getItem(0, 3);
-			currentItemColumn = 3;
-			break;
-		case SDL_SCANCODE_5:
-			currentItem = playerInventory.getItem(0, 4);
-			currentItemColumn = 4;
-			break;
-		case SDL_SCANCODE_Z:
-			playerInventory.removeItem(currentItemRow, currentItemColumn);
-			currentItem = playerInventory.getItem(0, currentItemColumn);
-			break;
-		case SDL_SCANCODE_E:
-			if (currentItem != nullptr && currentItem->itemName == "potion") {
-				player->addPlayerHP(3);
-				player->getPlayerHP();
-				std::cout << "potion used" << std::endl;
-				std::cout << player->getPlayerHP() << std::endl;
-				break;
-			}
-		}
-
-		player->setCurrentItem(currentItem);
-		// Refresh the icon after item change
-		refreshIcon();
-
-		// more of a debug/feedback feature. 
-/*		if (currentItem) {
-			std::cout << "Selected item: " << currentItem->itemName << std::endl;
-		}
-		else {
-			std::cout << "Selected slot is empty." << std::endl;
-		}*/
-
-
-	}
 
 }
 
@@ -394,13 +264,6 @@ void SceneC::OnDestroy() {
 	//delete grassTileTexture;
 	//player->OnDestroy();
 
-	delete healthBar;
-	healthBar = nullptr;
-
-	for (int i = 0; i < 5; i++) {
-		space[i].OnDestroy();
-	}
-	panel.OnDestroy();
 	enemyManager->OnDestroy();
 	delete enemyManager;
 }
