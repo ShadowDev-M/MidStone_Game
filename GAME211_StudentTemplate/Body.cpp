@@ -76,6 +76,26 @@ void Body::renderEntity(float scaleFactor)
         orientationDegrees, nullptr, SDL_FLIP_NONE);
 }
 
+void Body::renderPlayer(float scaleFactor, int frames)
+{
+    Uint32 ticks = SDL_GetTicks();
+    Uint32 sprite = (ticks / 200) % frames;
+
+    SDL_Rect srcrect = { sprite * (getImage()->w / frames), 0, getImage()->w / frames, getImage()->h };
+
+    Vec3 screenCoords = projectionMatrix * pos;
+
+    SDL_Point size{};
+    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
+    SDL_Rect dest = { screenCoords.x, screenCoords.y, size.x * scaleFactor, size.y * scaleFactor };
+
+    // Convert character orientation from radians to degrees.
+    float orientationDegrees = orientation * 180.0f / M_PI;
+
+    SDL_RenderCopyEx(renderer, texture, &srcrect, &dest,
+        orientationDegrees, nullptr, SDL_FLIP_NONE);
+}
+
 SDL_Texture* Body::loadImage(const char* textureFile)
 {
     // The following is a typical chunk of code for creating 
@@ -106,6 +126,16 @@ SDL_Texture* Body::loadImage(const char* textureFile)
     }
 
     return newTexture;
+}
+
+void Body::changeTexture(const char* fileName)
+{
+    // Update position, call Update from base class
+    textureFile = fileName;//Placeholder image
+    SetTextureFile(textureFile);
+    texture = loadImage(textureFile);
+    // Image Surface used for animations
+    setImage(IMG_Load(textureFile));
 }
 
 

@@ -89,6 +89,7 @@ bool SceneYBTest::OnCreate() {
 
 
 	player->OnCreate();
+	player->setScale(camera.scalingFactor(player->getTexture(), player));
 	//enemy->OnCreate();
 
 	// Initialize PNG image loading
@@ -228,7 +229,7 @@ void SceneYBTest::Render() {
 
 
 	// Everything now needs to use the scalingfactor to properly scale with the screen
-	player->Render(camera.scalingFactor(player->getTexture(), player));
+	player->Render();
 
 	enemyManager->RenderEnemies(camera);
 

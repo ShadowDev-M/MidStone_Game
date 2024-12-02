@@ -76,10 +76,13 @@ public:
     virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_) { imageSizeWorldCoords = imageSizeWorldCoords_; }
     virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
     virtual void renderEntity(float scaleFactor);
+    virtual void renderPlayer(float scaleFactor, int frames);
     virtual Vec3 getImageSizeWorldCoords() { return imageSizeWorldCoords; }
     virtual SDL_Texture* getTexture() { return texture; }
     virtual SDL_Texture* loadImage(const char* textureFile);
-
+    virtual void setScale(float scale_) { scale = scale_;  }
+    // Extracted function that sets and loads a new texture
+    virtual void changeTexture(const char* fileName);
     
 
     /// Set a new texture file for this body	

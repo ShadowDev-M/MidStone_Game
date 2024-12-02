@@ -136,7 +136,7 @@ void UiScene::Render() {
 	SDL_RenderClear(renderer);
 
 	// render the player
-	player->Render(0.1f);
+	player->Render();
 	text.Render();
 	panel.Render();
 	for (int i = 0; i < 5; i++)

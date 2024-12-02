@@ -144,7 +144,7 @@ void Scene1::Render() {
 	SDL_RenderClear(renderer);
 
 	// render the player
-	player->Render(player->scale);
+	player->Render();
 	enemy->Render(enemy->scale);
 
 	//PLAYER COLLISION BOX DEBUG

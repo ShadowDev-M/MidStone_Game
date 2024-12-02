@@ -165,7 +165,7 @@ void CollisionScene::Render() {
 	SDL_RenderDrawLine(renderer, two.x, two.y, four.x, four.y);
 
 	// render the player
-	player->Render(0.1f);
+	player->Render();
 	block1->Render(0.10f);
 
 	SDL_RenderPresent(renderer);

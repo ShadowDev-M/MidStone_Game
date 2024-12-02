@@ -74,8 +74,9 @@ public:
     // use the base class versions of getters
     void SetRegion(ChunkHandler* region_) { region = region_; };
     bool OnCreate();
+    void setupCollision();
     void OnDestroy();
-    void Render(float scale = 1.0f);
+    void Render();
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
     void takeDamage(float damage) {

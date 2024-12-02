@@ -24,27 +24,30 @@ Player::Player(
 
 bool Player::OnCreate()
 {
-    textureFile = "textures/PacMan.png";//Placeholder image
+    textureFile = "textures/PlayerFacingFrontIdle.png";//Placeholder image
     SetTextureFile(textureFile);
     texture = loadImage(textureFile);
     // Image Surface used for animations
     setImage(IMG_Load(textureFile));
 
-    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
-    hitbox.OnCreate(size.x, size.y, 0.05f);
-    hitbox.Subscribe(
-        [this](const TileFaces& collidedObject) {
-            onCollisionEnter(collidedObject);
-        });
-
     //hitbox.Subscribe(onCollisionTrigger);
     return true;
 }
 
-void Player::Render(float scale)
+void Player::setupCollision()
+{
+    SDL_QueryTexture(texture, nullptr, nullptr, &size.x, &size.y);
+    hitbox.OnCreate(size.x, size.y, scale);
+    hitbox.Subscribe(
+        [this](const TileFaces& collidedObject) {
+            onCollisionEnter(collidedObject);
+        });
+}
+
+void Player::Render()
 {   
     // Calls body entity render
-    renderEntity(0.05f);
+    renderEntity(scale);
     
     
 }
@@ -52,40 +55,100 @@ void Player::Render(float scale)
 
 void Player::HandleEvents( const SDL_Event& event )
 {
+ 
+
+    switch (event.type) {
+    case SDL_KEYDOWN:
+        //event.key.repeat == 0 prevents weirdness with normalizing the velocity later on
+        if (event.key.repeat == 0) {
+            switch (event.key.keysym.scancode) {
+            case SDL_SCANCODE_W:
+                vel.y = walkSpeedMax;
+                changeTexture("textures/PlayerFacingBackWalk.png");
+                break;
+
+            case SDL_SCANCODE_S:
+                vel.y = -walkSpeedMax;
+                changeTexture("textures/PlayerFacingFrontWalk.png");
+                break;
+
+
+            case SDL_SCANCODE_D:
+                vel.x = walkSpeedMax;
+                changeTexture("textures/PlayerFacingRightWalk.png");
+                break;
+
+            case SDL_SCANCODE_A:
+                vel.x = -walkSpeedMax;
+                changeTexture("textures/PlayerFacingLeftWalk.png");
+                break;
+            }
+        }
     
-    //event.key.repeat == 0 prevents weirdness with normalizing the velocity later on
-    if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
-    {
-        if (event.key.keysym.scancode == SDL_SCANCODE_W)
-            vel.y = walkSpeedMax;
-        
-        if (event.key.keysym.scancode == SDL_SCANCODE_S)
-            vel.y = -walkSpeedMax;
 
-        if (event.key.keysym.scancode == SDL_SCANCODE_D)
-            vel.x = walkSpeedMax;
-        
-        if (event.key.keysym.scancode == SDL_SCANCODE_A)
-            vel.x = -walkSpeedMax;
 
-        //isWallBouncing = false;
+    //// Check to see item in inventory
+    //case SDL_MOUSEBUTTONDOWN:
+    //    switch (event.button.button) {
+    //    case SDL_BUTTON_LEFT:
+    //        // if (item == potion), sword, etc
+    //        //changeTexture("textures/Sprite-0012.png");
+
+    //        break;
+    //    
+    //    
+    //    
+    //    }
+
+    //case SDL_MOUSEBUTTONUP:
+    //    switch (event.button.button) {
+    //    case SDL_BUTTON_LEFT:
+    //        // if (item == potion), sword, etc
+
+    //        changeTexture("textures/Sprite-0012.png");
+
+    //        break;
+    //    }
+
+
     }
 
+    
+    
+
+    
     //If we release one of the keys, stop velocity in that direction
     if (event.type == SDL_KEYUP)
     {
         //All the vel checks are needed because otherwise controls can be finicky if moving in one direction and releasing a different key
-        if (event.key.keysym.scancode == SDL_SCANCODE_W && vel.y >= 0)
+        if (event.key.keysym.scancode == SDL_SCANCODE_W && vel.y >= 0) {
             vel.y = 0.0f;
 
-        if (event.key.keysym.scancode == SDL_SCANCODE_S && vel.y <= 0)
+            
+            changeTexture("textures/PlayerFacingBackIdle.png");
+        }
+            
+
+        if (event.key.keysym.scancode == SDL_SCANCODE_S && vel.y <= 0) {
             vel.y = 0.0f;
 
-        if (event.key.keysym.scancode == SDL_SCANCODE_D && vel.x >= 0)
+            changeTexture("textures/PlayerFacingFrontIdle.png");
+        }
+            
+
+        if (event.key.keysym.scancode == SDL_SCANCODE_D && vel.x >= 0) {
             vel.x = 0.0f;
 
-        if (event.key.keysym.scancode == SDL_SCANCODE_A && vel.x <= 0)
+            changeTexture("textures/PlayerFacingRightIdle.png");
+        }
+           
+
+        if (event.key.keysym.scancode == SDL_SCANCODE_A && vel.x <= 0) {
             vel.x = 0.0f;
+
+            changeTexture("textures/PlayerFacingLeftIdle.png");
+        }
+           
     }
 
     //Don't exceed our max speed when moving diagonally
@@ -97,8 +160,6 @@ void Player::HandleEvents( const SDL_Event& event )
 
 void Player::Update( float deltaTime )
 {
-    // Update position, call Update from base class
-    
     
     // Note that would update velocity too, and rotation motion
     

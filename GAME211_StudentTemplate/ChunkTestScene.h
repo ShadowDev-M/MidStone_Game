@@ -39,6 +39,7 @@ private:
 	bool testh;
 	Player* player;
 	Enemy* enemy;
+	Enemy* enemy1;
 	ChunkHandler RegionOne;
 	Camera camera;
 	
@@ -56,6 +57,19 @@ private:
 	SDL_Texture* swordTexture;
 
 	//Enemy* enemy;
+
+
+
+	/*Uint32 ticks;
+	Uint32 sprite;
+	SDL_Rect srcrect;
+	Vec3 worldCoords;
+	SDL_Rect Dest;*/
+
+
+
+
+
 
 	// Mouse coords
 	int mouseOffSet = -5;
