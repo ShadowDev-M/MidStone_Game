@@ -130,7 +130,7 @@ bool SceneC::OnCreate() {
 
 	healthBar = new HealthBar(10.0f, 200.0f, { 0, 255, 150, 255 });
 
-	panel.OnCreate(renderer, Vec2(camera.getWindowWidth() / 30, camera.getWindowHeight() / 2 + 160), "textures/stoneTile.png", 7);
+	panel.OnCreate(renderer, Vec2(camera.getWindowWidth() / 30, camera.getWindowHeight() / 2 + 100), "textures/stoneTile.png", 7);
 	if (currentItem != nullptr)
 		panel.AddIcon(currentItem->filePath, 7.0f);
 	else
@@ -326,7 +326,7 @@ void SceneC::Render() {
 	SDL_RenderDrawLine(renderer, newTile.PointOne.x, newTile.PointOne.y, newTile.PointTwo.x, newTile.PointTwo.y);*/
 
 				
-	healthBar->Render(renderer, Vec2(770, 550), 20); // Position, height 20px
+	healthBar->Render(renderer, Vec2(1050, 650), 20); // Position, height 20px
 	
 	panel.Render();
 
@@ -373,13 +373,15 @@ void SceneC::HandleEvents(const SDL_Event& event)
 			break;
 		case SDL_SCANCODE_E:
 			if (currentItem != nullptr && currentItem->itemName == "potion") {
-				player->addPlayerHP(2);
+				player->addPlayerHP(3);
 				player->getPlayerHP();
 				std::cout << "potion used" << std::endl;
 				std::cout << player->getPlayerHP() << std::endl;
 				break;
 			}
 		}
+
+		player->setCurrentItem(currentItem);
 		// Refresh the icon after item change
 		refreshIcon();
 

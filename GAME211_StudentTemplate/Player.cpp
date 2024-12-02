@@ -344,3 +344,10 @@ void Player::onCollisionExit(const TileFaces& collidedObject)
 {
     std::cout << "Exit Collision";
 }
+
+bool Player::isHoldingShield() const {
+    if (currentItem && currentItem->itemName == "shield") {
+        return true;
+    }
+    return false;
+}
