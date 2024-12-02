@@ -419,7 +419,7 @@ void SceneC::AttackEnemy(const SDL_Event& event)
 
 					if (tempHealth <= 0) {
 						std::cout << "\n" << "Enemy Dies";
-						enemy->setTexture(nullptr);
+						enemyList[i]->setTexture(nullptr);
 						//enemy = nullptr;
 
 						//enemy = nullptr;

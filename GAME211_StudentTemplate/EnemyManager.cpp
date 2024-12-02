@@ -9,7 +9,6 @@ std::vector<Enemy*> EnemyManager::spawnEnemy(int amount, Player* player_)
 {
 	for (int i = 0; i < amount; i++)
 	{
-		
 		//Vec2 newPos = Vec2(14.0f, 7.875f);
 		//std::cout << "enemy position: ";
 		//newPos.print();
