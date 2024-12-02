@@ -263,110 +263,20 @@ void SceneC::Render() {
 	SDL_RenderPresent(renderer);
 }
 
-//SDL_Rect SceneC::PlayerAnimation(int frames)
-//{
-//	SDL_RenderClear;
-//
-//	Uint32 ticks = SDL_GetTicks();
-//	Uint32 sprite = (ticks / 200) % frames;
-//
-//	SDL_Rect srcrect = { sprite * (player->getImage()->w / frames), 0, player->getImage()->w / frames, player->getImage()->h };
-//
-//	return srcrect;
-//}
-
-
 void SceneC::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	player->HandleEvents(event);
 
 
-	MoveSword(event);
+	AttackEnemy(event);
 
 
 
-	/*switch (event.type) {*/
-
-	//case SDL_KEYUP:
-	//	//player->setTexture(camera.loadImage(player->GetTextureFile(), renderer));
-	//	//player->setImage(IMG_Load(player->GetTextureFile()));
-
-	//	//Uint32 ticks = SDL_GetTicks();
-	//	//Uint32 sprite = (ticks / 200) % 2;
-
-	//	//SDL_Rect srcrect = { sprite * (player->getImage()->w / 2.0f), 0, player->getImage()->w / 2.0f, player->getImage()->h };
-
-
-	//	//// Everything now needs to use the scalingfactor to properly scale with the screen
-
-
-
-	//	//Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
-	//	//SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
-
-	//	//SDL_RenderCopy(renderer, player->getTexture(), &srcrect, &Dest);
-
-	//	break;
-
-	//
-	//case SDL_KEYDOWN:
-	//	switch (event.key.keysym.scancode) {
-	//	case SDL_SCANCODE_S:
-	//		//SDL_RenderClear;
-	//		//player = new Player(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
-	//		player->SetTextureFile("textures/PlayerWalkBack.png");
-	//		player->setTexture(camera.loadImage(player->GetTextureFile(), renderer));
-	//		player->setImage(IMG_Load(player->GetTextureFile()));
-	//		player->loadImage(player->GetTextureFile());
-	//		player->setTexture(player->getTexture());
-	//		player->setImage(IMG_Load(player->GetTextureFile()));
-	//	
-	//		// Image Surface used for animations
-	//		
-
-
-	//		Uint32 ticks = SDL_GetTicks();
-	//		Uint32 sprite = (ticks / 200) % 4;
-
-	//		SDL_Rect srcrect = { sprite * (player->getImage()->w / 4.0f), 0, player->getImage()->w / 4.0f, player->getImage()->h };
-
-
-	//		// Everything now needs to use the scalingfactor to properly scale with the screen
-
-	//		//player->Render(camera.scalingFactor(player->getTexture(), player));
-
-	//		Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
-	//		SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
-
-	//		SDL_RenderCopy(renderer, player->getTexture(), &srcrect, &Dest);
-	//		break;
-	//	}
-	//
-	//}
-
-
-	//else {
-	//	//SDL_RenderClear;
-	//	Uint32 ticks = SDL_GetTicks();
-	//	Uint32 sprite = (ticks / 200) % 2;
-
-	//	SDL_Rect srcrect = { sprite * (player->getImage()->w / 2.0f), 0, player->getImage()->w / 2.0f, player->getImage()->h };
-
-
-	//	// Everything now needs to use the scalingfactor to properly scale with the screen
-
-	//	//player->Render(camera.scalingFactor(player->getTexture(), player));
-
-	//	Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
-	//	SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
-
-	//	SDL_RenderCopy(renderer, player->getTexture(), &srcrect, &Dest);
-	//}
 
 }
 
-void SceneC::MoveSword(const SDL_Event& event)
+void SceneC::AttackEnemy(const SDL_Event& event)
 {
 	if (event.type == SDL_MOUSEBUTTONDOWN) { // mouse button down event
 		if (event.button.button == SDL_BUTTON_LEFT) { // left click on mouse

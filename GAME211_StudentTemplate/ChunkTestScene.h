@@ -56,21 +56,6 @@ private:
 	Body* sword;
 	SDL_Texture* swordTexture;
 
-	//Enemy* enemy;
-
-
-
-	/*Uint32 ticks;
-	Uint32 sprite;
-	SDL_Rect srcrect;
-	Vec3 worldCoords;
-	SDL_Rect Dest;*/
-
-
-
-
-
-
 	// Mouse coords
 	int mouseOffSet = -5;
 	int mouseX;
@@ -112,9 +97,8 @@ public:
 	void OnDestroy();
 	void Update(const float time);	
 	void Render();
-	SDL_Rect PlayerAnimation(int frames);
 	void HandleEvents(const SDL_Event& event);
-	void MoveSword(const SDL_Event& event);
+	void AttackEnemy(const SDL_Event& event);
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
 	SDL_Window* getWindow() { return window; }
