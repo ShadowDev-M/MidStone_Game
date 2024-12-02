@@ -232,7 +232,7 @@ void SceneC::Update(const float deltaTime) {
 	//std::cout << "Mouse Coords: " << mousePhysicsCoords.x << ", " << mousePhysicsCoords.y << "\n";
 	//std::cout << "Sword Pos: " << sword->getPos().x << ", " << sword->getPos().y << "\n";
 
-	std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
+	//std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
 	//std::cout << "TILE LOCATIONS:" << stoneTile->getPos().x << ", " << stoneTile->getPos().y << "\n";
 }
 
@@ -308,8 +308,8 @@ void SceneC::Render() {
 	Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
 	SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
 	
-	
-	player->renderPlayer(player->scale, 2);
+	if (player->invulTimer % 2 == 0 || player->invulTimer <= 0)
+		player->renderPlayer(player->scale, 2);
 
 	enemyManager->RenderEnemies(camera);
 

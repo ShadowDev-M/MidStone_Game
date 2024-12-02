@@ -223,7 +223,6 @@ void Enemy::Attack(float deltaTime)
     {
         attackTimer = attackCoolDown;
         player->takeDamage(damage);
-            
     }
     
 }

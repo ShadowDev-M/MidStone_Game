@@ -173,6 +173,7 @@ void Player::Update( float deltaTime )
     //hitFaces.empty();
     Body::Update( deltaTime );
 
+    std::cout << invulTimer << std::endl;
     if (invulTimer > 0)
         invulTimer--;
 
