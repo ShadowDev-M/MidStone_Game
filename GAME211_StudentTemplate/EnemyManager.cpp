@@ -5,16 +5,12 @@ EnemyManager::EnemyManager()
 	srand((unsigned)time(NULL)); //provide a seed value
 }
 
-std::vector<Enemy*> EnemyManager::spawnEnemy(int amount, Player* player_)
+void EnemyManager::SpawnEnemy(int amount, Player* player_)
 {
 	for (int i = 0; i < amount; i++)
 	{
-		//Vec2 newPos = Vec2(14.0f, 7.875f);
-		//std::cout << "enemy position: ";
-		//newPos.print();
-		//std::cout << "\n";
-
-		Enemy* myEnemy = new Enemy(Vec3(0.0f, 0.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0,player_);
+		
+		Enemy* myEnemy = new Enemy(Vec3(0.0f, 0.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player_);
 		Vec3 enemyPosition = Vec3(myEnemy->GetRandomNumber(-40 + 1000, 40 + 1000), myEnemy->GetRandomNumber(-20 + 1000, 20 + 1000), 0);
 
 		myEnemy->setPos(enemyPosition);
@@ -23,9 +19,8 @@ std::vector<Enemy*> EnemyManager::spawnEnemy(int amount, Player* player_)
 		myEnemy->setWidth(1.0f);
 		myEnemy->setHeight(1.0f);
 		enemyList.push_back(myEnemy);
-	}
 
-	return enemyList;
+	}
 }
 
 bool EnemyManager::OnCreate()
@@ -70,7 +65,33 @@ void EnemyManager::Update(float deltaTime)
 		//enemy->setProjection(projectionMatrix);
 		//enemy->setInverse(inverseProjection);
 	}
-		
 
-	
+
+
+}
+
+void EnemyManager::AttackEnemy(Vec3 mouseCoord, float damage)
+{
+
+	for (int i = 0; i < enemyList.size(); i++)
+	{
+		// Change player sprite when attacking
+		if (mouseInsideObject(mouseCoord, enemyList[i]) == true) {
+			enemyList[i]->Damage(damage);
+			std::cout << "\n" << "Clicked/Enemy Takes Damage";
+		}
+
+	}
+
+}
+
+bool EnemyManager::mouseInsideObject(Vec3 mouseCoords, Body* body)
+{
+	if ((mouseCoords.x >= body->getPos().x - body->width) &&
+		(mouseCoords.x <= body->getPos().x + body->width) &&
+		(mouseCoords.y >= body->getPos().y - body->height) &&
+		(mouseCoords.y <= body->getPos().y + body->height)) {
+		return true;
+	}
+	return false;
 }

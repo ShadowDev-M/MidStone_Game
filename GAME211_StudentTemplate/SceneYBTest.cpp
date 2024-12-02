@@ -52,7 +52,7 @@ SceneYBTest::SceneYBTest(SDL_Window* sdlWindow_, GameManager* game_) {
 
 	enemyManager = new EnemyManager();
 	enemyManager->setRenderer(renderer);
-	enemyList = enemyManager->spawnEnemy(1,player);
+	
 
 	enemy = new Enemy(Vec3(xAxis / 2.0f, yAxis / 2.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0,player);
 	enemy->setRenderer(renderer);
@@ -217,8 +217,8 @@ void SceneYBTest::Render() {
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-	for (int i = 0; i < enemyList.size(); i++){
-		for (TileFaces tile : enemyList[i]->hitFaces) {
+	for (int i = 0; i < enemyManager->enemyList.size(); i++){
+		for (TileFaces tile : enemyManager->enemyList[i]->hitFaces) {
 			Vec3 screenCoords1 = projectionMatrix * Vec3(tile.PointOne.x, tile.PointOne.y, 0.0f);
 			Vec3 screenCoords2 = projectionMatrix * Vec3(tile.PointTwo.x, tile.PointTwo.y, 0.0f);;
 

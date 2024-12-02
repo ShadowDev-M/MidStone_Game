@@ -45,7 +45,6 @@ private:
 	Enemy* enemy;
 	Enemy* enemy1;
 	EnemyManager* enemyManager;
-	std::vector<Enemy*> enemyList;
 	
 	ChunkHandler RegionOne;
 	Camera camera;
@@ -70,10 +69,7 @@ private:
 	int mouseX;
 	int mouseY;
 	Vec3 mousePhysicsCoords;
-	
 
-	//
-	bool mouseInsideObject(Vec3 mouseCoords, Body* body);
 
 	int tempHealth = 5;
 	int tempDamage = 3;
@@ -108,8 +104,8 @@ public:
 	void Update(const float time);	
 	void Render();
 	void refreshIcon();
+	void PlayerAttack(Vec3 mouseCoord_,float damage_);
 	void HandleEvents(const SDL_Event& event);
-	void AttackEnemy(const SDL_Event& event);
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
 	SDL_Window* getWindow() { return window; }

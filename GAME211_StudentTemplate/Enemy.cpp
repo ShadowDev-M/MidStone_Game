@@ -88,11 +88,8 @@ bool Enemy::OnCreate()
 void Enemy::Render(float scale)
 {
 	// Calls body entity render
-	if (isMoving)
-	{
-		SDL_RenderDrawLine(renderer, pos.x, pos.y, newPos.x, newPos.y);
-
-	}
+	if (State == dead)
+		return;
 	renderEntity(scale);
 
 
@@ -292,6 +289,7 @@ void Enemy::setFaces(std::vector<TileFaces> faces_)
 void Enemy::Die()
 {
 	State = dead;
+	texture = nullptr;
 
 }
 
@@ -335,7 +333,7 @@ void Enemy::onCollisionEnter(const TileFaces& collidedObject)
 					vel.x = -direction * 4.0f; // Reverse velocity to simulate bounce-back
 
 				isWallBouncingX = true;// Trigger bounce-back state
-				printf("%f ", vel.x);
+				
 			}
 
 		}
