@@ -29,6 +29,7 @@
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Enhancement.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="HPbar.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemContexts.cpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="ChunkTestScene.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionScene.h" />
+    <ClInclude Include="CreateItem.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Enhancement.h" />
     <ClInclude Include="GameManager.h" />

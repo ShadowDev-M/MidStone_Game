@@ -62,9 +62,6 @@ private:
 	Body* grassTile;
 	SDL_Texture* grassTileTexture;
 
-	Body* sword;
-	SDL_Texture* swordTexture;
-
 	// Mouse coords
 	int mouseOffSet = -5;
 	int mouseX;

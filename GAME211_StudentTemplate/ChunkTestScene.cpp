@@ -57,16 +57,11 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	enemy1->setWidth(1.0f);
 	enemy1->setHeight(1.0f);
 
-	sword = new Body(Vec3(3, 3, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
-	sword->SetTextureFile("textures/sword.png");
-	sword->setWidth(1.0f);
-	sword->setHeight(1.0f);
-
+	
 
 	stoneTileTexture = nullptr;
 	grassTileTexture = nullptr;
-	swordTexture = nullptr;
-
+	
 	
 
 }
@@ -121,7 +116,7 @@ bool SceneC::OnCreate() {
 
 	grassTileTexture = camera.refinedLoadImage(grassTile, renderer);
 
-	swordTexture = camera.refinedLoadImage(sword, renderer);
+	
 
 	playerInventory.addItem(sword);
 	playerInventory.addItem(armor);
@@ -132,7 +127,7 @@ bool SceneC::OnCreate() {
 
 	healthBar = new HealthBar(10.0f, 200.0f, { 0, 255, 150, 255 });
 
-	panel.OnCreate(renderer, Vec2(w / 30, h / 2 + 160), "textures/stoneTile.png", 7);
+	panel.OnCreate(renderer, Vec2(camera.getWindowWidth() / 30, camera.getWindowHeight() / 2 + 160), "textures/stoneTile.png", 7);
 	if (currentItem != nullptr)
 		panel.AddIcon(currentItem->filePath, 7.0f);
 	else
@@ -143,13 +138,13 @@ bool SceneC::OnCreate() {
 		if (playerInventory.getItem(0, i) != nullptr)
 		{
 			// display
-			space[i].OnCreate(renderer, Vec2(w / 2.6f + 50 * i + 5 * i, h * 0.9), "textures/itemFrame.png", 0.5);
+			space[i].OnCreate(renderer, Vec2(camera.getWindowWidth() / 2.6f + 50 * i + 5 * i, camera.getWindowHeight() * 0.9), "textures/itemFrame.png", 0.5);
 			space[i].AddIcon(playerInventory.getItem(0, i)->filePath, 0.5);
 		}
 		else
 		{
 			// display
-			space[i].OnCreate(renderer, Vec2(w / 2.6f + 50 * i + 5 * i, h * 0.9), "textures/itemFrame.png", 0.5);
+			space[i].OnCreate(renderer, Vec2(camera.getWindowWidth() / 2.6f + 50 * i + 5 * i, camera.getWindowHeight() * 0.9), "textures/itemFrame.png", 0.5);
 			space[i].AddIcon("textures/emptySlot.png", 0.5);
 		}
 	}
@@ -321,7 +316,7 @@ void SceneC::Render() {
 	camera.renderEntity(enemy1, enemy1->getTexture(), renderer);
 
 
-	camera.renderObject(sword, swordTexture, renderer);
+	
 
 
 	// TileFaces newTile = TileFaces(Vec2(5, 4), Vec2(10, 4), wall);

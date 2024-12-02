@@ -87,28 +87,28 @@ void Player::HandleEvents( const SDL_Event& event )
     
 
 
-    //// Check to see item in inventory
-    //case SDL_MOUSEBUTTONDOWN:
-    //    switch (event.button.button) {
-    //    case SDL_BUTTON_LEFT:
-    //        // if (item == potion), sword, etc
-    //        //changeTexture("textures/Sprite-0012.png");
+    // Check to see item in inventory
+    case SDL_MOUSEBUTTONDOWN:
+        switch (event.button.button) {
+        case SDL_BUTTON_LEFT:
+            // if (item == potion), sword, etc
+            //changeTexture("textures/Sprite-0012.png");
 
-    //        break;
-    //    
-    //    
-    //    
-    //    }
+            break;
+        
+        
+        
+        }
 
-    //case SDL_MOUSEBUTTONUP:
-    //    switch (event.button.button) {
-    //    case SDL_BUTTON_LEFT:
-    //        // if (item == potion), sword, etc
+    case SDL_MOUSEBUTTONUP:
+        switch (event.button.button) {
+        case SDL_BUTTON_LEFT:
+            // if (item == potion), sword, etc
 
-    //        changeTexture("textures/Sprite-0012.png");
+            changeTexture("textures/Sprite-0012.png");
 
-    //        break;
-    //    }
+            break;
+        }
 
 
     }
