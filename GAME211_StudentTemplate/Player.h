@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "Item.h"
+#include "Inventory.h"
 #include <stdio.h>
 #include "Body.h"
 #include "Inventory.h"
@@ -21,6 +23,8 @@ protected:
     bool isWallBouncingX = false; // Is the player in a bounce-back state?
     float wallBounceDecay = 0.7f; // Damping factor (adjust as needed)
     int pushBackDirection;
+private:
+    Item* currentItem;
 
 public:
 
@@ -68,6 +72,9 @@ public:
     std::vector<TileFaces> hitFaces;
     std::vector<TileFaces> permFaces;
 
+    bool isHoldingShield() const; 
+    void setCurrentItem(Item* item) { currentItem = item; }
+
     ChunkHandler* region;
 
     BoxCollider hitbox = BoxCollider();
@@ -82,10 +89,18 @@ public:
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
     void takeDamage(float damage) {
-        healthpoints -= damage;
-        std::cout << "Damaged: " << healthpoints << endl;
+        if (isHoldingShield()) {
+            damage = 0;
+            healthpoints -= damage;
+            return;
+        }
+        else {
+            healthpoints -= damage;
+            std::cout << "Damaged: " << healthpoints << endl;
+            return;
+        }
     }
-    void setItem(Item newItem) { currentItem = newItem; }
+    //void setItem(Item newItem) { currentItem = newItem; }
     void setFaces(std::vector<TileFaces> faces_); //
 
 
