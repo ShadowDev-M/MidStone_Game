@@ -130,6 +130,8 @@ public:
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
     float getDamage() { return damage; }
+    void Die();
+    void Damage(float damage);
 
     // Call in the scene to pass the scenes renderer and projection matrix onto the player (Will change/get better when camera class is done)
     void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body
