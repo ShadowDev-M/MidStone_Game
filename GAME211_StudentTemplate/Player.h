@@ -60,8 +60,8 @@ public:
     float healthpointsMax = 10.0f;
     float healthpoints = healthpointsMax;
 
-    float invulTimerMax = 30.0f;
-    float invulTimer = 0.0f;
+    int invulTimerMax = 60;
+    int invulTimer = 0;
 
     int dmgValue = 5;
 
@@ -90,6 +90,7 @@ public:
     void takeDamage(float damage) {
         healthpoints -= damage;
         std::cout << "Damaged: " << healthpoints << endl;
+        invulTimer = invulTimerMax;
     }
     void setItem(Item newItem) { currentItem = newItem; }
     void setFaces(std::vector<TileFaces> faces_); //

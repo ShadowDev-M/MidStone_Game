@@ -10,7 +10,7 @@
 #include "Camera.h"
 
 #include "Enemy.h"
-
+#include "EnemyManager.h"
 
 #include "Chunk.h"
 #include "ChunkHandler.h"
@@ -44,6 +44,9 @@ private:
 	Player* player;
 	Enemy* enemy;
 	Enemy* enemy1;
+	EnemyManager* enemyManager;
+	std::vector<Enemy*> enemyList;
+	
 	ChunkHandler RegionOne;
 	Camera camera;
 	
