@@ -141,7 +141,7 @@ void Player::HandleEvents(const SDL_Event& event)
         switch (event.key.keysym.scancode) {
         case SDL_SCANCODE_W:
             if (vel.y >= 0) {
-                
+
                 vel.y = 0.0f;
                 changeTexture("textures/PlayerFacingBackIdle.png");
             }
@@ -175,36 +175,37 @@ void Player::HandleEvents(const SDL_Event& event)
 
         break;
 
-    // Check to see item in inventory
+        // Check to see item in inventory
     case SDL_MOUSEBUTTONDOWN:
         switch (event.button.button) {
         case SDL_BUTTON_LEFT:
-            // if (item == potion), sword, etc
+            // if(currentItem->ItemName == "sword"){
+            // 
             //changeTexture("textures/Sprite-0012.png");
-            
+
 
            // Takes Code From EnemyManager that checks if mouseCoords are under an enemy
            // Enemy Under Mouse Takes Damage
-           
+
            // If Enemy Health is Less or Equal to 0, call EnemyDeath function 
 
             break;
-        
-        
-        
+
+
+
         }
 
     case SDL_MOUSEBUTTONUP:
         switch (event.button.button) {
         case SDL_BUTTON_LEFT:
-            // if (item == potion), sword, etc
+            // if(currentItem->ItemName == "sword"){
 
             changeTexture("textures/Sprite-0012.png");
 
             break;
         }
-            
 
+    }
     //Don't exceed our max speed when moving diagonally
    // if (VMath::mag(vel) > walkSpeedMax)
    // {
@@ -260,7 +261,9 @@ void Player::HandleEvents(const SDL_Event& event)
             std::cout << "Selected slot is empty." << std::endl;
         }*/
     }
+
 }
+
 void Player::refreshIcons() {
     // Clear the current icon
     panel.ClearIcons();
@@ -303,7 +306,7 @@ void Player::Update( float deltaTime )
     //hitFaces.empty();
     Body::Update( deltaTime );
 
-    std::cout << invulTimer << std::endl;
+    //std::cout << invulTimer << std::endl;
     if (invulTimer > 0)
         invulTimer--;
 
