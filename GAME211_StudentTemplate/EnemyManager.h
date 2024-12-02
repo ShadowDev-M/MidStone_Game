@@ -23,6 +23,7 @@ public:
 	//Spawn enemies
 	std::vector<Enemy*> spawnEnemy(int amount, Player* player_);
 	bool OnCreate();
+	void OnDestroy();
 	void SetRegion(ChunkHandler* region_);
 	void setRenderer(SDL_Renderer* renderer_) { renderer = renderer_; } //renderer is defined in body
 

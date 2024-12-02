@@ -26,7 +26,7 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	yAxis = camera.getYAxis();
 
 
-	player = new Player(Vec3(1, 1, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	player = new Player(Vec3(1000, 1000, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	player->setRenderer(renderer);
 	player->SetTextureFile("textures/PlayerFacingFrontIdle.png");
 	player->setWidth(1.0f);
@@ -46,16 +46,19 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	grassTile->setWidth(1.0f);
 	grassTile->setHeight(1.0f);
 
-	
-	enemy = new Enemy(Vec3(4, 4, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
-	enemy->setRenderer(renderer);
-	enemy->setWidth(1.0f);
-	enemy->setHeight(1.0f);
+	enemyManager = new EnemyManager();
+	enemyManager->setRenderer(renderer);
+	enemyList = enemyManager->spawnEnemy(10, player);
 
-	enemy1 = new Enemy(Vec3(6, 6, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
-	enemy1->setRenderer(renderer);
-	enemy1->setWidth(1.0f);
-	enemy1->setHeight(1.0f);
+	//enemy = new Enemy(Vec3(4, 4, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
+	//enemy->setRenderer(renderer);
+	//enemy->setWidth(1.0f);
+	//enemy->setHeight(1.0f);
+
+	//enemy1 = new Enemy(Vec3(6, 6, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
+	//enemy1->setRenderer(renderer);
+	//enemy1->setWidth(1.0f);
+	//enemy1->setHeight(1.0f);
 
 	
 
@@ -85,13 +88,13 @@ bool SceneC::OnCreate() {
 
 	player->setupCollision();
 
-	enemy->OnCreate();
+	//enemy->OnCreate();
 
-	enemy->setProjection(projectionMatrix);
+	//enemy->setProjection(projectionMatrix);
 
-	enemy1->OnCreate();
+	//enemy1->OnCreate();
 
-	enemy1->setProjection(projectionMatrix);
+	//enemy1->setProjection(projectionMatrix);
 	//enemy->setInverse(inverseProjection);
 	
 
@@ -99,7 +102,7 @@ bool SceneC::OnCreate() {
 	
 	RegionOne.OnCreate();
 	changesIndex = {
-		{0, 0, 1}
+		{20 + 1000, 20 + 1000, 1}, {1 + 1000, 1 + 1000, 1}, {2 + 1000, 2 + 1000, 1}, {3 + 1000, 3 + 1000, 1}, {4 + 1000, 4 + 1000, 1}, {5 + 1000, 5 + 1000, 1}
 
 	};
 
@@ -127,7 +130,7 @@ bool SceneC::OnCreate() {
 
 	healthBar = new HealthBar(10.0f, 200.0f, { 0, 255, 150, 255 });
 
-	panel.OnCreate(renderer, Vec2(camera.getWindowWidth() / 30, camera.getWindowHeight() / 2 + 160), "textures/stoneTile.png", 7);
+	panel.OnCreate(renderer, Vec2(camera.getWindowWidth() / 30, camera.getWindowHeight() / 2 + 100), "textures/stoneTile.png", 7);
 	if (currentItem != nullptr)
 		panel.AddIcon(currentItem->filePath, 7.0f);
 	else
@@ -180,7 +183,7 @@ void SceneC::refreshIcon() {
 }
 
 
-bool SceneC::mouseInsideEnemy(Vec3 mouseCoords, Body* body)
+bool SceneC::mouseInsideObject(Vec3 mouseCoords, Body* body)
 {
 	if ((mouseCoords.x >= body->getPos().x - body->width) &&
 		(mouseCoords.x <= body->getPos().x + body->width) &&
@@ -200,10 +203,12 @@ void SceneC::Update(const float deltaTime) {
 	player->Update(deltaTime);
 	RegionOne.Update();
 
+	enemyManager->Update(deltaTime);
 
-	enemy->Update(deltaTime);
 
-	enemy1->Update(deltaTime);
+	//enemy->Update(deltaTime);
+
+	//enemy1->Update(deltaTime);
 	
 	if (testh) {
 		RegionOne.setTile(changesIndex);
@@ -227,7 +232,7 @@ void SceneC::Update(const float deltaTime) {
 	//std::cout << "Mouse Coords: " << mousePhysicsCoords.x << ", " << mousePhysicsCoords.y << "\n";
 	//std::cout << "Sword Pos: " << sword->getPos().x << ", " << sword->getPos().y << "\n";
 
-	std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
+	//std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
 	//std::cout << "TILE LOCATIONS:" << stoneTile->getPos().x << ", " << stoneTile->getPos().y << "\n";
 }
 
@@ -303,17 +308,14 @@ void SceneC::Render() {
 	Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
 	SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
 	
-	
-	player->renderPlayer(player->scale, 2);
+	if (player->invulTimer % 2 == 0 || player->invulTimer <= 0)
+		player->renderPlayer(player->scale, 2);
 
+	enemyManager->RenderEnemies(camera);
 
+	//camera.renderEntity(enemy, enemy->getTexture(), renderer);
 
-
-	
-
-	camera.renderEntity(enemy, enemy->getTexture(), renderer);
-
-	camera.renderEntity(enemy1, enemy1->getTexture(), renderer);
+	//camera.renderEntity(enemy1, enemy1->getTexture(), renderer);
 
 
 	
@@ -324,7 +326,7 @@ void SceneC::Render() {
 	SDL_RenderDrawLine(renderer, newTile.PointOne.x, newTile.PointOne.y, newTile.PointTwo.x, newTile.PointTwo.y);*/
 
 				
-	healthBar->Render(renderer, Vec2(770, 550), 20); // Position, height 20px
+	healthBar->Render(renderer, Vec2(1050, 650), 20); // Position, height 20px
 	
 	panel.Render();
 
@@ -371,13 +373,15 @@ void SceneC::HandleEvents(const SDL_Event& event)
 			break;
 		case SDL_SCANCODE_E:
 			if (currentItem != nullptr && currentItem->itemName == "potion") {
-				player->addPlayerHP(-2);
+				player->addPlayerHP(3);
 				player->getPlayerHP();
 				std::cout << "potion used" << std::endl;
 				std::cout << player->getPlayerHP() << std::endl;
 				break;
 			}
 		}
+
+		player->setCurrentItem(currentItem);
 		// Refresh the icon after item change
 		refreshIcon();
 
@@ -406,46 +410,30 @@ void SceneC::AttackEnemy(const SDL_Event& event)
 		if (event.button.button == SDL_BUTTON_LEFT) { // left click on mouse
 			// Using function to check if mouse click is within the bounds of the image "bounds"
 			
-			
+			for (int i = 0; i < enemyList.size(); i++)
+			{
+				// Change player sprite when attacking
+				if (mouseInsideObject(mousePhysicsCoords, enemyList[i]) == true) {
+					enemyList[i]->healthpoints -= player->dmgValue;
+					std::cout << "\n" << "Clicked/Enemy Takes Damage";
 
-			// Change player sprite when attacking
-			if (mouseInsideEnemy(mousePhysicsCoords, enemy) == true) {
-				tempHealth -= tempDamage;
-				std::cout << "\n" << "Clicked/Enemy Takes Damage";
-				
-				std::cout << "Damage Value: " << tempHealth << std::endl;
-				
-				if (tempHealth <= 0) {
-					std::cout << "\n" << "Enemy Dies";
-					enemy->setTexture(nullptr);
-					//enemy = nullptr;
+					std::cout << "Damage Value: " << tempHealth << std::endl;
 
-					//enemy = nullptr;
-					//enemy = new Enemy();
-				}
-				
-			}
+					if (enemyList[i]->healthpoints <= 0) {
 
-			// Change player sprite when attacking
-			if (mouseInsideEnemy(mousePhysicsCoords, enemy1) == true) {
-				tempHealth -= tempDamage;
-				std::cout << "\n" << "Clicked/Enemy Takes Damage";
 
-				std::cout << "Damage Value: " << tempHealth << std::endl;
-
-				if (tempHealth <= 0) {
-					std::cout << "\n" << "Enemy Dies";
-					enemy1->setTexture(nullptr);
-					//enemy = nullptr;
+						// Instead of settingTexture Call EnemyDeath function
+						std::cout << "\n" << "Enemy Dies";
+						enemyList[i]->setTexture(nullptr);
+						//enemy = nullptr;
 
 					//enemy = nullptr;
 					//enemy = new Enemy();
+					}
 				}
-
+				
 			}
 			
-
-
 		}
 	}
 
@@ -472,6 +460,8 @@ void SceneC::OnDestroy() {
 		space[i].OnDestroy();
 	}
 	panel.OnDestroy();
+	enemyManager->OnDestroy();
+	delete enemyManager;
 }
 
 

@@ -225,7 +225,6 @@ void Enemy::Attack(float deltaTime)
 		player->takeDamage(damage);
 
 	}
-
 }
 
 void Enemy::Chase(float deltaTime)

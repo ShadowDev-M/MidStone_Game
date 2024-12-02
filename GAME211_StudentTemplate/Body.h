@@ -84,6 +84,8 @@ public:
     // Extracted function that sets and loads a new texture
     virtual void changeTexture(const char* fileName);
     
+    //virtual bool mouseInsideObject(Vec3 mouseCoords);
+    
 
     /// Set a new texture file for this body	
    /// <param name="textureFile_">The new texture file</param>

@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "Item.h"
+#include "Inventory.h"
 #include <stdio.h>
 #include "Body.h"
 #include "Inventory.h"
@@ -21,6 +23,8 @@ protected:
     bool isWallBouncingX = false; // Is the player in a bounce-back state?
     float wallBounceDecay = 0.7f; // Damping factor (adjust as needed)
     int pushBackDirection;
+private:
+    Item* currentItem;
 
 public:
 
@@ -60,13 +64,18 @@ public:
     float healthpointsMax = 10.0f;
     float healthpoints = healthpointsMax;
 
-    float invulTimerMax = 30.0f;
-    float invulTimer = 0.0f;
+    int invulTimerMax = 60;
+    int invulTimer = 0;
+
+    int dmgValue = 5;
 
     float walkSpeedMax = 2.0f;
     Inventory playerInventory;
     std::vector<TileFaces> hitFaces;
     std::vector<TileFaces> permFaces;
+
+    bool isHoldingShield() const; 
+    void setCurrentItem(Item* item) { currentItem = item; }
 
     ChunkHandler* region;
 
@@ -74,6 +83,10 @@ public:
     // use the base class versions of getters
     void SetRegion(ChunkHandler* region_) { region = region_; };
     float getPlayerHP() { return healthpoints; }
+
+    // Damage and Health Should be Body varibles that are set and accesed via player and enemy
+    int getPlayerDamage() { return dmgValue; }
+
     float addPlayerHP(float heal) { healthpoints += heal; if (healthpoints >= healthpointsMax) { healthpoints = healthpointsMax; } return healthpoints; }
     bool OnCreate();
     void setupCollision();
@@ -82,10 +95,19 @@ public:
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
     void takeDamage(float damage) {
-        healthpoints -= damage;
-        std::cout << "Damaged: " << healthpoints << endl;
+        if (isHoldingShield()) {
+            damage = 0;
+            healthpoints -= damage;
+            return;
+        }
+        else {
+            healthpoints -= damage;
+            std::cout << "Damaged: " << healthpoints << endl;
+            invulTimer = invulTimerMax;
+        }
     }
-    void setItem(Item newItem) { currentItem = newItem; }
+
+    //void setItem(Item* newItem) { currentItem = newItem; }
     void setFaces(std::vector<TileFaces> faces_); //
 
 

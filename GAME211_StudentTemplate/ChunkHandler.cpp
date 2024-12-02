@@ -359,30 +359,85 @@ std::vector<TileFaces> ChunkHandler::getFaces(Vec2 entityPos_, Vec2 velVector_) 
  //   }
 
 
+
+//Vec2 playerChunkPos = RegionOne.getChunkLocation(Vec2(player->getPos().x, player->getPos().y));
+////for (int i = 0; i < 16*16; i++) {
+//for (int i = 0; i < 3; i++)
+//{
+//    for (int j = 0; j < 3; j++)
+//    {
+//        Vec2 chunkRenderPos = Vec2((playerChunkPos.x - 1) + i, (playerChunkPos.y - 1) + j);
+//
+//        for (int x = 0; x < 16; x++) {
+//            for (int y = 0; y < 16; y++) {
+//                int id = RegionOne.getChunkTileID(chunkRenderPos, Vec2(x, y));
+//
+//                Vec3 chunkInfo = Vec3(x + 16 * chunkRenderPos.x, y + 16 * chunkRenderPos.y, id);
+
+
 Vec2 entityTile = Vec2(round(entityPos_.x), round(entityPos_.y));
 std::vector<TileFaces> surroundingFaces;
-    for (int i = -2; i < 3; i++)
+for (int i = -2; i < 3; i++)
+{
+    for (int j = -2; j < 3; j++)
     {
-        for (int j = -2; j < 3; j++)
+        Vec2 tempTile = Vec2(entityTile.x + i, entityTile.y + j);
+        if (getTileIDFromCoord(tempTile) == 1)
         {
-            Vec2 tempTile = Vec2(entityTile.x + i, entityTile.y + j);
-            if (getTileIDFromCoord(tempTile) == 1)
-            { 
 
-                if (getTileIDFromCoord(Vec2(tempTile.x, tempTile.y - 1)) != 1) //bottom
-                    surroundingFaces.push_back(TileFaces(Vec2(tempTile.x + 1, tempTile.y - 1), Vec2(tempTile.x, tempTile.y - 1), wall));
-                if (getTileIDFromCoord(Vec2(tempTile.x, tempTile.y + 1)) != 1)// top
-                    surroundingFaces.push_back(TileFaces(Vec2(tempTile.x, tempTile.y), Vec2(tempTile.x + 1, tempTile.y), wall)); 
-                if (getTileIDFromCoord(Vec2(tempTile.x + 1, tempTile.y)) != 1) //right
-                    surroundingFaces.push_back(TileFaces(Vec2(tempTile.x + 1, tempTile.y - 1), Vec2(tempTile.x + 1, tempTile.y), wall));
-                if (getTileIDFromCoord(Vec2(tempTile.x - 1, tempTile.y)) != 1) //left
-                    surroundingFaces.push_back(TileFaces(Vec2(tempTile.x, tempTile.y), Vec2(tempTile.x, tempTile.y - 1), wall)); 
+            if (getTileIDFromCoord(Vec2(tempTile.x, tempTile.y - 1)) != 1) //bottom
+                surroundingFaces.push_back(TileFaces(Vec2(tempTile.x + 1, tempTile.y - 1), Vec2(tempTile.x, tempTile.y - 1), wall));
+            if (getTileIDFromCoord(Vec2(tempTile.x, tempTile.y + 1)) != 1)// top
+                surroundingFaces.push_back(TileFaces(Vec2(tempTile.x, tempTile.y), Vec2(tempTile.x + 1, tempTile.y), wall));
+            if (getTileIDFromCoord(Vec2(tempTile.x + 1, tempTile.y)) != 1) //right
+                surroundingFaces.push_back(TileFaces(Vec2(tempTile.x + 1, tempTile.y - 1), Vec2(tempTile.x + 1, tempTile.y), wall));
+            if (getTileIDFromCoord(Vec2(tempTile.x - 1, tempTile.y)) != 1) //left
+                surroundingFaces.push_back(TileFaces(Vec2(tempTile.x, tempTile.y), Vec2(tempTile.x, tempTile.y - 1), wall));
 
-
-            }
 
         }
-    }
 
-    return surroundingFaces;
+    }
 }
+
+return surroundingFaces;
+}
+
+
+
+
+
+
+
+//Vec2 entityTile = Vec2(round(entityPos_.x), round(entityPos_.y));
+//Vec2 playerChunkPos = getChunkLocation(Vec2(entityPos_.x, entityPos_.y));
+//std::vector<TileFaces> surroundingFaces;
+//for (int i = -2; i < 3; i++)
+//{
+//    for (int j = -2; j < 3; j++)
+//    {
+//        Vec2 tempTile = Vec2(entityTile.x + i, entityTile.y + j);
+//        if (getChunkTileID(playerChunkPos, tempTile) == 1)
+//        {
+//
+//
+//
+//            //if (getChunkTileID() == 1) {
+//
+//            if (getChunkTileID(playerChunkPos, Vec2(tempTile.x, tempTile.y - 1)) != 1) //bottom
+//                surroundingFaces.push_back(TileFaces(Vec2(tempTile.x + 1, tempTile.y - 1), Vec2(tempTile.x, tempTile.y - 1), wall));
+//            if (getChunkTileID(playerChunkPos, Vec2(tempTile.x, tempTile.y + 1)) != 1)// top
+//                surroundingFaces.push_back(TileFaces(Vec2(tempTile.x, tempTile.y), Vec2(tempTile.x + 1, tempTile.y), wall));
+//            if (getChunkTileID(playerChunkPos, Vec2(tempTile.x + 1, tempTile.y)) != 1) //right
+//                surroundingFaces.push_back(TileFaces(Vec2(tempTile.x + 1, tempTile.y - 1), Vec2(tempTile.x + 1, tempTile.y), wall));
+//            if (getChunkTileID(playerChunkPos, Vec2(tempTile.x - 1, tempTile.y)) != 1) //left
+//                surroundingFaces.push_back(TileFaces(Vec2(tempTile.x, tempTile.y), Vec2(tempTile.x, tempTile.y - 1), wall));
+//
+//            //}
+//            //std::cout << tempTile.x << ", " << tempTile.y << std::endl;
+//
+//            //std::cout << getChunkPointer(tempTile) << std::endl;
+//        }
+//
+//    }
+//}
