@@ -35,7 +35,6 @@ protected:
     enemyState State;
     float speed;
     void MoveTo(float deltaTime);
-    int GetRandomNumber(int min, int max);
 
     
 
@@ -119,7 +118,8 @@ public:
     std::vector<TileFaces> hitFaces;
     ObjectTag objectTag = enemy;
 
-  
+    //Random number
+    int GetRandomNumber(int min, int max);
 
     Player* player;
 

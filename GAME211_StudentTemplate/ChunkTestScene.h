@@ -10,7 +10,7 @@
 #include "Camera.h"
 
 #include "Enemy.h"
-
+#include "EnemyManager.h"
 
 #include "Chunk.h"
 #include "ChunkHandler.h"
@@ -43,6 +43,9 @@ private:
 	Player* player;
 	Enemy* enemy;
 	Enemy* enemy1;
+	EnemyManager* enemyManager;
+	std::vector<Enemy*> enemyList;
+	
 	ChunkHandler RegionOne;
 	Camera camera;
 	
@@ -61,9 +64,10 @@ private:
 	int mouseX;
 	int mouseY;
 	Vec3 mousePhysicsCoords;
+	
 
-	bool mouseInsideEnemy(Vec3 mouseCoords, Body* body);
-	SDL_Event event;
+	//
+	bool mouseInsideObject(Vec3 mouseCoords, Body* body);
 
 	int tempHealth = 5;
 	int tempDamage = 3;

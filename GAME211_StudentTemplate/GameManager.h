@@ -47,6 +47,7 @@ public:
 	//void setWindowHeight(float WindowWidth) const;
 	//void setWindowWidth(float WindowHeight) const;
 
+
 	Matrix4 getProjectionMatrix();
 	SDL_Renderer* getRenderer();
 
