@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "UiPanel.h"
+//#include "Camera.h"
 #include "Item.h"
 #include "Inventory.h"
 #include <stdio.h>
@@ -14,6 +16,7 @@
 #include "BoxCollider.h"
 #include "ChunkHandler.h"
 #include "BoxCollider.h"
+#include "HPbar.h"
 
 class Player : public Body
 {
@@ -25,9 +28,13 @@ protected:
     int pushBackDirection;
 private:
     Item* currentItem;
+    UiPanel panel;
+    UiPanel space[5];
+    HealthBar* healthBar;
+    //Camera camera;
 
 public:
-
+    float panelScaling = 1.7f;
     Player() : Body{}
     {
         game = nullptr;
@@ -72,8 +79,10 @@ public:
     std::vector<TileFaces> hitFaces;
     std::vector<TileFaces> permFaces;
 
+    bool hasShoes();
     bool isHoldingShield() const; 
     void setCurrentItem(Item* item) { currentItem = item; }
+    void refreshIcons();
 
     ChunkHandler* region;
 
@@ -86,6 +95,7 @@ public:
     void setupCollision();
     void OnDestroy();
     void Render();
+    void RenderUI();
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
     void takeDamage(float damage) {
