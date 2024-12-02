@@ -26,7 +26,7 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	yAxis = camera.getYAxis();
 
 
-	player = new Player(Vec3(1, 1, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
+	player = new Player(Vec3(1000, 1000, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0);
 	player->setRenderer(renderer);
 	player->SetTextureFile("textures/PlayerFacingFrontIdle.png");
 	player->setWidth(1.0f);
@@ -47,12 +47,12 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	grassTile->setHeight(1.0f);
 
 	
-	enemy = new Enemy(Vec3(4, 4, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
+	enemy = new Enemy(Vec3(4 + 1000, 4 + 1000, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
 	enemy->setRenderer(renderer);
 	enemy->setWidth(1.0f);
 	enemy->setHeight(1.0f);
 
-	enemy1 = new Enemy(Vec3(6, 6, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
+	enemy1 = new Enemy(Vec3(6 + 1000, 6 + 1000, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
 	enemy1->setRenderer(renderer);
 	enemy1->setWidth(1.0f);
 	enemy1->setHeight(1.0f);
@@ -99,7 +99,7 @@ bool SceneC::OnCreate() {
 	
 	RegionOne.OnCreate();
 	changesIndex = {
-		{0, 0, 1}
+		{20 + 1000, 20 + 1000, 1}, {1 + 1000, 1 + 1000, 1}, {2 + 1000, 2 + 1000, 1}, {3 + 1000, 3 + 1000, 1}, {4 + 1000, 4 + 1000, 1}, {5 + 1000, 5 + 1000, 1}
 
 	};
 
@@ -180,7 +180,7 @@ void SceneC::refreshIcon() {
 }
 
 
-bool SceneC::mouseInsideEnemy(Vec3 mouseCoords, Body* body)
+bool SceneC::mouseInsideObject(Vec3 mouseCoords, Body* body)
 {
 	if ((mouseCoords.x >= body->getPos().x - body->width) &&
 		(mouseCoords.x <= body->getPos().x + body->width) &&
@@ -227,7 +227,7 @@ void SceneC::Update(const float deltaTime) {
 	//std::cout << "Mouse Coords: " << mousePhysicsCoords.x << ", " << mousePhysicsCoords.y << "\n";
 	//std::cout << "Sword Pos: " << sword->getPos().x << ", " << sword->getPos().y << "\n";
 
-	std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
+	//std::cout << player->getPos().x << ", " << player->getPos().y << "\n";
 	//std::cout << "TILE LOCATIONS:" << stoneTile->getPos().x << ", " << stoneTile->getPos().y << "\n";
 }
 
@@ -371,7 +371,7 @@ void SceneC::HandleEvents(const SDL_Event& event)
 			break;
 		case SDL_SCANCODE_E:
 			if (currentItem != nullptr && currentItem->itemName == "potion") {
-				player->addPlayerHP(-2);
+				player->addPlayerHP(2);
 				player->getPlayerHP();
 				std::cout << "potion used" << std::endl;
 				std::cout << player->getPlayerHP() << std::endl;
@@ -406,16 +406,19 @@ void SceneC::AttackEnemy(const SDL_Event& event)
 		if (event.button.button == SDL_BUTTON_LEFT) { // left click on mouse
 			// Using function to check if mouse click is within the bounds of the image "bounds"
 			
-			
+					   // Takes Code From EnemyManager that checks if mouseCoords are under an enemy
+		   // Enemy Under Mouse Takes Damage
 
+		   // If Enemy Health is Less or Equal to 0, call EnemyDeath function 
+			
 			// Change player sprite when attacking
-			if (mouseInsideEnemy(mousePhysicsCoords, enemy) == true) {
-				tempHealth -= tempDamage;
+			if (mouseInsideObject(mousePhysicsCoords, enemy) == true) {
+				enemy->healthpoints -= player->getPlayerDamage();
 				std::cout << "\n" << "Clicked/Enemy Takes Damage";
 				
-				std::cout << "Damage Value: " << tempHealth << std::endl;
+				std::cout << "Damage Value: " << enemy->healthpoints << std::endl;
 				
-				if (tempHealth <= 0) {
+				if (enemy->healthpoints <= 0) {
 					std::cout << "\n" << "Enemy Dies";
 					enemy->setTexture(nullptr);
 					//enemy = nullptr;
@@ -425,27 +428,7 @@ void SceneC::AttackEnemy(const SDL_Event& event)
 				}
 				
 			}
-
-			// Change player sprite when attacking
-			if (mouseInsideEnemy(mousePhysicsCoords, enemy1) == true) {
-				tempHealth -= tempDamage;
-				std::cout << "\n" << "Clicked/Enemy Takes Damage";
-
-				std::cout << "Damage Value: " << tempHealth << std::endl;
-
-				if (tempHealth <= 0) {
-					std::cout << "\n" << "Enemy Dies";
-					enemy1->setTexture(nullptr);
-					//enemy = nullptr;
-
-					//enemy = nullptr;
-					//enemy = new Enemy();
-				}
-
-			}
 			
-
-
 		}
 	}
 

@@ -84,8 +84,45 @@ void Player::HandleEvents( const SDL_Event& event )
                 break;
             }
         }
-    
+        break;
 
+    case SDL_KEYUP:
+        switch (event.key.keysym.scancode) {
+        case SDL_SCANCODE_W:
+            if (vel.y >= 0) {
+                
+                vel.y = 0.0f;
+                changeTexture("textures/PlayerFacingBackIdle.png");
+            }
+            break;
+
+        case SDL_SCANCODE_S:
+            if (vel.y <= 0) {
+
+                vel.y = 0.0f;
+                changeTexture("textures/PlayerFacingFrontIdle.png");
+            }
+            break;
+
+        case SDL_SCANCODE_D:
+            if (vel.x >= 0) {
+
+                vel.x = 0.0f;
+                changeTexture("textures/PlayerFacingRightIdle.png");
+            }
+            break;
+
+        case SDL_SCANCODE_A:
+            if (vel.x <= 0) {
+
+                vel.x = 0.0f;
+                changeTexture("textures/PlayerFacingLeftIdle.png");
+            }
+            break;
+
+        }
+
+        break;
 
     // Check to see item in inventory
     case SDL_MOUSEBUTTONDOWN:
@@ -93,6 +130,12 @@ void Player::HandleEvents( const SDL_Event& event )
         case SDL_BUTTON_LEFT:
             // if (item == potion), sword, etc
             //changeTexture("textures/Sprite-0012.png");
+            
+
+           // Takes Code From EnemyManager that checks if mouseCoords are under an enemy
+           // Enemy Under Mouse Takes Damage
+           
+           // If Enemy Health is Less or Equal to 0, call EnemyDeath function 
 
             break;
         
@@ -110,46 +153,11 @@ void Player::HandleEvents( const SDL_Event& event )
             break;
         }
 
-
+        break;
     }
 
     
     
-
-    
-    //If we release one of the keys, stop velocity in that direction
-    if (event.type == SDL_KEYUP)
-    {
-        //All the vel checks are needed because otherwise controls can be finicky if moving in one direction and releasing a different key
-        if (event.key.keysym.scancode == SDL_SCANCODE_W && vel.y >= 0) {
-            vel.y = 0.0f;
-
-            
-            changeTexture("textures/PlayerFacingBackIdle.png");
-        }
-            
-
-        if (event.key.keysym.scancode == SDL_SCANCODE_S && vel.y <= 0) {
-            vel.y = 0.0f;
-
-            changeTexture("textures/PlayerFacingFrontIdle.png");
-        }
-            
-
-        if (event.key.keysym.scancode == SDL_SCANCODE_D && vel.x >= 0) {
-            vel.x = 0.0f;
-
-            changeTexture("textures/PlayerFacingRightIdle.png");
-        }
-           
-
-        if (event.key.keysym.scancode == SDL_SCANCODE_A && vel.x <= 0) {
-            vel.x = 0.0f;
-
-            changeTexture("textures/PlayerFacingLeftIdle.png");
-        }
-           
-    }
 
     //Don't exceed our max speed when moving diagonally
    // if (VMath::mag(vel) > walkSpeedMax)
@@ -165,7 +173,7 @@ void Player::Update( float deltaTime )
     
     //hitbox.setObstacles(hitFaces);
     //pos.print();
-    
+   
 
     ////
     //vel.print();

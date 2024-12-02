@@ -68,7 +68,7 @@ private:
 	int mouseY;
 	Vec3 mousePhysicsCoords;
 
-	bool mouseInsideEnemy(Vec3 mouseCoords, Body* body);
+	bool mouseInsideObject(Vec3 mouseCoords, Body* body);
 	SDL_Event event;
 
 	int tempHealth = 5;

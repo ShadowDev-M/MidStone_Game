@@ -63,6 +63,8 @@ public:
     float invulTimerMax = 30.0f;
     float invulTimer = 0.0f;
 
+    int dmgValue = 5;
+
     float walkSpeedMax = 2.0f;
     Inventory playerInventory;
     std::vector<TileFaces> hitFaces;
@@ -74,6 +76,10 @@ public:
     // use the base class versions of getters
     void SetRegion(ChunkHandler* region_) { region = region_; };
     float getPlayerHP() { return healthpoints; }
+
+    // Damage and Health Should be Body varibles that are set and accesed via player and enemy
+    int getPlayerDamage() { return dmgValue; }
+
     float addPlayerHP(float heal) { healthpoints += heal; if (healthpoints >= healthpointsMax) { healthpoints = healthpointsMax; } return healthpoints; }
     bool OnCreate();
     void setupCollision();

@@ -139,6 +139,18 @@ void Body::changeTexture(const char* fileName)
 }
 
 
+//bool Body::mouseInsideObject(Vec3 mouseCoords)
+//{
+//    if ((mouseCoords.x >= getPos().x - width) &&
+//        (mouseCoords.x <= getPos().x + width) &&
+//        (mouseCoords.y >= getPos().y - height) &&
+//        (mouseCoords.y <= getPos().y + height)) {
+//        return true;
+//    }
+//    return false;
+//}
+
+
 
 void Body::ApplyForce( Vec3 force_ ) {
     accel = force_ / mass;
