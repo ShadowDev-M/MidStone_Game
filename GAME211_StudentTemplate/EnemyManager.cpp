@@ -15,7 +15,7 @@ std::vector<Enemy*> EnemyManager::spawnEnemy(int amount, Player* player_)
 		//std::cout << "\n";
 
 		Enemy* myEnemy = new Enemy(Vec3(0.0f, 0.0f, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0,player_);
-		Vec3 enemyPosition = Vec3(myEnemy->GetRandomNumber(-40, 40), myEnemy->GetRandomNumber(-20, 20), 0);
+		Vec3 enemyPosition = Vec3(myEnemy->GetRandomNumber(-40 + 1000, 40 + 1000), myEnemy->GetRandomNumber(-20 + 1000, 20 + 1000), 0);
 
 		myEnemy->setPos(enemyPosition);
 		myEnemy->setRenderer(renderer);

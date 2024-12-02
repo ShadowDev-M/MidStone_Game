@@ -70,9 +70,10 @@ private:
 	int mouseX;
 	int mouseY;
 	Vec3 mousePhysicsCoords;
+	
 
+	//
 	bool mouseInsideObject(Vec3 mouseCoords, Body* body);
-	SDL_Event event;
 
 	int tempHealth = 5;
 	int tempDamage = 3;

@@ -107,7 +107,7 @@ public:
         }
     }
 
-    void setItem(Item newItem) { currentItem = newItem; }
+    //void setItem(Item* newItem) { currentItem = newItem; }
     void setFaces(std::vector<TileFaces> faces_); //
 
 

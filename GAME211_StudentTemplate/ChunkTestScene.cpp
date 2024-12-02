@@ -413,19 +413,23 @@ void SceneC::AttackEnemy(const SDL_Event& event)
 			for (int i = 0; i < enemyList.size(); i++)
 			{
 				// Change player sprite when attacking
-				if (mouseInsideEnemy(mousePhysicsCoords, enemyList[i]) == true) {
-					tempHealth -= tempDamage;
+				if (mouseInsideObject(mousePhysicsCoords, enemyList[i]) == true) {
+					enemyList[i]->healthpoints -= player->dmgValue;
 					std::cout << "\n" << "Clicked/Enemy Takes Damage";
 
 					std::cout << "Damage Value: " << tempHealth << std::endl;
 
-					if (tempHealth <= 0) {
+					if (enemyList[i]->healthpoints <= 0) {
+
+
+						// Instead of settingTexture Call EnemyDeath function
 						std::cout << "\n" << "Enemy Dies";
 						enemyList[i]->setTexture(nullptr);
 						//enemy = nullptr;
 
 					//enemy = nullptr;
 					//enemy = new Enemy();
+					}
 				}
 				
 			}
