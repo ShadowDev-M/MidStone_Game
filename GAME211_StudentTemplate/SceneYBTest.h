@@ -47,7 +47,7 @@ private:
 	EnemyManager* enemyManager;
 	Enemy* enemy;
 
-	std::vector<Enemy*> enemyList;
+	
 
 	// Testing the loading of tiles
 	// Starting off with a single tile and assigning it an ID

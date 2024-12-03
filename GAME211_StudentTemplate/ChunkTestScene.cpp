@@ -8,12 +8,12 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
 	game = game_;
 	renderer = SDL_GetRenderer(window);
-	
+
 	// 28
 	xAxis = camera.getXAxis();
 	// 16
 	// yAxis = static_cast<int>(LEVEL_HEIGHT) + 1
-	
+
 	// 15.75
 	yAxis = camera.getYAxis();
 
@@ -24,6 +24,10 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 	player->setWidth(1.0f);
 	player->setHeight(1.0f);
 	player->SetRegion(&RegionOne);
+	player->SubscribeToOnAttack(
+		[this](Vec3 mousePos, float damage) {
+			PlayerAttack(mousePos, damage);
+		});
 	//RegionOne.setPlayer(player);
 
 
@@ -40,24 +44,12 @@ SceneC::SceneC(SDL_Window* sdlWindow_, GameManager* game_) {
 
 	enemyManager = new EnemyManager();
 	enemyManager->setRenderer(renderer);
-	enemyList = enemyManager->spawnEnemy(10, player);
-
-	//enemy = new Enemy(Vec3(4, 4, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
-	//enemy->setRenderer(renderer);
-	//enemy->setWidth(1.0f);
-	//enemy->setHeight(1.0f);
-
-	//enemy1 = new Enemy(Vec3(6, 6, 0.0f), Vec3(), Vec3(), 1.0f, 0, 0, 0, 0, player);
-	//enemy1->setRenderer(renderer);
-	//enemy1->setWidth(1.0f);
-	//enemy1->setHeight(1.0f);
-
-	
+	enemyManager->SpawnEnemy(10, player);
 
 	stoneTileTexture = nullptr;
 	grassTileTexture = nullptr;
-	
-	
+
+
 
 }
 
@@ -69,13 +61,13 @@ bool SceneC::OnCreate() {
 
 
 
-	camera.OnCreate();	
+	camera.OnCreate();
 	projectionMatrix = camera.getProjectionMatrix();
-	
-	
-	
+
+
+
 	player->OnCreate();
-	
+
 	player->setScale(camera.scalingFactor(player->getTexture(), player));
 
 	player->setupCollision();
@@ -88,10 +80,10 @@ bool SceneC::OnCreate() {
 
 	//enemy1->setProjection(projectionMatrix);
 	//enemy->setInverse(inverseProjection);
-	
+
 
 	// Creating Chunks and Rendering them should be their own methods
-	
+
 	RegionOne.OnCreate();
 	changesIndex = { 
 
@@ -116,7 +108,7 @@ bool SceneC::OnCreate() {
 
 
 	//player->hitbox.setObstacles(faces);
-	
+
 
 	RegionOne.addLoadingEntity(player);
 
@@ -130,17 +122,17 @@ bool SceneC::OnCreate() {
 	return true;
 }
 
-
-bool SceneC::mouseInsideObject(Vec3 mouseCoords, Body* body)
+void SceneC::PlayerAttack(Vec3 mouseCoord_, float damage_)
 {
-	if ((mouseCoords.x >= body->getPos().x - body->width) &&
-		(mouseCoords.x <= body->getPos().x + body->width) &&
-		(mouseCoords.y >= body->getPos().y - body->height) &&
-		(mouseCoords.y <= body->getPos().y + body->height)) {
-		return true;
-	}
-	return false;
-} 
+
+	std::cout << "Bruh Was Called" << endl;
+	mousePhysicsCoords = camera.ScreenToWorldCoords(Vec3(mouseCoord_.x + mouseOffSet, mouseCoord_.y + mouseOffSet, 0.0f));
+
+	enemyManager->AttackEnemy(mousePhysicsCoords, damage_);
+}
+
+
+
 
 void SceneC::Update(const float deltaTime) {
 	//// Will make this its own extracted function after (will put in camera class too)
@@ -157,24 +149,22 @@ void SceneC::Update(const float deltaTime) {
 	//enemy->Update(deltaTime);
 
 	//enemy1->Update(deltaTime);
-	
+
 	if (testh) {
 		RegionOne.setTile(changesIndex);
-			testh = false;
+		testh = false;
 	};
 
 
-	
-	SDL_GetMouseState(&mouseX, &mouseY);
-	mousePhysicsCoords = camera.ScreenToWorldCoords(Vec3(mouseX + mouseOffSet, mouseY + mouseOffSet, 0.0f));
-	
+
+
 
 
 	//if (mouseInsideEnemy(mousePhysicsCoords, sword) == true) {
 	//	std::cout << "ENEMY UNDER CURSOR";
 	//}
 
-	
+
 
 	//std::cout << "Mouse Coords: " << mousePhysicsCoords.x << ", " << mousePhysicsCoords.y << "\n";
 	//std::cout << "Sword Pos: " << sword->getPos().x << ", " << sword->getPos().y << "\n";
@@ -186,10 +176,10 @@ void SceneC::Update(const float deltaTime) {
 void SceneC::Render() {
 	//Initialize renderer color
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-	
+
 	// Clear the screen
 	SDL_RenderClear(renderer);
-	
+
 	// unified measurement system
 	// Render Chunks
 	// Camera
@@ -204,14 +194,14 @@ void SceneC::Render() {
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			Vec2 chunkRenderPos = Vec2((playerChunkPos.x-1)+i, (playerChunkPos.y-1)+j);
+			Vec2 chunkRenderPos = Vec2((playerChunkPos.x - 1) + i, (playerChunkPos.y - 1) + j);
 
 			for (int x = 0; x < 16; x++) {
 				for (int y = 0; y < 16; y++) {
 					int id = RegionOne.getChunkTileID(chunkRenderPos, Vec2(x, y));
 
 					Vec3 chunkInfo = Vec3(x + 16 * chunkRenderPos.x, y + 16 * chunkRenderPos.y, id);
-					
+
 					if (chunkInfo.z == 0) {
 
 						grassTile->setPos(Vec3(chunkInfo.x, chunkInfo.y, 0.0f));
@@ -219,7 +209,7 @@ void SceneC::Render() {
 						Vec3 grassTileCoords = camera.worldToScreenCoords(grassTile->getPos());
 
 						SDL_Rect grassDest = camera.scale(grassTileTexture, grassTileCoords.x, grassTileCoords.y, camera.scalingFactor(grassTileTexture, grassTile) + 0.1f);
-						
+
 						SDL_RenderCopy(renderer, grassTileTexture, nullptr, &grassDest);
 
 					}
@@ -229,7 +219,7 @@ void SceneC::Render() {
 						Vec3 stoneTileCoords = camera.worldToScreenCoords(stoneTile->getPos());
 
 						SDL_Rect stoneDest = camera.scale(stoneTileTexture, stoneTileCoords.x, stoneTileCoords.y, camera.scalingFactor(stoneTileTexture, stoneTile) + 0.1f); //+ 0.1f
-						
+
 						SDL_RenderCopy(renderer, stoneTileTexture, nullptr, &stoneDest);
 					}
 				}
@@ -249,13 +239,13 @@ void SceneC::Render() {
 	}
 
 
-	
+
 	/*
 	SDL_Rect srcRect = PlayerAnimation(2);*/
 
 	Vec3 worldCoords = camera.worldToScreenCoords(player->getPos());
 	SDL_Rect Dest = camera.scale(player->getTexture(), worldCoords.x, worldCoords.y, camera.scalingFactor(player->getTexture(), player));
-	
+
 	if (player->invulTimer % 2 == 0 || player->invulTimer <= 0)
 		player->renderPlayer(player->scale, 2);
 
@@ -264,7 +254,7 @@ void SceneC::Render() {
 	player->RenderUI();
 
 
-	
+
 
 
 	// TileFaces newTile = TileFaces(Vec2(5, 4), Vec2(10, 4), wall);
@@ -282,55 +272,6 @@ void SceneC::HandleEvents(const SDL_Event& event)
 	player->HandleEvents(event);
 
 
-
-	AttackEnemy(event);
-
-
-
-
-}
-
-void SceneC::AttackEnemy(const SDL_Event& event)
-{
-	if (event.type == SDL_MOUSEBUTTONDOWN) { // mouse button down event
-		if (event.button.button == SDL_BUTTON_LEFT) { // left click on mouse
-			// Using function to check if mouse click is within the bounds of the image "bounds"
-			
-			for (int i = 0; i < enemyList.size(); i++)
-			{
-				// Change player sprite when attacking
-				if (mouseInsideObject(mousePhysicsCoords, enemyList[i]) == true) {
-					enemyList[i]->healthpoints -= player->dmgValue;
-					std::cout << "\n" << "Clicked/Enemy Takes Damage";
-
-					std::cout << "Damage Value: " << tempHealth << std::endl;
-
-					if (enemyList[i]->healthpoints <= 0) {
-
-
-						// Instead of settingTexture Call EnemyDeath function
-						std::cout << "\n" << "Enemy Dies";
-						enemyList[i]->setTexture(nullptr);
-						//enemy = nullptr;
-
-					//enemy = nullptr;
-					//enemy = new Enemy();
-					}
-				}
-				
-			}
-			
-		}
-	}
-
-	else if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) { // when the left click of the mouse is released
-		
-	}
-
-	//else if (event.type == SDL_MOUSEMOTION && movedObject) { // When movedStar is equal to one of the stars, use mouse motion to move the planet around 
-	//	// set the poistion of the movedStar to that of the mouse when moving it around
-	//	movedObject->getPos() = mousePhysicsCoords;
-	//}
 }
 
 void SceneC::OnDestroy() {
@@ -347,5 +288,5 @@ void SceneC::OnDestroy() {
 SceneC::~SceneC() {
 	std::cout << "deleting child class: SceneC." << std::endl;
 	// delete
-	
+
 }

@@ -172,13 +172,13 @@ void Body::HandleEvents( const SDL_Event& event )
 {
     if ( event.type == SDL_MOUSEBUTTONDOWN )
     {
-        printf("Mousedown\n");
+
     }
     else if ( event.type == SDL_KEYDOWN )
     {
         if ( event.key.keysym.scancode == SDL_SCANCODE_SPACE)
         {
-            printf("Space\n");
+
         }
     }
     // etc
