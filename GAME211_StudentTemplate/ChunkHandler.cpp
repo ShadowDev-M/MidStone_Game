@@ -216,6 +216,8 @@ void ChunkHandler::setTile(std::vector<TileInfo> indexVector_) {
         //printf("(%d)", getTileIDFromCoord(newPos));
         
          chunkList.setChunkTileIDInternal(chunkLoc, newTile);
+
+
        // printf("(%d)", getChunkTileID(chunkLoc, newPos));
         //int testf = chunkList.getChunkTileIDInternal(Vec2(0, 0), Vec2(0, 0));
        // printf("(%d, %d) = %d in chunk (%d, %d)", (int)newTile.x, (int)newTile.y, testf, chunkLoc.x, chunkLoc.y);

@@ -77,6 +77,8 @@ private:
 
 	int tileOffset = 8;
 
+	int chunkSpace = 1000;
+
 	// One tile is 16x16 pixels * 3
 	// Each object should follow 48 pixels
 	// One chunk is made up of 16x16 tiles

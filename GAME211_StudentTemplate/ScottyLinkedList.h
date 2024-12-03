@@ -122,6 +122,9 @@ namespace  MATH {
 		void setChunkTileIDInternal(Vec2 chunkPos_, TileInfo tileInfo_) {
 
 			//return getChunkPointer(chunkPos_).(tilePos_.x, tilePos_.y);
+			if (!search(chunkPos_, listSize)) {
+				add(chunkPos_);
+			}
 
 			ScottLinkedNode* tempNode = first;
 			printf("internally running setChunk -> ");
@@ -135,6 +138,7 @@ namespace  MATH {
 
 					tempNode->setTilePosNodeInternal(tileInfo_);
 				}
+		
 
 				tempNode = tempNode->next;
 				// Move to the next node
