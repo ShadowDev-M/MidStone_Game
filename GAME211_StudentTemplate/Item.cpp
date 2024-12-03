@@ -32,10 +32,11 @@ void Item::CheckInRange(SDL_Window* window) {
     inRange = (MouseDistance <= range);
 }
 
-Item::Item(const char* name_, const char* filePath_, float range_, float one_, float two_) {
+Item::Item(const char* name_, const char* filePath_, float range_, bool isWeapon_, float one_, float two_) {
     itemName = name_;
     filePath = filePath_;
-    one_ = one;
-    two_ = two;
-    range_ = range;
+    one = one_;
+    two = two_;
+    range = range_;
+    isWeapon = isWeapon_;
 }

@@ -2,9 +2,9 @@
 #include "CreateItem.h"
 
 
-Item* currentItem = playerInventory.getItem(0, 3);
+Item* currentItem = playerInventory.getItem(0, 1);
 int currentItemRow = 0;
-int currentItemColumn = 3;
+int currentItemColumn = 1;
 
 Player::Player(
 	Vec3 pos_, Vec3 vel_, Vec3 accel_,
@@ -177,22 +177,29 @@ void Player::HandleEvents(const SDL_Event& event)
 	case SDL_MOUSEBUTTONDOWN:
 		switch (event.button.button) {
 		case SDL_BUTTON_LEFT:
-			int x, y;
-			SDL_GetMouseState(&x, &y);
-			TriggerOnAttack(Vec3(x, y, 0), dmgValue);
-			break;
+			if (currentItem != nullptr && currentItem->getIsWeapon() == true) {
+				if (currentItem->itemName == "sword") {
+					int x, y;
+					SDL_GetMouseState(&x, &y);
+					TriggerOnAttack(Vec3(x, y, 0), dmgValue);
+				}
+				else {
+					int x, y;
+					SDL_GetMouseState(&x, &y);
+					TriggerOnAttack(Vec3(x, y, 0), 0);
 
+				}
+			}break;
 
-
-		}
+		}break;
 
 	case SDL_MOUSEBUTTONUP:
 		switch (event.button.button) {
 		case SDL_BUTTON_LEFT:
 			// if (item == potion), sword, etc
-
-			changeTexture("textures/Sprite-0012.png");
-
+			if (currentItem != nullptr && currentItem->getIsWeapon()) {
+				changeTexture("textures/Sprite-0012.png");
+			}
 			break;
 		}
 
