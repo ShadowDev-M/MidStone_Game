@@ -191,7 +191,7 @@ void Player::HandleEvents(const SDL_Event& event)
 		case SDL_BUTTON_LEFT:
 			// if (item == potion), sword, etc
 
-			changeTexture("textures/Sprite-0012.png");
+			changeTexture("textures/PlayerSwordAttack.png");
 
 			break;
 		}
@@ -228,7 +228,7 @@ void Player::HandleEvents(const SDL_Event& event)
             break;
         case SDL_SCANCODE_E:
             if (currentItem != nullptr && currentItem->itemName == "potion") {
-                addPlayerHP(3);
+                addPlayerHP(2);
                 getPlayerHP();
                 std::cout << "potion used" << std::endl;
                 std::cout << getPlayerHP() << std::endl;
