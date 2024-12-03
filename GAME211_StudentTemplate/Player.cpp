@@ -291,7 +291,8 @@ void Player::Update(float deltaTime)
 {
 	Body::Update(deltaTime);
 
-	std::cout << invulTimer << std::endl;
+	//std::cout << invulTimer << std::endl;
+	
 	if (invulTimer > 0)
 		invulTimer--;
 
