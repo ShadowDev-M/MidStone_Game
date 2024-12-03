@@ -13,7 +13,7 @@ Player::Player(
 	float orientation_ = 0.0f,
 	float rotation_ = 0.0f,
 	float angular_ = 0.0f
-)
+	)
 {
 	pos = pos_;
 	vel = vel_;
@@ -177,8 +177,8 @@ void Player::HandleEvents(const SDL_Event& event)
 	case SDL_MOUSEBUTTONDOWN:
 		switch (event.button.button) {
 		case SDL_BUTTON_LEFT:
-			if (currentItem != nullptr && currentItem->getIsWeapon() == true) {
-				if (currentItem->itemName == "sword") {
+			if (currentItem != nullptr && currentItem->getIsWeapon() == true && CheckInRange(pos.x/100, pos.y/100, currentItem->getItemRange())) {
+				if (CheckInRange(pos.x/100, pos.y/100, currentItem->getItemRange())) {
 					int x, y;
 					SDL_GetMouseState(&x, &y);
 					TriggerOnAttack(Vec3(x, y, 0), dmgValue);
@@ -197,7 +197,7 @@ void Player::HandleEvents(const SDL_Event& event)
 		switch (event.button.button) {
 		case SDL_BUTTON_LEFT:
 			// if (item == potion), sword, etc
-			if (currentItem != nullptr && currentItem->getIsWeapon()) {
+			if (currentItem != nullptr && currentItem->getIsWeapon() && CheckInRange(pos.x/100, pos.y/100, currentItem->getItemRange())) {
 				changeTexture("textures/Sprite-0012.png");
 			}
 			break;
@@ -258,7 +258,19 @@ void Player::HandleEvents(const SDL_Event& event)
 
 }
 
+bool Player::CheckInRange(float posX, float posY, float range) {
+	// Get the window's size
+	int mouseX, mouseY;
+	SDL_GetMouseState(&mouseX, &mouseY);
 
+	// Calculate the distance between the mouse position and the center of the screen
+	float distX = mouseX - posX;
+	float distY = mouseY - posY;
+	float MouseDistance = sqrt(distX * distX + distY * distY);
+
+	// Check if the distance is within the radius (range)
+	return (MouseDistance <= range);
+}
 
 void Player::refreshIcons() {
     // Clear the current icon

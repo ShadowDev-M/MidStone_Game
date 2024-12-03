@@ -33,6 +33,7 @@ private:
     UiPanel panel;
     UiPanel space[5];
     HealthBar* healthBar;
+	Window* window;
     //Camera camera;
 
 public:
@@ -88,6 +89,7 @@ public:
     bool isHoldingShield() const; 
     void setCurrentItem(Item* item) { currentItem = item; }
     void refreshIcons();
+	bool CheckInRange(float posX, float posY, float range);
 
 	ChunkHandler* region;
 

@@ -7,8 +7,6 @@ class Inventory
 	static const int rows = 1;
 	static const int cols = 5;
 	Item* mainInventory[rows][cols];
-
-
 public:
 	Inventory();
 	bool addItem(Item* item);
