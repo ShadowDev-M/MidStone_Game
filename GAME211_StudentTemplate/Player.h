@@ -81,6 +81,7 @@ public:
     std::vector<TileFaces> hitFaces;
     std::vector<TileFaces> permFaces;
 
+    bool hasArmor();
     bool hasShoes();
     bool isHoldingShield() const; 
     void setCurrentItem(Item* item) { currentItem = item; }
@@ -104,18 +105,7 @@ public:
     void RenderUI();
     void HandleEvents(const SDL_Event& event);
     void Update(float deltaTime);
-    void takeDamage(float damage) {
-        if (isHoldingShield()) {
-            damage = 0;
-            healthpoints -= damage;
-            return;
-        }
-        else {
-            healthpoints -= damage;
-            std::cout << "Damaged: " << healthpoints << endl;
-            invulTimer = invulTimerMax;
-        }
-    }
+    void takeDamage(float damage);
 
     //void setItem(Item* newItem) { currentItem = newItem; }
     void setFaces(std::vector<TileFaces> faces_); //
