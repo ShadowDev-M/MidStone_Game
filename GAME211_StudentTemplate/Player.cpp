@@ -198,7 +198,7 @@ void Player::HandleEvents(const SDL_Event& event)
 		case SDL_BUTTON_LEFT:
 			// if (item == potion), sword, etc
 			if (currentItem != nullptr && currentItem->getIsWeapon() && CheckInRange(pos.x/100, pos.y/100, currentItem->getItemRange())) {
-				changeTexture("textures/textures/PlayerSwordAttack.png");
+				changeTexture("textures/PlayerSwordAttack.png");
 			}
 			break;
 		}
