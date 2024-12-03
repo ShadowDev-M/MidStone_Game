@@ -156,10 +156,16 @@ void SceneC::Update(const float deltaTime) {
 	};
 
 
-
-
-
-
+	
+	SDL_GetMouseState(&mouseX, &mouseY);
+	mousePhysicsCoords = camera.ScreenToWorldCoords(Vec3(mouseX + mouseOffSet, mouseY + mouseOffSet, 0.0f));
+	
+	if (player->hasShoes()) {
+		player->walkSpeedMax = 4.0f;
+	}
+	else {
+		player->walkSpeedMax = 3.0f;
+	}
 	//if (mouseInsideEnemy(mousePhysicsCoords, sword) == true) {
 	//	std::cout << "ENEMY UNDER CURSOR";
 	//}
