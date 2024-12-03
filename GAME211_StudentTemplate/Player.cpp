@@ -425,31 +425,32 @@ void Player::onCollisionEnter(const TileFaces& collidedObject)
 
 
 void Player::takeDamage(float damage) {
-    if (hasArmor()) {
-        damage = damage - 1;
-        if (isHoldingShield()) {
-            damage = 0;
-            healthpoints -= damage;
-            return;
-        }
-        else {
-            healthpoints -= damage;
-            std::cout << "Damaged: " << healthpoints << endl;
-            invulTimer = invulTimerMax;
-        }
-    }
-    else {
-        if (isHoldingShield()) {
-            damage = 0;
-            healthpoints -= damage;
-            return;
-        }
-        else {
-            healthpoints -= damage;
-            std::cout << "Damaged: " << healthpoints << endl;
-            invulTimer = invulTimerMax;
-        }
-    }
+	if (hasArmor()) {
+		damage = damage - 1;
+		if (isHoldingShield()) {
+			damage = 0;
+			healthpoints -= damage;
+			return;
+		}
+		else {
+			healthpoints -= damage;
+			std::cout << "Damaged: " << healthpoints << endl;
+			invulTimer = invulTimerMax;
+		}
+	}
+	else {
+		if (isHoldingShield()) {
+			damage = 0;
+			healthpoints -= damage;
+			return;
+		}
+		else {
+			healthpoints -= damage;
+			std::cout << "Damaged: " << healthpoints << endl;
+			invulTimer = invulTimerMax;
+		}
+	}
+}
 
 void Player::TriggerOnAttack(Vec3 mousePos, float damage)
 {
