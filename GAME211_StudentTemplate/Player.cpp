@@ -344,20 +344,6 @@ void Player::Update(float deltaTime)
 	Body::Update(deltaTime);
 }
 
-void Player::takeDamage(float damage)
-{
-	if (isHoldingShield()) {
-		damage = 0;
-		healthpoints -= damage;
-		return;
-	}
-	else {
-		healthpoints -= damage;
-		std::cout << "Damaged: " << healthpoints << endl;
-		invulTimer = invulTimerMax;
-	}
-}
-
 
 //
 void Player::setFaces(std::vector<TileFaces> faces_)
@@ -437,25 +423,66 @@ void Player::onCollisionEnter(const TileFaces& collidedObject)
 	}
 }
 
+
+void Player::takeDamage(float damage) {
+    if (hasArmor()) {
+        damage = damage - 1;
+        if (isHoldingShield()) {
+            damage = 0;
+            healthpoints -= damage;
+            return;
+        }
+        else {
+            healthpoints -= damage;
+            std::cout << "Damaged: " << healthpoints << endl;
+            invulTimer = invulTimerMax;
+        }
+    }
+    else {
+        if (isHoldingShield()) {
+            damage = 0;
+            healthpoints -= damage;
+            return;
+        }
+        else {
+            healthpoints -= damage;
+            std::cout << "Damaged: " << healthpoints << endl;
+            invulTimer = invulTimerMax;
+        }
+    }
+
 void Player::TriggerOnAttack(Vec3 mousePos, float damage)
 {
 	if (onAttackCallBack)
 		onAttackCallBack(mousePos, damage);
 
 }
-/*
 bool Player::hasShoes() {
-    for (int row = 0; row < 1; ++row) { // Single row
-        for (int col = 0; col < 5; ++col) { // 5 columns
-            Item* currentItem = playerInventory[row][col];
-            if (currentItem != nullptr && currentItem->getName() == "Shoes") {
-                return true; // Immediately exit the function if shoes are found
-            }
+    for (int col = 0; col < 5; ++col) { // Iterate through the inventory columns
+        Item* item = playerInventory.getItem(0, col); // Get the item at (row 0, col)
+        if (item != nullptr && item->itemName == "shoes") {
+            return true; // Shoes found in the inventory
         }
     }
-    return false; // If the loop completes, no shoes were found
+    return false; // Shoes not found
 }
-*/
+
+bool Player::hasArmor() {
+    for (int col = 0; col < 5; ++col) { // Iterate through the inventory columns
+        Item* item = playerInventory.getItem(0, col); // Get the item at (row 0, col)
+        if (item != nullptr && item->itemName == "armor") {
+            return true; // Shoes found in the inventory
+        }
+    }
+    return false; // Shoes not found
+}
+
+void Player::onCollisionExit(const TileFaces& collidedObject)
+{
+    std::cout << "Exit Collision";
+}
+
+
 bool Player::isHoldingShield() const {
 	if (currentItem && currentItem->itemName == "shield") {
 		return true;

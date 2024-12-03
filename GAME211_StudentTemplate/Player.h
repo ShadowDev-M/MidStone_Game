@@ -82,6 +82,8 @@ public:
 	Inventory playerInventory;
 	std::vector<TileFaces> hitFaces;
 	std::vector<TileFaces> permFaces;
+
+	bool hasArmor();
     bool hasShoes();
     bool isHoldingShield() const; 
     void setCurrentItem(Item* item) { currentItem = item; }
