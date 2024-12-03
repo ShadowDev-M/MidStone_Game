@@ -330,7 +330,7 @@ void Player::Update(float deltaTime)
 	if (isWallBouncingX) {
 		// Gradually reduce horizontal velocity
 		if (fabs(vel.x) > 0.01f) {
-			vel.x *= wallBounceDecay; // Apply damping
+			vel.x = 0; // Apply damping
 		}
 		else {
 			vel.x = 0; // Stop when velocity is small enough
@@ -343,7 +343,7 @@ void Player::Update(float deltaTime)
 	else if (isWallBouncingY) {
 		// Gradually reduce vertical velocity
 		if (fabs(vel.y) > 0.01f) {
-			vel.y *= wallBounceDecay; // Apply damping
+			vel.y = 0; // Apply damping
 		}
 		else {
 			vel.y = 0; // Stop when velocity is small enough
